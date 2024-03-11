@@ -8,6 +8,7 @@ interface RightSideProps {
   helpText: string;
   helpLink: string;
   helpLinkTitle: string;
+  isValid: boolean;
   submitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
   children: React.ReactNode;
 }
@@ -19,6 +20,7 @@ const RightSide: React.FC<RightSideProps> = ({
   helpText,
   helpLink,
   helpLinkTitle,
+  isValid,
   submitHandler,
   children,
 }) => {
@@ -32,7 +34,8 @@ const RightSide: React.FC<RightSideProps> = ({
         {children}
         <button
           type="submit"
-          className="mt-5 w-full rounded-full bg-primary-900 py-4 text-base font-semibold text-white"
+          disabled={!isValid}
+          className="mt-5 w-full rounded-full bg-primary-900 py-4 text-base font-semibold text-white transition-all duration-500 ease-linear disabled:cursor-not-allowed disabled:bg-primary-500/30"
         >
           {submitTitle}
         </button>

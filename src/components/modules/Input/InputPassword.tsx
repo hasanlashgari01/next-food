@@ -1,46 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { PasswordProps } from "@/ts/interface/Input";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
-interface InputProps {
-  value: string;
-  changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isValid: boolean;
-  message?: string | null;
-}
-
-const InputPassword: React.FC<InputProps> = ({ value, changeHandler, isValid, message }) => {
-  const [type, setType] = useState<"text" | "password">("password");
-  const [eye, setEye] = useState<boolean>(false);
-
-  const showPassword = () => {
-    setEye(true);
-    setType("text");
-  };
-
-  const hidePassword = () => {
-    setEye(false);
-    setType("password");
-  };
+const InputPassword: React.FC<PasswordProps> = ({ type, onType, message, children }) => {
+  const showPassword = () => onType("password");
+  const hidePassword = () => onType("text");
 
   return (
-    <label htmlFor="password" className="text-sm">
-      <div className="flex justify-between px-4">
+    <label htmlFor="password" className="text-xs sm:text-sm">
+      <div className="mb-2 flex justify-between px-4">
         <span className="font-semibold text-primary-900">رمز عبور</span>
-        {message && <span className="w-48 text-left font-semibold text-red-500">{message}</span>}
+        {message && <span className="w-48 text-left font-semibold text-red-500 sm:w-60">{message}</span>}
       </div>
-      <div className="relative mt-2">
-        <input
-          type={type}
-          id="password"
-          value={value}
-          onChange={changeHandler}
-          className={`w-full rounded-[10px] border-2 py-4 pl-6 pr-14 font-sans text-sm/6 font-medium text-primary-500 outline-none ${isValid && "border-success"} ${message && "border-cancel"}`}
-          dir="ltr"
-        />
+      <div className="relative">
+        {children}
         <span className="absolute right-6 top-1/2 size-5 -translate-y-1/2 cursor-pointer">
-          {eye ? (
+          {type === "password" ? (
             <HiOutlineEyeOff className="size-5" onClick={hidePassword} />
           ) : (
             <HiOutlineEye className="size-5" onClick={showPassword} />
