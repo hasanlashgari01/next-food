@@ -16,6 +16,20 @@
   }
 }
 
+@layer base {
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -24,6 +38,6 @@
 
 @layer components {
   .form__input {
-    @apply w-full rounded-[10px] border-2 py-4 pl-6 pr-14 font-sans text-sm/6 font-medium text-primary-500 outline-none transition-all duration-200 ease-linear;
+    @apply w-full rounded-[10px] border-2 py-4 pl-6 pr-14 text-sm/6 text-primary-500 outline-none transition-all duration-200 ease-linear;
   }
 }

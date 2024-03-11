@@ -2,19 +2,23 @@
 
 import InputPassword from "@/components/modules/Input/InputPassword";
 import InputText from "@/components/modules/Input/InputText";
-import { EmailPattern, PasswordPattern } from "@/constants/regex";
+import { MobilePattern, PasswordPattern } from "@/constants/regex";
+import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Form from "../_components/Form";
 import RightSide from "../_components/RightSide";
 
 type Inputs = {
-  email: string;
+  signUpMethod: "email" | "mobile";
+  mobile: string;
   password: string;
 };
 
 const Login = () => {
   const [typePassword, setTypePassword] = useState<"password" | "text">("password");
+  const [showOtp, setShowOtp] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -23,15 +27,27 @@ const Login = () => {
   } = useForm<Inputs>({
     mode: "onChange",
     defaultValues: {
-      email: "",
+      signUpMethod: "mobile",
+      mobile: "",
       password: "",
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    console.log(data);
+
+    axios.post(`${process.env.NEXT_PUBLIC_API}/auth/send-otp`, data).then(res => {
+      if (res.status === 201) {
+        setShowOtp(true);
+      }
+    });
+  };
+
   return (
     <Form form="Login">
       <RightSide
+        showOtp={showOtp}
+        setShowOtp={setShowOtp}
         formTitle="ورود"
         formSubTitle="خوش اومدی"
         submitTitle="ورود"
@@ -40,15 +56,17 @@ const Login = () => {
         helpLink="register"
         helpLinkTitle="ثبت نام"
         isValid={isValid}
+        signUpMethod={getValues().signUpMethod}
+        mobile={getValues().mobile}
       >
-        <InputText id="email" label="ایمیل" type="text" message={errors.email ? errors.email.message : ""}>
+        <InputText id="mobile" label="شماره تلفن" type="text" message={errors.mobile ? errors.mobile.message : ""}>
           <input
             type="text"
-            className={`form__input ${errors.email && "border-cancel"} ${touchedFields.email && getValues().email !== "" && !errors?.email && "border-success"}`}
+            className={`form__input ${errors.mobile && "border-cancel"} ${touchedFields.mobile && getValues().mobile !== "" && !errors?.mobile && "border-success"}`}
             dir="ltr"
-            {...register("email", {
-              required: { value: true, message: "ایمیل اجباری هست" },
-              pattern: { value: EmailPattern, message: "ایمیل صحیح نمی باشد" },
+            {...register("mobile", {
+              required: { value: true, message: "شماره تلفن اجباری هست" },
+              pattern: { value: MobilePattern, message: "شماره تلفن صحیح نمی باشد" },
             })}
           />
         </InputText>
@@ -60,7 +78,7 @@ const Login = () => {
           <input
             type={typePassword}
             id="password"
-            className={`form__input ${dirtyFields.password && !errors.password && "border-success"} ${errors.password && "border-cancel"}`}
+            className={`form__input font-sans ${dirtyFields.password && !errors.password && "border-success"} ${errors.password && "border-cancel"}`}
             dir="ltr"
             {...register("password", {
               required: { value: true, message: "رمز عبور اجباری هست" },

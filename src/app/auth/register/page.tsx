@@ -2,20 +2,23 @@
 
 import InputPassword from "@/components/modules/Input/InputPassword";
 import InputText from "@/components/modules/Input/InputText";
-import { EmailPattern, PasswordPattern, UsernamePattern } from "@/constants/regex";
+import { MobilePattern, PasswordPattern } from "@/constants/regex";
+import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Form from "../_components/Form";
 import RightSide from "../_components/RightSide";
 
-type Inputs = {
-  username: string;
-  email: string;
+interface Inputs {
+  fullName: string;
+  signUpMethod: "email" | "mobile";
+  mobile: string;
   password: string;
-};
+}
 
 const Register = () => {
   const [typePassword, setTypePassword] = useState<"password" | "text">("password");
+  const [showOtp, setShowOtp] = useState(false);
   const {
     register,
     handleSubmit,
@@ -24,17 +27,27 @@ const Register = () => {
   } = useForm<Inputs>({
     mode: "onChange",
     defaultValues: {
-      username: "",
-      email: "",
+      fullName: "",
+      signUpMethod: "mobile",
+      mobile: "",
       password: "",
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    axios.post(`${process.env.NEXT_PUBLIC_API}/auth/send-otp`, data).then(res => {
+      console.log(res);
+      if (res.status === 201) {
+        setShowOtp(true);
+      }
+    });
+  };
 
   return (
     <Form form="Register">
       <RightSide
+        showOtp={showOtp}
+        setShowOtp={setShowOtp}
         formTitle="ثبت نام"
         formSubTitle="بهترین تجربه رو براتون رقم میزنیم"
         submitTitle="ثبت نام"
@@ -43,31 +56,33 @@ const Register = () => {
         helpLink="login"
         helpLinkTitle="ورود"
         isValid={isValid}
+        signUpMethod={getValues().signUpMethod}
+        mobile={getValues().mobile}
       >
         <InputText
-          id="username"
+          id="fullName"
           label="نام کاربری"
           type="text"
-          message={errors.username ? errors.username.message : ""}
+          message={errors.fullName ? errors.fullName.message : ""}
         >
           <input
             type="text"
-            className={`form__input ${errors.username && "border-cancel"} ${touchedFields.username && getValues().username !== "" && !errors?.username && "border-success"}`}
-            dir="ltr"
-            {...register("username", {
-              required: { value: true, message: "نام کاربری اجباری هست" },
-              pattern: { value: UsernamePattern, message: "نام کاربری صحیح نمی باشد" },
+            className={`form__input pr-6 ${errors.fullName && "border-cancel"} ${touchedFields.fullName && getValues().fullName !== "" && !errors?.fullName && "border-success"}`}
+            dir="rtl"
+            {...register("fullName", {
+              required: { value: true, message: "نام اجباری هست" },
+              minLength: { value: 3, message: "نام باید بیشتر از ۳ کاراکتر باشد" },
             })}
           />
         </InputText>
-        <InputText id="email" label="ایمیل" type="text" message={errors.email ? errors.email.message : ""}>
+        <InputText id="mobile" label="شماره تلفن" type="text" message={errors.mobile ? errors.mobile.message : ""}>
           <input
             type="text"
-            className={`form__input ${errors.email && "border-cancel"} ${touchedFields.email && getValues().email !== "" && !errors?.email && "border-success"}`}
+            className={`form__input ${errors.mobile && "border-cancel"} ${touchedFields.mobile && getValues().mobile !== "" && !errors?.mobile && "border-success"}`}
             dir="ltr"
-            {...register("email", {
-              required: { value: true, message: "ایمیل اجباری هست" },
-              pattern: { value: EmailPattern, message: "ایمیل صحیح نمی باشد" },
+            {...register("mobile", {
+              required: { value: true, message: "شماره تلفن اجباری هست" },
+              pattern: { value: MobilePattern, message: "شماره تلفن صحیح نمی باشد" },
             })}
           />
         </InputText>
@@ -79,7 +94,7 @@ const Register = () => {
           <input
             type={typePassword}
             id="password"
-            className={`form__input ${dirtyFields.password && !errors.password && "border-success"} ${errors.password && "border-cancel"}`}
+            className={`form__input font-sans ${dirtyFields.password && !errors.password && "border-success"} ${errors.password && "border-cancel"}`}
             dir="ltr"
             {...register("password", {
               required: { value: true, message: "رمز عبور اجباری هست" },
