@@ -17,6 +17,10 @@
 }
 
 @layer base {
+  * {
+    outline: none;
+  }
+
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -36,7 +40,7 @@
   }
 
   .sidebar__nav > * {
-    @apply inline-flex cursor-pointer items-center h-10 gap-2.5 rounded-lg px-4;
+    @apply inline-flex h-10 cursor-pointer items-center gap-2.5 rounded-lg px-4;
   }
 }
 

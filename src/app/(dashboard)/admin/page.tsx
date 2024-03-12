@@ -49,7 +49,7 @@ const PanelAdmin = () => {
   };
 
   return (
-    <div className="pt-6 pr-6 2xl:px-8">
+    <div className="pr-6 pt-6 2xl:px-8">
       <h1>ادمین</h1>
       <ul>
         {provinces.map(province => (
