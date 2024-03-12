@@ -1,5 +1,6 @@
 import { yekanBakh } from "@/config/font";
 import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "ثبت نام",
@@ -9,8 +10,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body>
-        <div className={yekanBakh.className}>{children}</div>
+      <body suppressHydrationWarning={true}>
+        <div className={yekanBakh.className}>
+          {children}
+          <Toaster />
+        </div>
       </body>
     </html>
   );

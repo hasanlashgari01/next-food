@@ -1,5 +1,3 @@
-"use client";
-
 import { TextProps } from "@/ts/interface/Input";
 import React from "react";
 

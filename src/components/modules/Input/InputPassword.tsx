@@ -1,5 +1,3 @@
-"use client";
-
 import { PasswordProps } from "@/ts/interface/Input";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 

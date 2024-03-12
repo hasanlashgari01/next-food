@@ -11,8 +11,10 @@ interface RightSideProps {
   helpLinkTitle: string;
   isValid: boolean;
   showOtp: boolean;
+  fullName: string;
   signUpMethod: "email" | "mobile";
   mobile: string;
+  password: string;
   setShowOtp: React.Dispatch<React.SetStateAction<boolean>>;
   submitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
   children: React.ReactNode;
@@ -27,24 +29,32 @@ const RightSide: React.FC<RightSideProps> = ({
   helpLinkTitle,
   isValid,
   showOtp,
+  fullName,
   signUpMethod,
   mobile,
+  password,
   setShowOtp,
   submitHandler,
   children,
 }) => {
   return (
     <>
-      <form className="max-lg:mt-6 max-sm:mx-4 lg:flex-1 lg:pt-12" onSubmit={submitHandler}>
+      <div className="max-lg:mt-6 max-sm:mx-4 lg:flex-1 lg:pt-12">
         {showOtp ? (
-          <Otp signUpMethod={signUpMethod} mobile={mobile} />
+          <Otp
+            fullName={fullName}
+            signUpMethod={signUpMethod}
+            mobile={mobile}
+            password={password}
+            setShowOtp={setShowOtp}
+          />
         ) : (
-          <>
+          <form onSubmit={submitHandler}>
             <div className="text-center">
               <h3 className="font-semibold/8 text-2xl text-primary-900 lg:text-4xl lg:font-bold">{formTitle}</h3>
               <p className="mt-2 text-sm/5 font-medium text-primary-500 lg:text-2xl">{formSubTitle}</p>
             </div>
-            <div className="mx-auto mt-5 lg:mt-10 flex max-w-xs flex-col gap-4 sm:max-w-sm">
+            <div className="mx-auto mt-5 flex max-w-xs flex-col gap-4 sm:max-w-sm lg:mt-10">
               {children}
               <button
                 type="submit"
@@ -60,9 +70,9 @@ const RightSide: React.FC<RightSideProps> = ({
                 {helpLinkTitle}
               </Link>
             </div>
-          </>
+          </form>
         )}
-      </form>
+      </div>
     </>
   );
 };

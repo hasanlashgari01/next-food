@@ -6,6 +6,7 @@ import { MobilePattern, PasswordPattern } from "@/constants/regex";
 import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import Form from "../_components/Form";
 import RightSide from "../_components/RightSide";
 
@@ -18,7 +19,7 @@ interface Inputs {
 
 const Register = () => {
   const [typePassword, setTypePassword] = useState<"password" | "text">("password");
-  const [showOtp, setShowOtp] = useState(false);
+  const [showOtp, setShowOtp] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -35,12 +36,17 @@ const Register = () => {
   });
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    axios.post(`${process.env.NEXT_PUBLIC_API}/auth/send-otp`, data).then(res => {
-      console.log(res);
-      if (res.status === 201) {
-        setShowOtp(true);
-      }
-    });
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API}/auth/send-otp`, data)
+      .then(res => {
+        if (res.status === 201) {
+          toast.success("کد ارسال شد");
+          setShowOtp(true);
+        } else {
+          toast.success(res.data.message);
+        }
+      })
+      .catch(err => toast.error(err.response.data.message));
   };
 
   return (
@@ -56,8 +62,10 @@ const Register = () => {
         helpLink="login"
         helpLinkTitle="ورود"
         isValid={isValid}
+        fullName={getValues().fullName}
         signUpMethod={getValues().signUpMethod}
         mobile={getValues().mobile}
+        password={getValues().password}
       >
         <InputText
           id="fullName"

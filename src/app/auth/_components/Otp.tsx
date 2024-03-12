@@ -1,32 +1,60 @@
+"use client";
+
 import axios from "axios";
-import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
 
 interface OtpProps {
+  fullName: string;
   signUpMethod: "email" | "mobile";
   email?: string;
   mobile?: string;
+  password: string;
+  setShowOtp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Otp: React.FC<OtpProps> = ({ signUpMethod, mobile, email }) => {
-  if (mobile?.length !== 11) redirect("/auth/register");
+const RESEND_TIME: number = 120;
+
+const Otp: React.FC<OtpProps> = ({ fullName, signUpMethod, mobile, email, password, setShowOtp }) => {
+  // if (mobile?.length !== 11) redirect("/auth/register");
 
   const [isValid, setIsValid] = useState<boolean>(false);
-  const [otp, setOtp] = useState<string>("");
+  const [code, setCode] = useState<string>("");
+  const [time, setTime] = useState<number>(RESEND_TIME);
 
   useEffect(() => {
-    otp.length === 5 ? setIsValid(true) : setIsValid(false);
-  }, [otp]);
+    code.length === 5 ? setIsValid(true) : setIsValid(false);
+  }, [code]);
+
+  useEffect(() => {
+    const timer = time > 0 && setInterval(() => setTime(s => s - 1), 1000);
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [time]);
 
   const checkOtpHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API}/auth/check-otp`, { signUpMethod, mobile, otp: String(otp) })
-      .then(res => console.log(res));
+      .post(`${process.env.NEXT_PUBLIC_API}/auth/check-otp`, { signUpMethod, mobile, code })
+      .then(res => toast.success(res.data.message))
+      .catch(err => toast.error(err.response.data.message));
+  };
 
-    console.log(typeof otp.length);
+  const resendOtp = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API}/auth/send-otp`, { fullName, signUpMethod, mobile, password })
+      .then(res => {
+        if (res.status === 201) {
+          setTime(RESEND_TIME);
+          setCode("");
+          toast.success("کد مجدد ارسال شد");
+        }
+      });
   };
 
   return (
@@ -36,8 +64,8 @@ const Otp: React.FC<OtpProps> = ({ signUpMethod, mobile, email }) => {
         ارسال شد
       </p>
       <OTPInput
-        value={otp}
-        onChange={setOtp}
+        value={code}
+        onChange={setCode}
         numInputs={5}
         inputType="number"
         shouldAutoFocus={true}
@@ -65,8 +93,20 @@ const Otp: React.FC<OtpProps> = ({ signUpMethod, mobile, email }) => {
         )}
       />
       <div className="mt-6 flex justify-between px-4 text-sm text-[#717171]">
-        <span className="cursor-pointer">دریافت مجدد کد</span>
-        <span className="cursor-pointer">ویرایش شماره</span>
+        <button
+          disabled={time > 0}
+          className="cursor-pointer disabled:cursor-not-allowed disabled:text-slate-300"
+          onClick={resendOtp}
+        >
+          دریافت مجدد کد
+        </button>
+        <button
+          disabled={time > 0}
+          className="cursor-pointer disabled:cursor-not-allowed disabled:text-slate-300"
+          onClick={() => setShowOtp(false)}
+        >
+          ویرایش شماره
+        </button>
       </div>
       <button
         type="submit"

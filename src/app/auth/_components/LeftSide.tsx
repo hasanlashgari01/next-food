@@ -18,6 +18,7 @@ const LeftSide: React.FC<{ height: string }> = ({ height }) => {
         alt="سر آشپز"
         width={500}
         height={500}
+        priority={true}
         className="mx-auto h-full object-cover max-lg:w-72 max-lg:object-top lg:h-auto lg:max-w-sm lg:self-end xl:max-w-md"
       />
       <div className="absolute bottom-full top-10 h-36 max-h-56 w-72 rounded-3xl bg-white px-5 py-2 shadow-2xl max-lg:hidden lg:left-5 xl:bottom-20 xl:left-20 xl:top-auto">
@@ -25,7 +26,14 @@ const LeftSide: React.FC<{ height: string }> = ({ height }) => {
       </div>
       {/* Card */}
       <div className="absolute -right-20 top-20 w-48 rounded-2xl bg-white p-5 shadow-2xl max-lg:hidden">
-        <Image src="/auth-food.jpg" alt="سر آشپز" width={500} height={500} className="w-full rounded-xl object-cover" />
+        <Image
+          src="/auth-food.jpg"
+          alt="سر آشپز"
+          width={500}
+          height={500}
+          priority={true}
+          className="w-full rounded-xl object-cover"
+        />
         <div className="mt-3">
           <h3 className="text-lg/8 font-bold text-primary-900">سوشی</h3>
           <Link
