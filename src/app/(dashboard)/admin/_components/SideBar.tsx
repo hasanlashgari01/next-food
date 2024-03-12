@@ -18,11 +18,11 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
   return (
     <div className="h-dvh pt-2">
       <div
-        className={`fixed inset-0 bg-slate-900/40 transition-all duration-200 ease-linear lg:hidden ${isSidebarOpen ? "visible opacity-100" : "invisible opacity-0"}`}
+        className={`fixed inset-0 bg-slate-900/60 transition-all duration-200 ease-linear dark:bg-slate-950/50 lg:hidden ${isSidebarOpen ? "visible opacity-100" : "invisible opacity-0"}`}
         onClick={() => setIsSidebarOpen(false)}
       ></div>
       <div
-        className={`sticky top-0 h-full w-64 bg-white py-6 pl-2 pr-7 transition-all duration-200 ease-linear dark:text-slate-100 max-lg:absolute lg:translate-x-0 lg:bg-transparent ${isSidebarOpen ? "translate-x-0" : "translate-x-64"}`}
+        className={`sticky top-0 h-full w-64 bg-white px-3 py-6 transition-all duration-200 ease-linear dark:bg-slate-800 dark:text-slate-100 max-lg:absolute sm:w-72 lg:w-64 lg:translate-x-0 lg:bg-transparent lg:px-5 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         <div className="border-2 p-6">
           <h3>لوگو</h3>

@@ -9,11 +9,14 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   return (
-    <div className="transition-all duration-200 ease-linear max-lg:-mx-6 max-lg:bg-white max-lg:px-6">
+    <div className="transition-all duration-200 ease-linear max-lg:-mx-6 max-lg:bg-white max-lg:px-6 max-lg:dark:bg-slate-800">
       <div className="flex justify-between max-lg:py-5 lg:mt-6">
         <div className="flex items-center justify-between gap-6 sm:gap-14">
-          <div className="flex size-12 items-center justify-center rounded-full border border-slate-100 lg:hidden">
-            <HiBars3 className="size-6 cursor-pointer sm:size-7" onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
+          <div
+            className="flex size-12 items-center justify-center rounded-full border border-slate-100 dark:border-slate-700 lg:hidden"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            <HiBars3 className="size-6 dark:text-slate-100 sm:size-7" />
           </div>
           <span className="hidden gap-2 font-bold dark:text-slate-100 sm:flex md:text-lg lg:text-2xl">
             حسن لشگری عزیز؛{" "}
