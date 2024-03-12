@@ -1,17 +1,7 @@
+import { adminPanelLinks } from "@/constants/navLinks";
+import { recursivePath } from "@/utils/func";
 import Link from "next/link";
-import {
-  HiArrowRightOnRectangle,
-  HiOutlineBuildingStorefront,
-  HiOutlineCog6Tooth,
-  HiOutlineHeart,
-  HiOutlineHome,
-  HiOutlineMapPin,
-  HiOutlineQueueList,
-  HiOutlineReceiptPercent,
-  HiOutlineSquares2X2,
-  HiOutlineUsers,
-} from "react-icons/hi2";
-import { IoFastFoodOutline } from "react-icons/io5";
+import { HiArrowRightOnRectangle } from "react-icons/hi2";
 
 interface SideBarProps {
   isSidebarOpen: boolean;
@@ -19,6 +9,8 @@ interface SideBarProps {
 }
 
 const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const currentPath = recursivePath();
+
   const logoutHandler = () => {
     console.log(1);
   };
@@ -30,52 +22,26 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
         onClick={() => setIsSidebarOpen(false)}
       ></div>
       <div
-        className={`sticky top-0 h-full w-64 bg-white dark:text-slate-100 py-6 pl-2 pr-7 transition-all duration-200 ease-linear max-lg:absolute lg:translate-x-0 lg:bg-transparent ${isSidebarOpen ? "translate-x-0" : "translate-x-64"}`}
+        className={`sticky top-0 h-full w-64 bg-white py-6 pl-2 pr-7 transition-all duration-200 ease-linear dark:text-slate-100 max-lg:absolute lg:translate-x-0 lg:bg-transparent ${isSidebarOpen ? "translate-x-0" : "translate-x-64"}`}
       >
         <div className="border-2 p-6">
           <h3>لوگو</h3>
         </div>
         <ul className="sidebar__nav mt-8 flex flex-col gap-1.5">
-          <Link href="/admin/home" className="bg-sky-100 dark:bg-sky-800">
-            <HiOutlineHome className="size-4 lg:size-5" />
-            صفحه اصلی
-          </Link>
-          <Link href="/admin/users">
-            <HiOutlineUsers className="size-4 lg:size-5" />
-            کاربران
-          </Link>
-          <Link href="/admin/restaurants">
-            <HiOutlineBuildingStorefront className="size-4 lg:size-5" />
-            رستوران ها
-          </Link>
-          <Link href="/admin/food">
-            <IoFastFoodOutline className="size-4 lg:size-5" />
-            غذا ها
-          </Link>
-          <Link href="/admin/users">
-            <HiOutlineSquares2X2 className="size-4 lg:size-5" />
-            دسته بندی ها
-          </Link>
-          <Link href="/admin/orders">
-            <HiOutlineQueueList className="size-4 lg:size-5" />
-            سفارش ها
-          </Link>
-          <Link href="/admin/orders">
-            <HiOutlineReceiptPercent className="size-4 lg:size-5" />
-            کد تخفیف
-          </Link>
-          <Link href="/admin/provinces">
-            <HiOutlineMapPin className="size-4 lg:size-5" />
-            استان ها
-          </Link>
-          <Link href="/admin/wishlists">
-            <HiOutlineHeart className="size-4 lg:size-5" />
-            علاقه مندی ها
-          </Link>
-          <Link href="/admin/settings">
-            <HiOutlineCog6Tooth className="size-4 lg:size-5" />
-            تنظیمات
-          </Link>
+          {adminPanelLinks.map(({ name, path, icon }, index) => {
+            const Icon = icon;
+
+            return (
+              <Link
+                key={index}
+                href={path}
+                className={`transition-colors duration-300 ease-out ${currentPath === path ? "bg-sky-100 dark:bg-sky-800" : ""}`}
+              >
+                <Icon className="size-4 lg:size-5" />
+                {name}
+              </Link>
+            );
+          })}
           <span className="" onClick={logoutHandler}>
             <HiArrowRightOnRectangle className="size-4 lg:size-5" />
             خروج
