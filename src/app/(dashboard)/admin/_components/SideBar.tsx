@@ -30,13 +30,13 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
         onClick={() => setIsSidebarOpen(false)}
       ></div>
       <div
-        className={`sticky top-0 h-full w-64 bg-white py-6 pl-2 pr-7 transition-all duration-200 ease-linear max-lg:absolute lg:translate-x-0 lg:bg-transparent ${isSidebarOpen ? "translate-x-0" : "translate-x-64"}`}
+        className={`sticky top-0 h-full w-64 bg-white dark:text-slate-100 py-6 pl-2 pr-7 transition-all duration-200 ease-linear max-lg:absolute lg:translate-x-0 lg:bg-transparent ${isSidebarOpen ? "translate-x-0" : "translate-x-64"}`}
       >
         <div className="border-2 p-6">
           <h3>لوگو</h3>
         </div>
         <ul className="sidebar__nav mt-8 flex flex-col gap-1.5">
-          <Link href="/admin/home" className="bg-[#F0F8FF]">
+          <Link href="/admin/home" className="bg-sky-100 dark:bg-sky-800">
             <HiOutlineHome className="size-4 lg:size-5" />
             صفحه اصلی
           </Link>

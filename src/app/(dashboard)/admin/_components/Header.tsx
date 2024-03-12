@@ -15,7 +15,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           <div className="flex size-12 items-center justify-center rounded-full border border-slate-100 lg:hidden">
             <HiBars3 className="size-6 cursor-pointer sm:size-7" onClick={() => setIsSidebarOpen(!isSidebarOpen)} />
           </div>
-          <span className="hidden gap-2 font-bold sm:flex md:text-lg lg:text-2xl">
+          <span className="hidden gap-2 font-bold dark:text-slate-100 sm:flex md:text-lg lg:text-2xl">
             حسن لشگری عزیز؛{" "}
             <span className="">
               <WelcomeText />
@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </span>
         </div>
         <div className="flex gap-[18px]">
-          <span className="flex size-12 cursor-pointer items-center justify-center rounded-full bg-white lg:size-14 lg:bg-white">
+          <span className="flex size-12 cursor-pointer items-center justify-center rounded-full bg-white dark:bg-slate-700 dark:text-slate-100 lg:size-14 lg:bg-white">
             <HiOutlineBell className="size-6 lg:size-7" />
           </span>
           <Image
