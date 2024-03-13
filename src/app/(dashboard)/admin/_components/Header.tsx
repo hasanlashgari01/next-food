@@ -1,5 +1,8 @@
+import NotificationDropdown from "@/components/modules/Header/NotificationDropdown";
+import { NotificationProps } from "@/ts/interface/notification";
 import Image from "next/image";
-import { HiBars3, HiOutlineBell } from "react-icons/hi2";
+import { useState } from "react";
+import { HiBars3 } from "react-icons/hi2";
 import WelcomeText from "./WelcomeText";
 
 interface HeaderProps {
@@ -8,6 +11,8 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const [notifications, setNotifications] = useState<NotificationProps[]>([]);
+
   return (
     <div className="transition-all duration-200 ease-linear max-lg:-mx-6 max-lg:bg-white max-lg:px-6 max-lg:dark:bg-slate-800">
       <div className="flex justify-between max-lg:py-5 lg:mt-6">
@@ -26,9 +31,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </span>
         </div>
         <div className="flex gap-[18px]">
-          <span className="flex size-12 cursor-pointer items-center justify-center rounded-full bg-white dark:bg-slate-700 dark:text-slate-100 lg:size-14 lg:bg-white">
-            <HiOutlineBell className="size-6 lg:size-7" />
-          </span>
+          <NotificationDropdown notifications={notifications} />
           <Image
             src="/profile.jpg"
             alt="پروفایل"

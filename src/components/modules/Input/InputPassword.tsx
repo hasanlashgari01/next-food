@@ -1,4 +1,4 @@
-import { PasswordProps } from "@/ts/interface/Input";
+import { PasswordProps } from "@/ts/interface/input";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
 const InputPassword: React.FC<PasswordProps> = ({ type, onType, message, children }) => {

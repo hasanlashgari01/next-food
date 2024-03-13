@@ -1,4 +1,4 @@
-import { TextProps } from "@/ts/interface/Input";
+import { TextProps } from "@/ts/interface/input";
 import React from "react";
 
 const InputText: React.FC<TextProps> = ({ id, label, message, children }) => {

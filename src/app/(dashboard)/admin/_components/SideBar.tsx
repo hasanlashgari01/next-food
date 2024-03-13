@@ -22,7 +22,7 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
         onClick={() => setIsSidebarOpen(false)}
       ></div>
       <div
-        className={`sticky top-0 h-full w-64 bg-white px-3 py-6 transition-all duration-200 ease-linear dark:bg-slate-800 dark:text-slate-100 max-lg:absolute sm:w-72 lg:w-64 lg:translate-x-0 lg:bg-transparent lg:px-5 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`max-lg:z-30 sticky top-0 h-full w-64 bg-white px-3 py-6 transition-all duration-200 ease-linear dark:bg-slate-800 dark:text-slate-100 max-lg:absolute sm:w-72 lg:w-64 lg:translate-x-0 lg:bg-transparent lg:px-5 ${isSidebarOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         <div className="border-2 p-6">
           <h3>لوگو</h3>
