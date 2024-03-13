@@ -14,17 +14,17 @@ const NotificationDropdown: React.FC<{ notifications: NotificationProps[] }> = (
   return (
     <div className="relative">
       <div
-        className={`relative flex size-12 cursor-pointer items-center justify-center rounded-full bg-white transition-all duration-200 ease-linear dark:bg-slate-700 dark:text-slate-100 lg:size-14 lg:bg-white ${isOpen ? "z-20" : "z-0"}`}
+        className={`relative flex size-12 cursor-pointer items-center justify-center rounded-full bg-background transition-all duration-200 ease-linear lg:size-14  lg:bg-white dark:bg-slate-700 ${isOpen ? "z-10" : "z-0"}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <HiOutlineBell className="size-6 lg:size-7" />
+        <HiOutlineBell className="size-6 lg:size-7 dark:text-white" />
       </div>
       <div
         className={`fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-all duration-200 ease-linear dark:bg-slate-950/70 ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}
         onClick={() => setIsOpen(false)}
       ></div>
       {isOpen && (
-        <div className="absolute left-0 top-full mt-5 w-80 -translate-x-16 overflow-hidden rounded-xl bg-slate-100 shadow-lg transition-all duration-300 ease-linear dark:bg-slate-800 dark:shadow-none sm:w-96 sm:-translate-x-8">
+        <div className="absolute left-0 top-full mt-5 w-80 -translate-x-16 overflow-hidden rounded-xl bg-slate-100 shadow-lg transition-all duration-300 ease-linear sm:w-96 sm:-translate-x-8 dark:bg-slate-800 dark:shadow-none">
           <div className="flex items-center justify-between px-6 py-4 text-sm lg:text-base">
             <span className="cursor-pointer rounded-md bg-sky-600 px-3 py-1.5 text-white transition-colors hover:bg-sky-700">
               همه اعلان ها

@@ -3,7 +3,7 @@ import { NotificationProps } from "@/ts/interface/notification";
 import Image from "next/image";
 import { useState } from "react";
 import { HiBars3 } from "react-icons/hi2";
-import WelcomeText from "./WelcomeText";
+import WelcomeText from "../../../../components/modules/Header/WelcomeText";
 
 interface HeaderProps {
   isSidebarOpen: boolean;
@@ -18,17 +18,12 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
       <div className="flex justify-between max-lg:py-5 lg:mt-6">
         <div className="flex items-center justify-between gap-6 sm:gap-14">
           <div
-            className="flex size-12 items-center justify-center rounded-full border border-slate-100 dark:border-slate-700 lg:hidden"
+            className="flex size-12 items-center justify-center rounded-full border border-slate-100 lg:hidden dark:border-slate-700"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
-            <HiBars3 className="size-6 dark:text-slate-100 sm:size-7" />
+            <HiBars3 className="size-6 sm:size-7 dark:text-slate-100" />
           </div>
-          <span className="hidden gap-2 font-bold dark:text-slate-100 sm:flex md:text-lg lg:text-2xl">
-            حسن لشگری عزیز؛{" "}
-            <span className="">
-              <WelcomeText />
-            </span>
-          </span>
+          <WelcomeText />
         </div>
         <div className="flex gap-[18px]">
           <NotificationDropdown notifications={notifications} />

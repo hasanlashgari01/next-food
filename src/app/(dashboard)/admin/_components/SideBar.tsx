@@ -18,7 +18,7 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
   return (
     <div className="h-dvh pt-2">
       <div
-        className={`fixed inset-0 bg-slate-900/60 transition-all duration-200 ease-linear dark:bg-slate-950/50 lg:hidden ${isSidebarOpen ? "visible opacity-100" : "invisible opacity-0"}`}
+        className={`fixed z-10 inset-0 bg-slate-900/60 transition-all duration-200 ease-linear dark:bg-slate-950/50 lg:hidden ${isSidebarOpen ? "visible opacity-100" : "invisible opacity-0"}`}
         onClick={() => setIsSidebarOpen(false)}
       ></div>
       <div
