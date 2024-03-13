@@ -2,8 +2,8 @@
 
 import InputPassword from "@/components/modules/Input/InputPassword";
 import InputText from "@/components/modules/Input/InputText";
+import { api } from "@/config/axiosConfig";
 import { MobilePattern, PasswordPattern } from "@/constants/regex";
-import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -36,8 +36,8 @@ const Register = () => {
   });
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API}/auth/send-otp`, data)
+    api
+      .post(`/auth/send-otp`, data)
       .then(res => {
         if (res.status === 201) {
           toast.success("کد ارسال شد");

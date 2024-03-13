@@ -1,6 +1,8 @@
 "use client";
 
+import { api } from "@/config/axiosConfig";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
@@ -14,10 +16,11 @@ interface OtpProps {
   setShowOtp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const RESEND_TIME: number = 120;
+const RESEND_TIME: number = 90;
 
 const Otp: React.FC<OtpProps> = ({ fullName, signUpMethod, mobile, email, password, setShowOtp }) => {
   // if (mobile?.length !== 11) redirect("/auth/register");
+  const router = useRouter();
 
   const [isValid, setIsValid] = useState<boolean>(false);
   const [code, setCode] = useState<string>("");
@@ -37,10 +40,18 @@ const Otp: React.FC<OtpProps> = ({ fullName, signUpMethod, mobile, email, passwo
   const checkOtpHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API}/auth/check-otp`, { signUpMethod, mobile, code })
-      .then(res => toast.success(res.data.message))
-      .catch(err => toast.error(err.response.data.message));
+    api
+      .post(`/auth/check-otp`, { signUpMethod, mobile, code })
+      .then(res => {
+        toast.success(res.data.message);
+        router.replace("/admin/home");
+      })
+      .catch(err => {
+        toast.error(err.response.data.message);
+        if (err.response.status === 400) {
+          setTime(RESEND_TIME);
+        }
+      });
   };
 
   const resendOtp = (e: React.MouseEvent) => {
