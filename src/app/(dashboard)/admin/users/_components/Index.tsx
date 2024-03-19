@@ -38,8 +38,8 @@ const Index = () => {
     if (search !== "") {
       api.post(`/search/admin/users`, { fullName: search }).then(({ data }) => setUserList(data.result));
     }
-    const mobile = fixNumbers(search);
-    if (/^\d+$/.test(mobile)) {
+    const mobile: string | number = fixNumbers(search);
+    if (/^\d+$/.test(mobile.toString())) {
       console.log("🚀 ~ searchHandler ~ search:", mobile);
       api.post(`/search/admin/users`, { mobile }).then(({ data }) => setUserList(data.result));
     }

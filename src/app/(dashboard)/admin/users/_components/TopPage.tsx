@@ -28,7 +28,7 @@ const TopPage: React.FC<TopPageProps> = ({ selectedOption, setSelectedOption, ch
       </div>
 
       <Select
-        className={`bg-slate-900 text-base md:w-64`}
+        className={`text-base md:w-64 dark:bg-slate-900`}
         classNamePrefix="react-select"
         placeholder="لیست کاربران"
         defaultValue={selectedOption}
