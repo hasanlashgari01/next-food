@@ -101,4 +101,3 @@ const dana = localFont({
 });
 
 export { dana, yekanBakh };
-

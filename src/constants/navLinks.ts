@@ -24,4 +24,3 @@ const adminPanelLinks: { name: string; path: string; icon: any }[] = [
 ];
 
 export { adminPanelLinks };
-

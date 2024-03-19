@@ -1,10 +1,5 @@
-import { usePathname } from "next/navigation";
-
-const recursivePath = () => {
-  const pathname = usePathname();
-
+const recursivePath = (pathname: string) => {
   return pathname.split("/").slice(-1).toString();
 };
 
 export { recursivePath };
-

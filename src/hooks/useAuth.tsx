@@ -10,4 +10,3 @@ const useGetUser = () =>
   });
 
 export { useGetUser };
-

@@ -1,5 +1,5 @@
+import { NotificationProps } from "@/common/interface/notification";
 import NotificationDropdown from "@/components/modules/Header/NotificationDropdown";
-import { NotificationProps } from "@/ts/interface/notification";
 import Image from "next/image";
 import { useState } from "react";
 import { HiBars3 } from "react-icons/hi2";

@@ -16,7 +16,7 @@ const AnalyticCard: React.FC<AnalyticCardProps> = ({ name, count, bgColor, Icon 
         <Icon className="size-6 stroke-white stroke-1 text-white sm:size-full" />
       </div>
       <div className="flex flex-1 flex-col justify-around">
-        <h3 className="lg:pt-0 mb-3.5 line-clamp-1 text-xs font-bold text-primary-500 sm:text-sm lg:mt-2 lg:text-lg dark:text-slate-300">
+        <h3 className="mb-3.5 line-clamp-1 text-xs font-bold text-primary-500 sm:text-sm lg:mt-2 lg:pt-0 lg:text-lg dark:text-slate-300">
           {name}
         </h3>
         <h5 className="text-lg font-semibold leading-tight text-primary-900 sm:text-3xl dark:text-slate-100">

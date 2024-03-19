@@ -2,5 +2,7 @@
   "tabWidth": 2,
   "printWidth": 120,
   "arrowParens": "avoid",
+  "endOfLine": "auto",
+  "htmlWhitespaceSensitivity": "ignore",
   "plugins": ["prettier-plugin-tailwindcss"]
 }

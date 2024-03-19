@@ -11,13 +11,13 @@ interface RightSideProps {
   helpLinkTitle: string;
   isValid: boolean;
   showOtp: boolean;
-  fullName: string;
+  fullName?: string | undefined;
   signUpMethod: "email" | "mobile";
   mobile: string;
-  password: string;
+  password?: string | undefined;
   setShowOtp: React.Dispatch<React.SetStateAction<boolean>>;
   submitHandler: (e: React.FormEvent<HTMLFormElement>) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const RightSide: React.FC<RightSideProps> = ({

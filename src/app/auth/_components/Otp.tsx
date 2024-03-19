@@ -8,11 +8,11 @@ import toast from "react-hot-toast";
 import OTPInput from "react-otp-input";
 
 interface OtpProps {
-  fullName: string;
+  fullName?: string | undefined;
   signUpMethod: "email" | "mobile";
-  email?: string;
-  mobile?: string;
-  password: string;
+  email?: string | undefined;
+  mobile?: string | undefined;
+  password?: string | undefined;
   setShowOtp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

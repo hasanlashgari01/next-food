@@ -10,4 +10,3 @@ const useGetDashboard = () =>
   });
 
 export { useGetDashboard };
-
