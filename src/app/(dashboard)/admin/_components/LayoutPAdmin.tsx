@@ -3,6 +3,7 @@
 import UserProvider from "@/context/UserContext";
 import { useGetUser } from "@/hooks/useAuth";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import Header from "./Header";
 import SideBar from "./SideBar";
 
@@ -19,6 +20,7 @@ const LayoutPAdmin = ({ children }: Readonly<{ children: React.ReactNode }>) => 
           {children}
         </div>
       </div>
+      <Toaster />
     </UserProvider>
   );
 };

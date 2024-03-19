@@ -1,4 +1,4 @@
-import { getDashboard } from "@/services/adminService";
+import { getDashboard, getUsers } from "@/services/adminService";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetDashboard = () =>
@@ -9,4 +9,12 @@ const useGetDashboard = () =>
     refetchOnWindowFocus: true,
   });
 
-export { useGetDashboard };
+const useGetUserList = () =>
+  useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+export { useGetDashboard, useGetUserList };
