@@ -12,9 +12,9 @@ const WelcomeText: React.FC = () => {
     let time: number = Number(new Date().getHours());
 
     if (dayPeriod === "AM") {
-      time < 12 && time < 6 ? setText("شب بخیر") : setText("صبح بخیر");
+      time <= 0 && time > 6 ? setText("شب بخیر") : setText("صبح بخیر");
     } else if (dayPeriod === "PM") {
-      time > 12 && time > 6 ? setText("شب بخیر") : setText("ظهر بخیر");
+      time >= 12 && time < 18 ? setText("ظهر بخیر") : setText("شب بخیر");
     } else {
       setText("وقت بخیر");
     }

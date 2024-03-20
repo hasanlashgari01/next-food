@@ -34,8 +34,6 @@ const Login = () => {
   });
 
   const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data);
-
     axios.post(`${process.env.NEXT_PUBLIC_API}/auth/send-otp`, data).then(res => {
       if (res.status === 201) {
         setShowOtp(true);
