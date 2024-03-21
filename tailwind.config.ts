@@ -32,6 +32,9 @@ const config = {
         process: "#FFB546",
         success: "#06C698",
       },
+      fontFamily: {
+        YekanBakh: "YekanBakh-Regular",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

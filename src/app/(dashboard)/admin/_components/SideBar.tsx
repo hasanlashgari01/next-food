@@ -1,7 +1,11 @@
+"use client";
+
+import Modal from "@/components/modules/Modal/Modal";
 import { adminPanelLinks } from "@/constants/navLinks";
 import { recursivePath } from "@/utils/func";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
 
 interface SideBarProps {
@@ -12,6 +16,12 @@ interface SideBarProps {
 const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const pathname = usePathname();
   const currentPath = recursivePath(pathname);
+  const [isShow, setIsShow] = useState<boolean>(false);
+
+  const showModalHandler = () => {
+    setIsSidebarOpen(false);
+    setIsShow(true);
+  };
 
   const logoutHandler = () => {
     console.log(1);
@@ -44,12 +54,22 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
               </Link>
             );
           })}
-          <span className="" onClick={logoutHandler}>
+          <span onClick={showModalHandler}>
             <HiArrowRightOnRectangle className="size-4 lg:size-5" />
             خروج
           </span>
         </ul>
       </div>
+      {/* Logout Modal */}
+      <Modal
+        isShow={isShow}
+        setIsShow={setIsShow}
+        title="آیا مطمئن هستید که می‌خواهید خارج شوید؟"
+        confirmText="خروج"
+        cancelText="انصراف"
+        confirmStyle="btn-danger"
+        cancelStyle="btn-default"
+      />
     </div>
   );
 };

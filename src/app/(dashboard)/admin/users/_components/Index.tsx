@@ -12,7 +12,6 @@ import UsersTable from "./UsersTable";
 const options: UsersOption[] = [
   { value: "users", label: "لیست کاربران" },
   { value: "ban-users", label: "لیست کاربران بن شده" },
-  { value: "active-users", label: "لیست کاربران فعال" },
 ];
 
 const Index = () => {
@@ -26,8 +25,6 @@ const Index = () => {
   useEffect(() => {
     if (selectedOption.value === "users") {
       api(`/admin/users`).then(({ data }) => setUserList(data.users));
-    } else if (selectedOption.value === "active-users") {
-      const users = api(`/admin/users`).then(data => console.log(data));
     } else if (selectedOption.value === "ban-users") {
       api(`/admin/users/ban`).then(({ data }) => setUserList(data.result));
     }

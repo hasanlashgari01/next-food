@@ -11,7 +11,7 @@ const Table: React.FC<TableProps> = ({ data, columns, notFoundMsg }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
-    data,
+    data: data ? data : [],
     columns,
     state: { sorting },
     onSortingChange: setSorting,
@@ -84,7 +84,7 @@ const Table: React.FC<TableProps> = ({ data, columns, notFoundMsg }) => {
               })}
         </tbody>
       </table>
-      {!data && (
+      {data.length === 0 && (
         <div className="flex-1 bg-red-500 py-5 text-center text-xl font-semibold text-white">
           {notFoundMsg} یافت نشد
         </div>

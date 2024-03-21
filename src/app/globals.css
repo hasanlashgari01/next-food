@@ -21,6 +21,25 @@
     outline: none;
   }
 
+  @font-face {
+    font-family: "YekanBakh-Regular";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../assets/fonts/YekanBakh/YekanBakh-Regular.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "YekanBakh-SemiBold";
+    font-style: normal;
+    src: url("../assets/fonts/YekanBakh/YekanBakh-SemiBold.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "YekanBakh-Bold";
+    font-style: normal;
+    src: url("../assets/fonts/YekanBakh/YekanBakh-Bold.woff2") format("woff2");
+  }
+
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -47,5 +66,41 @@
 @layer components {
   .form__input {
     @apply w-full rounded-[10px] border-2 py-4 pl-6 pr-14 text-sm/6 text-primary-500 outline-none transition-all duration-200 ease-linear;
+  }
+
+  .search-btn {
+    @apply flex aspect-square w-fit shrink-0 items-center justify-center rounded-md bg-sky-200 text-black transition-colors disabled:cursor-not-allowed disabled:bg-sky-200/50 dark:bg-sky-700 dark:text-white dark:disabled:bg-sky-700/50;
+  }
+
+  .table-btn {
+    @apply inline-flex size-6 cursor-pointer items-center justify-center rounded-md;
+  }
+
+  .btn {
+    @apply h-10 cursor-pointer rounded-md border border-transparent px-4 text-white transition-colors md:h-12;
+  }
+
+  .btn-default {
+    @apply bg-slate-200 text-slate-900 hover:bg-slate-300 dark:bg-slate-600 dark:text-white dark:hover:bg-slate-700;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 hover:bg-red-700;
+  }
+
+  .btn-primary {
+    @apply bg-sky-600 hover:bg-sky-700;
+  }
+
+  .btn-success {
+    @apply bg-green-600 hover:bg-green-700;
+  }
+
+  .btn-warning {
+    @apply bg-amber-600 hover:bg-amber-700;
+  }
+
+  .btn-info {
+    @apply bg-cyan-600 hover:bg-cyan-700;
   }
 }

@@ -1,6 +1,10 @@
 import { Restaurant } from "@/common/interface/restaurant";
 import Table from "@/components/modules/Table/Table";
-import { createColumnHelper } from "@tanstack/react-table";
+import { api } from "@/config/axiosConfig";
+import { ColumnDef, Row, createColumnHelper } from "@tanstack/react-table";
+import toast from "react-hot-toast";
+import { FaBan } from "react-icons/fa";
+import { GrValidate } from "react-icons/gr";
 
 interface TableProps {
   restaurants: Restaurant[];
@@ -9,7 +13,7 @@ interface TableProps {
 const columnHelper = createColumnHelper();
 
 const RestaurantsTable: React.FC<TableProps> = ({ restaurants }) => {
-  const columns = [
+  const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("name", {
       cell: info => <i>{info.getValue()}</i>,
       header: () => <span>نام</span>,
@@ -44,7 +48,7 @@ const RestaurantsTable: React.FC<TableProps> = ({ restaurants }) => {
             {categories.map((category: string, index: number) => (
               <span
                 key={index}
-                className="text-primary-700 rounded-lg bg-primary-300 px-1.5 py-1 text-xs dark:bg-primary-900"
+                className="text-primary-700 rounded-lg bg-primary-300 px-1.5 py-1 text-xs transition-colors hover:bg-amber-300 dark:bg-primary-900"
               >
                 {category}
               </span>
@@ -55,24 +59,37 @@ const RestaurantsTable: React.FC<TableProps> = ({ restaurants }) => {
     }),
     columnHelper.accessor("_id", {
       header: "",
-      cell: info => (
-        <div className="flex gap-2">
-          <span
-            className="inline-flex size-6 cursor-pointer items-center justify-center rounded-md dark:bg-red-700"
-            // onClick={() => banHandler(info.getValue())}
-          >
-            {/* <FaBan /> */}
-          </span>
-          <span
-            className={`inline-flex size-6 cursor-pointer items-center justify-center rounded-md`}
-            // onClick={() => changeRoleHandler(info.getValue())}
-          >
-            {/* {info.row.original.role === "ADMIN" ? <GrUserAdmin /> : <HiOutlineUser />} */}
-          </span>
-        </div>
-      ),
+      cell: info => {
+        const { _id, isValid } = info.cell.row.original as Restaurant;
+
+        return (
+          <div className="flex gap-2">
+            <span className="table-btn bg-red-300 dark:bg-red-700" onClick={() => banHandler(_id)}>
+              <FaBan />
+            </span>
+            <span
+              className={`table-btn ${isValid ? "bg-amber-300 dark:bg-amber-700" : "bg-green-300 dark:bg-green-700"}`}
+              onClick={() => changeValidHandler(_id)}
+            >
+              <GrValidate />
+            </span>
+          </div>
+        );
+      },
     }),
   ];
+
+  const banHandler = (id: string) => {
+    api(`/admin/restaurant/${id}/ban`)
+      .then(({ data }) => toast.success(data.message))
+      .catch(err => toast.error(err.message));
+  };
+
+  const changeValidHandler = (id: string) => {
+    api(`/admin/restaurant/${id}/status`)
+      .then(({ data }) => toast.success(data.message))
+      .catch(err => toast.error(err.message));
+  };
 
   return (
     <>

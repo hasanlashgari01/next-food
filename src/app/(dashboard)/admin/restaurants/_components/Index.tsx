@@ -3,7 +3,6 @@
 import { RestaurantsOption, SelectOption } from "@/common/interface/optionSelect";
 import { Restaurant } from "@/common/interface/restaurant";
 import { api } from "@/config/axiosConfig";
-import { fixNumbers } from "@/utils/func";
 import React, { useEffect, useState } from "react";
 import SearchBar from "../../_components/SearchBar";
 import TopPage from "../../_components/TopPage";

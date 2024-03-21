@@ -44,14 +44,11 @@ const UsersTable: React.FC<TableProps> = ({ users }) => {
       header: "",
       cell: info => (
         <div className="flex gap-2">
-          <span
-            className="inline-flex size-6 cursor-pointer items-center justify-center rounded-md dark:bg-red-700"
-            onClick={() => banHandler(info.getValue())}
-          >
+          <span className="table-btn bg-red-300 dark:bg-red-700" onClick={() => banHandler(info.getValue())}>
             <FaBan />
           </span>
           <span
-            className={`inline-flex size-6 cursor-pointer items-center justify-center rounded-md ${info.row.original.role === "ADMIN" ? "bg-green-500" : "bg-amber-700"}`}
+            className={`table-btn ${info.row.original.role === "ADMIN" ? "bg-green-300 dark:bg-green-500" : "bg-amber-300 dark:bg-amber-700"}`}
             onClick={() => changeRoleHandler(info.getValue())}
           >
             {info.row.original.role === "ADMIN" ? <GrUserAdmin /> : <HiOutlineUser />}

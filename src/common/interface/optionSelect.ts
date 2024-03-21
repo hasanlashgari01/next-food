@@ -4,8 +4,8 @@ export interface SelectOption {
 }
 
 export interface UsersOption {
-  value: "users" | "ban-users" | "active-users";
-  label: "لیست کاربران" | "لیست کاربران بن شده" | "لیست کاربران فعال";
+  value: "users" | "ban-users";
+  label: "لیست کاربران" | "لیست کاربران بن شده";
 }
 
 export interface RestaurantsOption {

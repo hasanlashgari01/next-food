@@ -1,10 +1,10 @@
 "use client";
 
-import { UserContext } from "@/context/UserContext";
-import React, { useContext, useEffect, useState } from "react";
+import { useGetUser } from "@/hooks/useAuth";
+import React, { useEffect, useState } from "react";
 
 const WelcomeText: React.FC = () => {
-  const { isLoading, data } = useContext(UserContext);
+  const { isLoading, data } = useGetUser();
   const [text, setText] = useState<string>("");
 
   useEffect(() => {
@@ -23,10 +23,10 @@ const WelcomeText: React.FC = () => {
   return (
     <div className="hidden items-center justify-center gap-2 font-bold sm:flex sm:items-center dark:text-slate-100">
       {isLoading ? (
-        <div className="w-48 empty:h-full empty:w-32 empty:animate-pulse empty:rounded-md empty:bg-slate-200 dark:empty:bg-slate-900"></div>
+        <div className="h-10 w-64 animate-pulse rounded-md bg-slate-200 dark:bg-slate-800"></div>
       ) : (
         <>
-          <span className="md:text-lg lg:text-2xl">سلام {data.fullName} عزیز</span>
+          <span className="md:text-lg lg:text-2xl">سلام {data?.fullName} عزیز</span>
           <span className="mx-2 h-7 w-[1px] rounded-full bg-slate-400"></span>
           <h5 className="text-base leading-7 dark:text-slate-200">{text}</h5>
         </>
