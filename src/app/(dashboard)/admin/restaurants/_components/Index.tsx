@@ -4,7 +4,6 @@ import { RestaurantsOption, SelectOption } from "@/common/interface/optionSelect
 import { Restaurant } from "@/common/interface/restaurant";
 import { api } from "@/config/axiosConfig";
 import React, { useEffect, useState } from "react";
-import SearchBar from "../../_components/SearchBar";
 import TopPage from "../../_components/TopPage";
 import RestaurantsTable from "./RestaurantsTable";
 
@@ -47,11 +46,12 @@ const Index = () => {
       <TopPage
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
-        title="لیست کاربران"
+        title="لیست رستوران"
         options={options}
-      >
-        <SearchBar search={search} setSearch={setSearch} searchHandler={searchHandler} />
-      </TopPage>
+        search={search}
+        setSearch={setSearch}
+        searchHandler={searchHandler}
+      />
       <RestaurantsTable restaurants={restaurantList ?? []} />
     </>
   );

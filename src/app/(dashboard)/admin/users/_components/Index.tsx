@@ -5,7 +5,6 @@ import { Person } from "@/common/interface/person";
 import { api } from "@/config/axiosConfig";
 import { fixNumbers } from "@/utils/func";
 import { useEffect, useState } from "react";
-import SearchBar from "../../_components/SearchBar";
 import TopPage from "../../_components/TopPage";
 import UsersTable from "./UsersTable";
 
@@ -54,9 +53,10 @@ const Index = () => {
         setSelectedOption={setSelectedOption}
         title="لیست کاربران"
         options={options}
-      >
-        <SearchBar search={search} setSearch={setSearch} searchHandler={searchHandler} />
-      </TopPage>
+        search={search}
+        setSearch={setSearch}
+        searchHandler={searchHandler}
+      />
       <UsersTable users={userList} />
     </>
   );

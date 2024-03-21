@@ -1,27 +1,22 @@
+import { SearchBar } from "@/common/interface/search";
 import { FaSearch } from "react-icons/fa";
 import { HiMiniBackspace } from "react-icons/hi2";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-interface SearchBarProps {
-  search: string;
-  setSearch: (search: string) => void;
-  searchHandler: (e: React.FormEvent<HTMLFormElement>) => void;
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch, searchHandler }) => {
-  const clearSearch = () => setSearch("");
+const SearchBar: React.FC<SearchBar> = ({ search, setSearch, searchHandler }) => {
+  const clearSearch = () => setSearch && setSearch("");
 
   return (
     <form
       className="flex h-[38px] flex-1 gap-2 rounded bg-white px-3 py-1 dark:bg-slate-800"
-      onSubmit={e => searchHandler(e)}
+      onSubmit={e => searchHandler && searchHandler(e)}
     >
       <input
         type="text"
         placeholder="جستجو"
         value={search}
         className="inline-block h-full flex-1 bg-transparent dark:text-white"
-        onChange={e => setSearch(e.target.value)}
+        onChange={e => setSearch && setSearch(e.target.value)}
         onKeyUp={e => e.key === "Escape" && clearSearch()}
       />
       <div className="flex gap-2">

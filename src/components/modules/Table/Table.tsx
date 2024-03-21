@@ -1,3 +1,5 @@
+"use client";
+
 import { SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
 
@@ -21,7 +23,7 @@ const Table: React.FC<TableProps> = ({ data, columns, notFoundMsg }) => {
 
   return (
     <>
-      <table className="mt-5 w-full table-fixed overflow-hidden rounded-sm bg-slate-50 text-xs md:text-base">
+      <table className="mt-5 w-full table-auto overflow-hidden rounded-sm bg-slate-50 text-xs md:text-base">
         <thead className="bg-sky-50">
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
