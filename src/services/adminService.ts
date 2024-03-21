@@ -4,6 +4,10 @@ interface Category {
   title: string;
   slug: string;
 }
+interface Update<T> {
+  id: string;
+  data: T;
+}
 
 const getDashboard = () => api(`/admin/dashboard`).then(({ data }) => data);
 
@@ -13,4 +17,8 @@ const getCategories = () => api(`/category`).then(({ data }) => data);
 
 const addNewCategory = (data: Category) => api.post("category/create", data).then(({ data }) => data);
 
-export { getDashboard, getUsers, getCategories, addNewCategory };
+const getCategory = (id: string) => api(`/category/${id}`).then(({ data }) => data);
+
+const updateCategory = ({ id, data }: Update<Category>) => api.put(`/category/${id}`, data).then(({ data }) => data);
+
+export { getDashboard, getUsers, getCategories, addNewCategory, updateCategory, getCategory };

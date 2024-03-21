@@ -1,23 +1,25 @@
 "use client";
 
 import InputText from "@/components/modules/Input/InputText";
-import { useAddCategory } from "@/hooks/useAdmin";
+import Top from "../_components/Top";
+import { useAddCategory, useGetCategory, useUpdateCategory } from "@/hooks/useAdmin";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import Top from "../_components/Top";
+import { useParams } from "next/navigation";
 
 interface Inputs {
   title: string;
   slug: string;
 }
 
-const AddCategory = () => {
-  const { mutateAsync } = useAddCategory();
+const EditCategoryPage = () => {
+  const { id }: { id: string } = useParams();
+  const { data } = useGetCategory(id);
+  const { mutateAsync } = useUpdateCategory();
   const {
     register,
     handleSubmit,
     getValues,
-    reset,
     formState: { touchedFields, errors, isValid },
   } = useForm<Inputs>({
     mode: "onChange",
@@ -25,12 +27,13 @@ const AddCategory = () => {
       title: "",
       slug: "",
     },
+    values: data,
   });
+
   const onSubmit: SubmitHandler<Inputs> = async data => {
     try {
-      const { message } = await mutateAsync(data);
+      const { message } = await mutateAsync({ data, id });
       toast.success(message);
-      reset();
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
@@ -38,7 +41,7 @@ const AddCategory = () => {
 
   return (
     <>
-      <Top title="افزودن دسته بندی" />
+      <Top title="به روز رسانی دسته بندی" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           <InputText id="title" label="عنوان دسته بندی" type="text" message={errors.title ? errors.title.message : ""}>
@@ -71,11 +74,10 @@ const AddCategory = () => {
           disabled={!isValid}
           className="btn btn-primary mt-5 py-4 text-base font-semibold text-white transition-all duration-500 ease-linear disabled:cursor-not-allowed disabled:bg-blue-700/90"
         >
-          ایجاد دسته بندی
+          به روز رسانی دسته بندی
         </button>
       </form>
     </>
   );
 };
-
-export default AddCategory;
+export default EditCategoryPage;
