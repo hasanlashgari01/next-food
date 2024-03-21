@@ -1,5 +1,5 @@
-import { getDashboard, getUsers } from "@/services/adminService";
-import { useQuery } from "@tanstack/react-query";
+import { addNewCategory, getCategories, getDashboard, getUsers } from "@/services/adminService";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetDashboard = () =>
   useQuery({
@@ -17,4 +17,14 @@ const useGetUserList = () =>
     refetchOnWindowFocus: true,
   });
 
-export { useGetDashboard, useGetUserList };
+const useGetCategoryList = () =>
+  useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategories,
+    retry: false,
+    refetchOnWindowFocus: true,
+  });
+
+const useAddCategory = () => useMutation({ mutationFn: addNewCategory });
+
+export { useGetDashboard, useGetUserList, useGetCategoryList, useAddCategory };

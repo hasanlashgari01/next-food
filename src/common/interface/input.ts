@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 interface InputProps {
   message: string | undefined;
-  children: ReactNode;
+  children?: ReactNode;
   type: "password" | "text";
 }
 

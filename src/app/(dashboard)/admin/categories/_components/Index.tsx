@@ -1,40 +1,17 @@
 "use client";
 
-import { api } from "@/config/axiosConfig";
-import { useEffect, useState } from "react";
+import { useGetCategoryList } from "@/hooks/useAdmin";
+import Link from "next/link";
 import TopPageRight from "../../_components/TopPageRight";
 import CategoriesTable from "./CategoriesTable";
-import Link from "next/link";
 
 const Index = () => {
-  const [categoryList, setCategoryList] = useState([]);
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    api(`/category`).then(({ data }) => {
-      console.log(data);
-
-      // setCategoryList(data);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (search === "") {
-      api(`/category`).then(({ data }) => setCategoryList(data));
-    }
-  }, [search]);
-
-  const searchHandler = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (search !== "") {
-      api.post(`/search/`, { name: search }).then(({ data }) => setCategoryList(data.result));
-    }
-  };
+  const { isPending, data: categoryList } = useGetCategoryList();
 
   return (
     <div className="mt-5">
       <div className="flex items-center justify-between pl-5">
-        <TopPageRight title="لیست دسته بندی ها" search={search} setSearch={setSearch} searchHandler={searchHandler} />
+        <TopPageRight title="لیست دسته بندی ها" />
         <Link href="/admin/categories/add" className="btn btn-primary flex items-center">
           افزودن دسته بندی
         </Link>
