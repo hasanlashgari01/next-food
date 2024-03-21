@@ -15,7 +15,7 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const pathname = usePathname();
-  const currentPath = recursivePath(pathname);
+  const { currentPath, parentPath } = recursivePath(pathname);
   const [isShow, setIsShow] = useState<boolean>(false);
 
   const showModalHandler = () => {
@@ -46,8 +46,8 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
             return (
               <Link
                 key={index}
-                href={path}
-                className={`transition-colors duration-300 ease-out ${currentPath === path ? "bg-sky-100 dark:bg-sky-800" : ""}`}
+                href={`/admin/${path}`}
+                className={`transition-colors duration-300 ease-out ${currentPath === path || parentPath === path ? "bg-sky-100 dark:bg-sky-800" : ""}`}
               >
                 <Icon className="size-4 lg:size-5" />
                 {name}
