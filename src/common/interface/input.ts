@@ -9,6 +9,7 @@ interface InputProps {
 export interface TextProps extends InputProps {
   id: string;
   label: string;
+  msgWidth?: string;
 }
 
 export interface PasswordProps extends InputProps {

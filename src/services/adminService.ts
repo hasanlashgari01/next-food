@@ -1,3 +1,4 @@
+import { IDiscount } from "@/common/interface/discount";
 import { api } from "@/config/axiosConfig";
 
 interface Category {
@@ -27,4 +28,15 @@ const updateCategory = ({ id, data }: Update<Category>) => api.put(`/category/${
 
 const getDiscounts = () => api(`/api/coupon`).then(({ data }) => data);
 
-export { getDashboard, getUsers, getCategories, addNewCategory, updateCategory, getCategory, getDiscounts };
+const addDiscount = (data: IDiscount) => api.post("/api/coupon", data).then(({ data }) => data);
+
+export {
+  addDiscount,
+  addNewCategory,
+  getCategories,
+  getCategory,
+  getDashboard,
+  getDiscounts,
+  getUsers,
+  updateCategory,
+};

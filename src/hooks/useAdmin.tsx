@@ -1,4 +1,5 @@
 import {
+  addDiscount,
   addNewCategory,
   getCategories,
   getCategory,
@@ -27,6 +28,8 @@ const useUpdateCategory = () => useMutation({ mutationFn: updateCategory });
 
 const useGetDiscountList = () => useQuery({ queryKey: ["discounts"], queryFn: getDiscounts });
 
+const useAddDiscount = () => useMutation({ mutationFn: addDiscount });
+
 export {
   useAddCategory,
   useGetCategoryList,
@@ -35,4 +38,5 @@ export {
   useUpdateCategory,
   useGetCategory,
   useGetDiscountList,
+  useAddDiscount,
 };

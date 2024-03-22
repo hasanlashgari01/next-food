@@ -1,4 +1,4 @@
-import { DiscountProps } from "@/common/interface/discount";
+import { IDiscountProps } from "@/common/interface/discount";
 import Table from "@/components/modules/Table/Table";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { HiMiniPencilSquare } from "react-icons/hi2";
 interface TableProps {
   data: {
     count: number;
-    coupons: DiscountProps[];
+    coupons: IDiscountProps[];
   };
 }
 
@@ -24,7 +24,7 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons } }) => {
       cell: info => info.renderValue(),
     }),
     columnHelper.accessor("amount", {
-      header: () => "درصد",
+      header: () => "میزان",
       cell: info => info.renderValue(),
     }),
     columnHelper.accessor("usageCount", {

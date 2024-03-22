@@ -1,9 +1,9 @@
-import { SearchBar } from "@/common/interface/search";
+import { SearchBarProps } from "@/common/interface/search";
 import { FaSearch } from "react-icons/fa";
 import { HiMiniBackspace } from "react-icons/hi2";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
-const SearchBar: React.FC<SearchBar> = ({ search, setSearch, searchHandler }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ search, setSearch, searchHandler }) => {
   const clearSearch = () => setSearch && setSearch("");
 
   return (

@@ -116,4 +116,12 @@
   .btn-info {
     @apply bg-cyan-600 hover:bg-cyan-700;
   }
+
+  .radio-label {
+    @apply mr-2 cursor-pointer rounded-md bg-slate-50 px-6 py-2 outline outline-1 outline-slate-300 ring-indigo-500 transition-all ease-in-out has-[:checked]:bg-indigo-500 has-[:checked]:text-white dark:bg-slate-800/100 dark:outline-slate-700 dark:has-[:checked]:bg-indigo-700;
+  }
+
+  .radio-input {
+    @apply appearance-none checked:border-indigo-500;
+  }
 }

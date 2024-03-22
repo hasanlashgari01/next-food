@@ -6,7 +6,7 @@ interface TitleProps {
 
 const TopPageTitle: React.FC<TitleProps> = ({ title }) => {
   return (
-    <h3 className="text-base font-semibold leading-loose text-primary-900 max-xs:hidden md:text-3xl lg:text-2xl dark:text-white">
+    <h3 className="text-base font-semibold leading-loose text-primary-900 max-xl:hidden md:text-3xl lg:text-2xl dark:text-white">
       {title}
     </h3>
   );

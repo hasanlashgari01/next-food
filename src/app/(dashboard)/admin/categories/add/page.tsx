@@ -56,7 +56,7 @@ const AddCategory = () => {
           <InputText id="slug" label="لینک دسته بندی" type="text" message={errors.slug ? errors.slug.message : ""}>
             <input
               type="text"
-              className={`form__input pr-6 ${errors.title && "border-cancel dark:border-cancel"} ${touchedFields.title && getValues().title !== "" && !errors?.title && "border-success dark:border-success"}`}
+              className={`form__input pr-6 ${errors.slug && "border-cancel dark:border-cancel"} ${touchedFields.slug && getValues().slug !== "" && !errors?.slug && "border-success dark:border-success"}`}
               dir="rtl"
               {...register("slug", {
                 required: { value: true, message: "لینک اجباری هست" },

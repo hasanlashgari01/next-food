@@ -1,13 +1,22 @@
 type TStatus = "notActive" | "active" | "expired";
+export type TType = "fixedProduct" | "percent";
 
-export interface DiscountProps {
-  _id: string;
+export interface IDiscount {
   code: string;
-  type: string;
-  amount: number;
+  type: TType;
+  amount: number | null | undefined;
+  usageCount?: number | null;
+}
+
+export interface IDiscountProps extends IDiscount {
+  _id: string;
   status: TStatus;
   startDate: Date;
   expireDate: Date;
-  usageCount: number;
   usageLimit: number;
+}
+
+export interface IDiscountInputs extends IDiscount {
+  amountFixed?: number | null;
+  amountPercent?: number | null;
 }
