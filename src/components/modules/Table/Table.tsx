@@ -4,12 +4,13 @@ import { SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactT
 import { useState } from "react";
 
 interface TableProps {
+  count?: number;
   data: any[];
   columns: any[];
   notFoundMsg: string;
 }
 
-const Table: React.FC<TableProps> = ({ data, columns, notFoundMsg }) => {
+const Table: React.FC<TableProps> = ({ count, data, columns, notFoundMsg }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
@@ -86,7 +87,7 @@ const Table: React.FC<TableProps> = ({ data, columns, notFoundMsg }) => {
               })}
         </tbody>
       </table>
-      {data.length === 0 && (
+      {(count == 0 ?? data.length === 0) && (
         <div className="flex-1 bg-red-500 py-5 text-center text-xl font-semibold text-white">
           {notFoundMsg} یافت نشد
         </div>

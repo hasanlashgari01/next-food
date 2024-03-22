@@ -13,6 +13,8 @@ const getDashboard = () => api(`/admin/dashboard`).then(({ data }) => data);
 
 const getUsers = () => api(`/admin/users`).then(({ data }) => data);
 
+// * Category
+
 const getCategories = () => api(`/category`).then(({ data }) => data);
 
 const addNewCategory = (data: Category) => api.post("category/create", data).then(({ data }) => data);
@@ -21,4 +23,8 @@ const getCategory = (id: string) => api(`/category/${id}`).then(({ data }) => da
 
 const updateCategory = ({ id, data }: Update<Category>) => api.put(`/category/${id}`, data).then(({ data }) => data);
 
-export { getDashboard, getUsers, getCategories, addNewCategory, updateCategory, getCategory };
+// * Discount
+
+const getDiscounts = () => api(`/api/coupon`).then(({ data }) => data);
+
+export { getDashboard, getUsers, getCategories, addNewCategory, updateCategory, getCategory, getDiscounts };

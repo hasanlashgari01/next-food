@@ -1,4 +1,3 @@
-// app/providers.jsx
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,6 +11,8 @@ export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
         defaultOptions: {
           queries: {
             staleTime: 5 * 1000,
+            retry: false,
+            refetchOnWindowFocus: true,
           },
         },
       }),
@@ -19,9 +20,7 @@ export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <ReactQueryStreamedHydration> */}
       {children}
-      {/* </ReactQueryStreamedHydration> */}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
