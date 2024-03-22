@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   return (
     <div className="transition-all duration-200 ease-linear max-lg:-mx-6 max-lg:bg-white max-lg:px-6 max-lg:dark:bg-slate-800">
       <div className="flex justify-between max-lg:py-5 lg:mt-6">
-        <div className="flex items-center justify-between gap-6 sm:gap-14">
+        <div className="flex items-center justify-between gap-6">
           <div
             className="flex size-12 items-center justify-center rounded-full border border-slate-100 lg:hidden dark:border-slate-700"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
