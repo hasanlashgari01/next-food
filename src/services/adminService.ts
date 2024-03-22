@@ -30,6 +30,8 @@ const getDiscounts = () => api(`/api/coupon`).then(({ data }) => data);
 
 const addDiscount = (data: IDiscount) => api.post("/api/coupon", data).then(({ data }) => data);
 
+const removeDiscount = (id: string) => api.delete(`/api/coupon/${id}`).then(({ data }) => data);
+
 export {
   addDiscount,
   addNewCategory,
@@ -39,4 +41,5 @@ export {
   getDiscounts,
   getUsers,
   updateCategory,
+  removeDiscount,
 };

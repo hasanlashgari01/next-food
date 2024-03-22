@@ -6,6 +6,7 @@ import {
   getDashboard,
   getDiscounts,
   getUsers,
+  removeDiscount,
   updateCategory,
 } from "@/services/adminService";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -30,6 +31,8 @@ const useGetDiscountList = () => useQuery({ queryKey: ["discounts"], queryFn: ge
 
 const useAddDiscount = () => useMutation({ mutationFn: addDiscount });
 
+const useRemoveDiscount = () => useMutation({ mutationFn: removeDiscount });
+
 export {
   useAddCategory,
   useGetCategoryList,
@@ -39,4 +42,5 @@ export {
   useGetCategory,
   useGetDiscountList,
   useAddDiscount,
+  useRemoveDiscount,
 };

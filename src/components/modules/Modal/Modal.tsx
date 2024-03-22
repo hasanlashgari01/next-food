@@ -13,6 +13,7 @@ interface ModalProps {
   confirmStyle?: ModalButtonType;
   cancelText: string;
   cancelStyle?: ModalButtonType;
+  confirmAction?: () => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -24,6 +25,7 @@ const Modal: React.FC<ModalProps> = ({
   confirmStyle,
   cancelText,
   cancelStyle,
+  confirmAction,
 }) => {
   const hideModal = () => setIsShow(false);
 
@@ -45,7 +47,9 @@ const Modal: React.FC<ModalProps> = ({
           </p>
         </div>
         <div className="mt-10 flex flex-wrap gap-4 max-lg:flex-col">
-          <button className={`btn h-12 flex-1 max-lg:basis-12 ${confirmStyle}`}>{confirmText}</button>
+          <button className={`btn h-12 flex-1 max-lg:basis-12 ${confirmStyle}`} onClick={confirmAction}>
+            {confirmText}
+          </button>
           <button className={`btn h-12 flex-1 max-lg:basis-12 ${cancelStyle}`} onClick={hideModal}>
             {cancelText}
           </button>
