@@ -1,6 +1,7 @@
 import {
   addDiscount,
   addNewCategory,
+  banOrUnbanUser,
   getBanUsers,
   getCategories,
   getCategory,
@@ -17,6 +18,8 @@ const useGetDashboard = () => useQuery({ queryKey: ["admin-dashboard"], queryFn:
 const useGetUserList = () => useQuery({ queryKey: ["users"], queryFn: getUsers });
 
 const useGetBanUserList = () => useQuery({ queryKey: ["ban-users"], queryFn: getBanUsers });
+
+const useBanOrUnbanUser = () => useMutation({ mutationFn: banOrUnbanUser });
 
 // * Category
 
@@ -42,6 +45,7 @@ export {
   useGetDashboard,
   useGetUserList,
   useGetBanUserList,
+  useBanOrUnbanUser,
   useUpdateCategory,
   useGetCategory,
   useGetDiscountList,

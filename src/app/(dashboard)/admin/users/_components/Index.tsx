@@ -64,6 +64,9 @@ const Index = () => {
         searchHandler={searchHandler}
       />
       <UsersTable
+        selectedOption={selectedOption}
+        refetchUsers={refetchUsers}
+        refetchBanUsers={refetchBanUsers}
         users={
           searchResult.length > 0
             ? searchResult

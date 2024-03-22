@@ -1,7 +1,8 @@
+import { SelectOption, UsersOption } from "@/common/interface/optionSelect";
 import { Person } from "@/common/interface/person";
 import Table from "@/components/modules/Table/Table";
 import TableStatus from "@/components/modules/Table/TableStatus";
-import { api } from "@/config/axiosConfig";
+import { useBanOrUnbanUser } from "@/hooks/useAdmin";
 import { createColumnHelper } from "@tanstack/react-table";
 import toast from "react-hot-toast";
 import { FaBan } from "react-icons/fa";
@@ -10,11 +11,15 @@ import { HiOutlineUser } from "react-icons/hi2";
 
 interface TableProps {
   users: Person[];
+  refetchUsers: () => void;
+  refetchBanUsers: () => void;
+  selectedOption: UsersOption | SelectOption;
 }
 
 const columnHelper = createColumnHelper<Person>();
 
-const UsersTable: React.FC<TableProps> = ({ users }) => {
+const UsersTable: React.FC<TableProps> = ({ users, refetchUsers, refetchBanUsers, selectedOption }) => {
+  const { mutateAsync } = useBanOrUnbanUser();
   const columns = [
     columnHelper.accessor("fullName", {
       cell: info => <i>{info.getValue()}</i>,
@@ -54,10 +59,14 @@ const UsersTable: React.FC<TableProps> = ({ users }) => {
     }),
   ];
 
-  const banHandler = (id: string) => {
-    api(`/admin/users/${id}/ban`)
-      .then(({ data }) => toast.success(data.message))
-      .catch(err => toast.error(err.message));
+  const banHandler = async (id: string) => {
+    try {
+      const { message } = await mutateAsync(id);
+      toast.success(message);
+      selectedOption.value === "users" ? refetchUsers() : refetchBanUsers();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   const changeRoleHandler = (id: string) => {

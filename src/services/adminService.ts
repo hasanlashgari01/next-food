@@ -29,6 +29,8 @@ const searchUsers = ({ fullName, mobile }: ISearch) => {
   return api.post(`/search/admin/users`, data).then(({ data }) => data.result);
 };
 
+const banOrUnbanUser = (id: string) => api(`/admin/users/${id}/ban`).then(({ data }) => data);
+
 // * Category
 
 const getCategories = () => api(`/category`).then(({ data }) => data);
@@ -51,6 +53,7 @@ export {
   addDiscount,
   addNewCategory,
   getBanUsers,
+  banOrUnbanUser,
   getCategories,
   getCategory,
   getDashboard,
