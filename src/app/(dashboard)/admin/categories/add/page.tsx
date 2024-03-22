@@ -4,7 +4,7 @@ import InputText from "@/components/modules/Input/InputText";
 import { useAddCategory } from "@/hooks/useAdmin";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import Top from "../_components/Top";
+import TopPage from "../../_components/TopPage";
 
 interface Inputs {
   title: string;
@@ -38,7 +38,7 @@ const AddCategory = () => {
 
   return (
     <>
-      <Top title="افزودن دسته بندی" />
+      <TopPage title="افزودن دسته بندی ها" link="/admin/categories" linkText="بازگشت" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           <InputText id="title" label="عنوان دسته بندی" type="text" message={errors.title ? errors.title.message : ""}>

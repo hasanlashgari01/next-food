@@ -4,18 +4,14 @@ import { useGetCategoryList } from "@/hooks/useAdmin";
 import Link from "next/link";
 import TopPageRight from "../../_components/TopPageRight";
 import CategoriesTable from "./CategoriesTable";
+import TopPage from "../../_components/TopPage";
 
 const Index = () => {
   const { isPending, data: categoryList } = useGetCategoryList();
 
   return (
     <div className="mt-5">
-      <div className="flex items-center justify-between pl-5">
-        <TopPageRight title="لیست دسته بندی ها" />
-        <Link href="/admin/categories/add" className="btn btn-primary flex items-center">
-          افزودن دسته بندی
-        </Link>
-      </div>
+      <TopPage title="لیست دسته بندی ها" link="/admin/categories/add" linkText="افزودن دسته بندی" />
       <CategoriesTable categories={categoryList ?? []} />
     </div>
   );

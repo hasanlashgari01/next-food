@@ -1,11 +1,11 @@
 "use client";
 
 import InputText from "@/components/modules/Input/InputText";
-import Top from "../_components/Top";
 import { useAddCategory, useGetCategory, useUpdateCategory } from "@/hooks/useAdmin";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useParams } from "next/navigation";
+import TopPage from "../../_components/TopPage";
 
 interface Inputs {
   title: string;
@@ -41,7 +41,7 @@ const EditCategoryPage = () => {
 
   return (
     <>
-      <Top title="به روز رسانی دسته بندی" />
+      <TopPage title="به روزرسانی دسته بندی ها" link="/admin/categories" linkText="بازگشت" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           <InputText id="title" label="عنوان دسته بندی" type="text" message={errors.title ? errors.title.message : ""}>
