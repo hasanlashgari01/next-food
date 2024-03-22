@@ -1,5 +1,6 @@
 import { Person } from "@/common/interface/person";
 import Table from "@/components/modules/Table/Table";
+import TableStatus from "@/components/modules/Table/TableStatus";
 import { api } from "@/config/axiosConfig";
 import { createColumnHelper } from "@tanstack/react-table";
 import toast from "react-hot-toast";
@@ -24,13 +25,8 @@ const UsersTable: React.FC<TableProps> = ({ users }) => {
       cell: info => info.renderValue(),
     }),
     columnHelper.accessor("verifiedAccount", {
-      header: () => <span>وضعیت کاربر</span>,
-      cell: info =>
-        info.getValue() ? (
-          <span className="text-success">تایید شده</span>
-        ) : (
-          <span className="text-process">تایید نشده</span>
-        ),
+      header: () => <span>وضعیت</span>,
+      cell: info => <TableStatus status={info.getValue()} />,
     }),
     columnHelper.accessor("role", {
       header: "نقش",

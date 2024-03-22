@@ -1,4 +1,4 @@
-import { yekanBakh } from "@/config/font";
+import { iranYekan } from "@/config/font";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 
@@ -11,7 +11,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="fa" dir="rtl">
       <body suppressHydrationWarning={true}>
-        <div className={yekanBakh.className}>
+        <div className={iranYekan.className}>
           {children}
           <Toaster />
         </div>

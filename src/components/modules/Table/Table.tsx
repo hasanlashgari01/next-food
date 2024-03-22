@@ -23,7 +23,7 @@ const Table: React.FC<TableProps> = ({ data, columns, notFoundMsg }) => {
 
   return (
     <>
-      <table className="mt-5 w-full table-auto overflow-hidden rounded-sm bg-slate-50 text-xs md:text-base">
+      <table className="font-IranYekan mt-5 w-full overflow-hidden rounded-sm bg-slate-50 text-xs max-lg:table-fixed md:text-base">
         <thead className="bg-sky-50">
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>

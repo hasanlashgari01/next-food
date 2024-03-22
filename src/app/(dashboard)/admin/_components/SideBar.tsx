@@ -28,7 +28,7 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
   };
 
   return (
-    <div className="sticky top-0 z-10 h-dvh pt-2">
+    <div className="font-IranYekan sticky top-0 z-10 h-dvh pt-2">
       <div
         className={`fixed inset-0 bg-slate-900/60 transition-all duration-200 ease-linear lg:hidden dark:bg-slate-950/50 ${isSidebarOpen ? "visible z-10 opacity-100" : "invisible opacity-0"}`}
         onClick={() => setIsSidebarOpen(false)}

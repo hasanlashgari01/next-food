@@ -33,22 +33,24 @@
   }
 
   @font-face {
-    font-family: "YekanBakh-Regular";
+    font-family: "IranYekan-Regular";
     font-style: normal;
     font-weight: 400;
-    src: url("../assets/fonts/YekanBakh/YekanBakh-Regular.woff2") format("woff2");
+    src: url("../assets/fonts/IranYekan/iranyekan-regular.woff") format("woff");
   }
 
   @font-face {
-    font-family: "YekanBakh-SemiBold";
+    font-family: "IranYekan-Medium";
     font-style: normal;
-    src: url("../assets/fonts/YekanBakh/YekanBakh-SemiBold.woff2") format("woff2");
+    font-weight: 500;
+    src: url("../assets/fonts/IranYekan/iranyekan-medium.woff") format("woff");
   }
 
   @font-face {
-    font-family: "YekanBakh-Bold";
+    font-family: "IranYekan-Bold";
     font-style: normal;
-    src: url("../assets/fonts/YekanBakh/YekanBakh-Bold.woff2") format("woff2");
+    font-weight: 700;
+    src: url("../assets/fonts/IranYekan/iranyekan-bold.woff") format("woff");
   }
 
   /* Chrome, Safari, Edge, Opera */
@@ -88,7 +90,7 @@
   }
 
   .btn {
-    @apply font-YekanBakh flex h-10 cursor-pointer items-center justify-center rounded-md border border-transparent px-4 text-white transition-colors md:h-12;
+    @apply font-IranYekan flex h-10 cursor-pointer items-center justify-center rounded-md border border-transparent px-4 text-white transition-colors md:h-12;
   }
 
   .btn-default {

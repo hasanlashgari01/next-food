@@ -1,5 +1,6 @@
 import { Restaurant } from "@/common/interface/restaurant";
 import Table from "@/components/modules/Table/Table";
+import TableStatus from "@/components/modules/Table/TableStatus";
 import { api } from "@/config/axiosConfig";
 import { ColumnDef, Row, createColumnHelper } from "@tanstack/react-table";
 import toast from "react-hot-toast";
@@ -24,12 +25,7 @@ const RestaurantsTable: React.FC<TableProps> = ({ restaurants }) => {
     }),
     columnHelper.accessor("isValid", {
       header: () => <span>وضعیت</span>,
-      cell: info =>
-        info.getValue() ? (
-          <span className="text-success">تایید شده</span>
-        ) : (
-          <span className="text-process">تایید نشده</span>
-        ),
+      cell: info => <TableStatus status={info.getValue()} />,
     }),
     columnHelper.accessor("province.name", {
       header: "استان",
@@ -40,7 +36,7 @@ const RestaurantsTable: React.FC<TableProps> = ({ restaurants }) => {
       cell: info => <span>{info.getValue() ? info.getValue() : 0}</span>,
     }),
     columnHelper.accessor("category", {
-      header: "امتیاز",
+      header: "دسته بندی",
       cell: info => {
         let categories: string[] = info.getValue();
         return (
@@ -48,7 +44,7 @@ const RestaurantsTable: React.FC<TableProps> = ({ restaurants }) => {
             {categories.map((category: string, index: number) => (
               <span
                 key={index}
-                className="text-primary-700 rounded-lg bg-primary-300 px-1.5 py-1 text-xs transition-colors hover:bg-amber-300 dark:bg-primary-900"
+                className="text-primary-700 cursor-default rounded-lg bg-primary-300 px-1.5 py-1 text-xs transition-colors hover:bg-amber-300 dark:bg-primary-900"
               >
                 {category}
               </span>

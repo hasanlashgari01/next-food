@@ -6,7 +6,7 @@ interface TopPageRightProps extends SearchBar {
 
 const TopPageRight: React.FC<TopPageRightProps> = ({ title, search, setSearch, searchHandler }) => {
   return (
-    <div className="flex px-5 md:items-center md:gap-5 lg:w-fit">
+    <div className="flex md:items-center md:gap-5 lg:w-fit xl:px-5">
       <h1 className="hidden flex-1 text-2xl xl:inline-block dark:text-white">{title}</h1>
       {search !== undefined && <SearchBar search={search} setSearch={setSearch} searchHandler={searchHandler} />}
     </div>

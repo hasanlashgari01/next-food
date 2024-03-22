@@ -1,44 +1,44 @@
 import localFont from "next/font/local";
 
-const yekanBakh = localFont({
+const iranYekan = localFont({
   src: [
     {
-      path: "../assets/fonts/YekanBakh/YekanBakh-Thin.woff2",
+      path: "../assets/fonts/IranYekan/iranyekan-thin.woff",
       weight: "200",
       style: "Thin",
     },
     {
-      path: "../assets/fonts/YekanBakh/YekanBakh-Light.woff2",
+      path: "../assets/fonts/IranYekan/iranyekan-light.woff",
       weight: "300",
       style: "Light",
     },
     {
-      path: "../assets/fonts/YekanBakh/YekanBakh-Regular.woff2",
+      path: "../assets/fonts/IranYekan/iranyekan-regular.woff",
       weight: "400",
       style: "Regular",
     },
     {
-      path: "../assets/fonts/YekanBakh/YekanBakh-SemiBold.woff2",
-      weight: "600",
-      style: "SemiBold",
+      path: "../assets/fonts/IranYekan/iranyekan-medium.woff",
+      weight: "500",
+      style: "Medium",
     },
     {
-      path: "../assets/fonts/YekanBakh/YekanBakh-Bold.woff2",
-      weight: "800",
+      path: "../assets/fonts/IranYekan/iranyekan-bold.woff",
+      weight: "700",
       style: "Bold",
     },
     {
-      path: "../assets/fonts/YekanBakh/YekanBakh-ExtraBold.woff2",
-      weight: "850",
+      path: "../assets/fonts/IranYekan/iranyekan-extrabold.woff",
+      weight: "750",
       style: "ExtraBold",
     },
     {
-      path: "../assets/fonts/YekanBakh/YekanBakh-Black.woff2",
+      path: "../assets/fonts/IranYekan/iranyekan-black.woff",
       weight: "900",
       style: "Black",
     },
     {
-      path: "../assets/fonts/YekanBakh/YekanBakh-ExtraBlack.woff2",
+      path: "../assets/fonts/IranYekan/iranyekan-extrablack.woff",
       weight: "950",
       style: "ExtraBlack",
     },
@@ -74,17 +74,17 @@ const dana = localFont({
     },
     {
       path: "../assets/fonts/Dana/DanaFaNum-DemiBold.woff2",
-      weight: "700",
+      weight: "650",
       style: "DemiBold",
     },
     {
       path: "../assets/fonts/Dana/DanaFaNum-Bold.woff2",
-      weight: "800",
+      weight: "700",
       style: "Bold",
     },
     {
       path: "../assets/fonts/Dana/DanaFaNum-ExtraBold.woff2",
-      weight: "850",
+      weight: "750",
       style: "ExtraBold",
     },
     {
@@ -100,4 +100,4 @@ const dana = localFont({
   ],
 });
 
-export { dana, yekanBakh };
+export { dana, iranYekan };

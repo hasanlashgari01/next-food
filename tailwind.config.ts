@@ -33,7 +33,7 @@ const config = {
         success: "#06C698",
       },
       fontFamily: {
-        YekanBakh: "YekanBakh-Regular",
+        IranYekan: "IranYekan-Regular",
       },
     },
   },

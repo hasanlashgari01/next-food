@@ -34,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({
         onClick={hideModal}
       ></div>
       <div
-        className={`font-YekanBakh fixed inset-x-1/2 bottom-0 z-20 flex h-fit w-dvw translate-x-1/2 flex-col rounded-t-[36px] bg-slate-100 p-8 transition-transform max-sm:h-[50dvh] max-sm:justify-evenly sm:inset-y-1/2 sm:max-w-lg sm:-translate-y-1/2 sm:rounded-2xl lg:max-w-2xl lg:rounded-2xl lg:py-14 dark:bg-gray-800 ${isShow ? "visible z-10 translate-y-0 opacity-100" : "invisible translate-y-full opacity-0"}`}
+        className={`font-IranYekan fixed inset-x-1/2 bottom-0 z-20 flex h-fit w-dvw translate-x-1/2 flex-col rounded-t-[36px] bg-slate-100 p-8 transition-transform max-sm:h-[50dvh] max-sm:justify-evenly sm:inset-y-1/2 sm:max-w-lg sm:-translate-y-1/2 sm:rounded-2xl lg:max-w-2xl lg:rounded-2xl lg:py-14 dark:bg-gray-800 ${isShow ? "visible z-10 translate-y-0 opacity-100" : "invisible translate-y-full opacity-0"}`}
       >
         <div className="text-center">
           <h3 className="text-base font-semibold text-slate-900 sm:text-xl lg:text-2xl dark:text-neutral-50">
