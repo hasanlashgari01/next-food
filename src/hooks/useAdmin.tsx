@@ -1,6 +1,7 @@
 import {
   addDiscount,
   addNewCategory,
+  getBanUsers,
   getCategories,
   getCategory,
   getDashboard,
@@ -14,6 +15,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 const useGetDashboard = () => useQuery({ queryKey: ["admin-dashboard"], queryFn: getDashboard });
 
 const useGetUserList = () => useQuery({ queryKey: ["users"], queryFn: getUsers });
+
+const useGetBanUserList = () => useQuery({ queryKey: ["ban-users"], queryFn: getBanUsers });
 
 // * Category
 
@@ -38,6 +41,7 @@ export {
   useGetCategoryList,
   useGetDashboard,
   useGetUserList,
+  useGetBanUserList,
   useUpdateCategory,
   useGetCategory,
   useGetDiscountList,

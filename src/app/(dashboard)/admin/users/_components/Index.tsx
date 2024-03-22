@@ -2,7 +2,8 @@
 
 import { SelectOption, UsersOption } from "@/common/interface/optionSelect";
 import { Person } from "@/common/interface/person";
-import { api } from "@/config/axiosConfig";
+import { useGetBanUserList, useGetUserList } from "@/hooks/useAdmin";
+import { searchUsers } from "@/services/adminService";
 import { fixNumbers } from "@/utils/func";
 import { useEffect, useState } from "react";
 import TopPage from "../../_components/TopPage";
@@ -18,31 +19,36 @@ const Index = () => {
     value: "users",
     label: "لیست کاربران",
   });
-  const [userList, setUserList] = useState([] as Person[]);
+  const { data: usersResult, refetch: refetchUsers } = useGetUserList();
+  const { data: banUsersResult, refetch: refetchBanUsers } = useGetBanUserList();
+  const [searchResult, setSearchResult] = useState([] as Person[]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (selectedOption.value === "users") {
-      api(`/admin/users`).then(({ data }) => setUserList(data.users));
+      refetchUsers();
     } else if (selectedOption.value === "ban-users") {
-      api(`/admin/users/ban`).then(({ data }) => setUserList(data.result));
+      refetchBanUsers();
     }
   }, [selectedOption]);
 
   useEffect(() => {
     if (search === "") {
-      api(`/admin/users`).then(({ data }) => setUserList(data.users));
+      refetchUsers();
+      setSearchResult([]);
     }
   }, [search]);
 
-  const searchHandler = (e: React.FormEvent) => {
+  const searchHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (search !== "") {
-      api.post(`/search/admin/users`, { fullName: search }).then(({ data }) => setUserList(data.result));
-    }
     const mobile: string | number = fixNumbers(search);
+    // if number search by mobile else search by name
     if (/^\d+$/.test(mobile.toString())) {
-      api.post(`/search/admin/users`, { mobile }).then(({ data }) => setUserList(data.result));
+      const result = await searchUsers({ mobile: search });
+      setSearchResult(result);
+    } else if (search !== "") {
+      const result = await searchUsers({ fullName: search });
+      setSearchResult(result);
     }
   };
 
@@ -57,7 +63,15 @@ const Index = () => {
         setSearch={setSearch}
         searchHandler={searchHandler}
       />
-      <UsersTable users={userList} />
+      <UsersTable
+        users={
+          searchResult.length > 0
+            ? searchResult
+            : selectedOption.value === "users"
+              ? usersResult?.users
+              : banUsersResult.result
+        }
+      />
     </>
   );
 };

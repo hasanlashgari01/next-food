@@ -10,9 +10,24 @@ interface Update<T> {
   data: T;
 }
 
+interface ISearch {
+  fullName?: string;
+  mobile?: string;
+}
+
 const getDashboard = () => api(`/admin/dashboard`).then(({ data }) => data);
 
 const getUsers = () => api(`/admin/users`).then(({ data }) => data);
+
+const getBanUsers = () => api(`/admin/users/ban`).then(({ data }) => data);
+
+const searchUsers = ({ fullName, mobile }: ISearch) => {
+  const data: ISearch = {};
+  fullName !== undefined && (data.fullName = fullName);
+  mobile !== undefined && (data.mobile = mobile);
+
+  return api.post(`/search/admin/users`, data).then(({ data }) => data.result);
+};
 
 // * Category
 
@@ -35,11 +50,13 @@ const removeDiscount = (id: string) => api.delete(`/api/coupon/${id}`).then(({ d
 export {
   addDiscount,
   addNewCategory,
+  getBanUsers,
   getCategories,
   getCategory,
   getDashboard,
   getDiscounts,
   getUsers,
-  updateCategory,
   removeDiscount,
+  searchUsers,
+  updateCategory,
 };

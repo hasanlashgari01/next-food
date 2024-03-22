@@ -36,7 +36,7 @@ const TopPage: React.FC<TopPageProps> = ({
       {/* Right Side */}
       <div className="flex md:items-center lg:w-fit lg:gap-5 xl:px-5">
         <div className="hidden items-center xl:flex xl:gap-4">
-          {search ?? <span className="size-3 animate-pulse rounded-full bg-cyan-600"></span>}
+          {search === undefined && <span className="size-3 animate-pulse rounded-full bg-cyan-600"></span>}
           <TopPageTitle title={title} />
         </div>
         {search !== undefined && <SearchBar search={search} setSearch={setSearch} searchHandler={searchHandler} />}
