@@ -1,15 +1,19 @@
 import {
   addDiscount,
   addNewCategory,
+  banOrUnbanRestaurant,
   banOrUnbanUser,
+  getBanRestaurants,
   getBanUsers,
   getCategories,
   getCategory,
   getDashboard,
   getDiscounts,
+  getRestaurants,
   getUsers,
   removeDiscount,
   updateCategory,
+  updateValidRestaurant,
 } from "@/services/adminService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -20,6 +24,16 @@ const useGetUserList = () => useQuery({ queryKey: ["users"], queryFn: getUsers }
 const useGetBanUserList = () => useQuery({ queryKey: ["ban-users"], queryFn: getBanUsers });
 
 const useBanOrUnbanUser = () => useMutation({ mutationFn: banOrUnbanUser });
+
+// * Restaurant
+
+const useGetRestaurantList = () => useQuery({ queryKey: ["restaurants"], queryFn: getRestaurants });
+
+const useGetBanRestaurantList = () => useQuery({ queryKey: ["ban-restaurants"], queryFn: getBanRestaurants });
+
+const useBanOrUnbanRestaurant = () => useMutation({ mutationFn: banOrUnbanRestaurant });
+
+const useUpdateValidRestaurant = () => useMutation({ mutationFn: updateValidRestaurant });
 
 // * Category
 
@@ -51,4 +65,8 @@ export {
   useGetDiscountList,
   useAddDiscount,
   useRemoveDiscount,
+  useGetRestaurantList,
+  useGetBanRestaurantList,
+  useBanOrUnbanRestaurant,
+  useUpdateValidRestaurant,
 };

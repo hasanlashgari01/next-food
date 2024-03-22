@@ -31,6 +31,18 @@ const searchUsers = ({ fullName, mobile }: ISearch) => {
 
 const banOrUnbanUser = (id: string) => api(`/admin/users/${id}/ban`).then(({ data }) => data);
 
+// * Restaurant
+
+const getRestaurants = () => api(`/admin/restaurant`).then(({ data }) => data);
+
+const getBanRestaurants = () => api(`/admin/restaurant/banned`).then(({ data }) => data);
+
+const searchRestaurants = (name: string) => api.post(`/search/restaurant`, { name }).then(({ data }) => data.result);
+
+const banOrUnbanRestaurant = (id: string) => api(`/admin/restaurant/${id}/ban`).then(({ data }) => data);
+
+const updateValidRestaurant = (id: string) => api(`/admin/restaurant/${id}/status`).then(({ data }) => data);
+
 // * Category
 
 const getCategories = () => api(`/category`).then(({ data }) => data);
@@ -62,4 +74,9 @@ export {
   removeDiscount,
   searchUsers,
   updateCategory,
+  getRestaurants,
+  getBanRestaurants,
+  searchRestaurants,
+  banOrUnbanRestaurant,
+  updateValidRestaurant,
 };

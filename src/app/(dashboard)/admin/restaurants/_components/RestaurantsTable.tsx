@@ -1,19 +1,30 @@
+import { RestaurantsOption, SelectOption } from "@/common/interface/optionSelect";
 import { Restaurant } from "@/common/interface/restaurant";
 import Table from "@/components/modules/Table/Table";
 import TableStatus from "@/components/modules/Table/TableStatus";
-import { api } from "@/config/axiosConfig";
-import { ColumnDef, Row, createColumnHelper } from "@tanstack/react-table";
+import { useBanOrUnbanRestaurant, useUpdateValidRestaurant } from "@/hooks/useAdmin";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import toast from "react-hot-toast";
 import { FaBan } from "react-icons/fa";
 import { GrValidate } from "react-icons/gr";
 
 interface TableProps {
   restaurants: Restaurant[];
+  selectedOption: RestaurantsOption | SelectOption;
+  refetchRestaurant: () => void;
+  refetchBanRestaurant: () => void;
 }
 
 const columnHelper = createColumnHelper();
 
-const RestaurantsTable: React.FC<TableProps> = ({ restaurants }) => {
+const RestaurantsTable: React.FC<TableProps> = ({
+  restaurants,
+  selectedOption,
+  refetchRestaurant,
+  refetchBanRestaurant,
+}) => {
+  const { mutateAsync: mutateAsyncBanOrUnban } = useBanOrUnbanRestaurant();
+  const { mutateAsync: mutateAsyncUpdateValid } = useUpdateValidRestaurant();
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("name", {
       cell: info => <i>{info.getValue()}</i>,
@@ -75,21 +86,29 @@ const RestaurantsTable: React.FC<TableProps> = ({ restaurants }) => {
     }),
   ];
 
-  const banHandler = (id: string) => {
-    api(`/admin/restaurant/${id}/ban`)
-      .then(({ data }) => toast.success(data.message))
-      .catch(err => toast.error(err.message));
+  const banHandler = async (id: string) => {
+    try {
+      const { message } = await mutateAsyncBanOrUnban(id);
+      toast.success(message);
+      selectedOption.value === "restaurants" ? refetchRestaurant() : refetchBanRestaurant();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
-  const changeValidHandler = (id: string) => {
-    api(`/admin/restaurant/${id}/status`)
-      .then(({ data }) => toast.success(data.message))
-      .catch(err => toast.error(err.message));
+  const changeValidHandler = async (id: string) => {
+    try {
+      const { message } = await mutateAsyncUpdateValid(id);
+      toast.success(message);
+      selectedOption.value === "restaurants" ? refetchRestaurant() : refetchBanRestaurant();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   return (
     <>
-      <Table data={restaurants} columns={columns} notFoundMsg="رستوران" />
+      <Table count={restaurants?.length} data={restaurants} columns={columns} notFoundMsg="رستوران" />
     </>
   );
 };

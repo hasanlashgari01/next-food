@@ -2,10 +2,11 @@
 
 import { RestaurantsOption, SelectOption } from "@/common/interface/optionSelect";
 import { Restaurant } from "@/common/interface/restaurant";
-import { api } from "@/config/axiosConfig";
+import { useGetBanRestaurantList, useGetRestaurantList } from "@/hooks/useAdmin";
 import React, { useEffect, useState } from "react";
 import TopPage from "../../_components/TopPage";
 import RestaurantsTable from "./RestaurantsTable";
+import { searchRestaurants } from "@/services/adminService";
 
 const options: SelectOption[] = [
   { value: "restaurants", label: "لیست رستوران" },
@@ -17,27 +18,31 @@ const Index = () => {
     value: "restaurants",
     label: "لیست رستوران",
   });
-  const [restaurantList, setRestaurantList] = useState([] as Restaurant[]);
+  const { data: restaurantsResult, refetch: refetchRestaurant } = useGetRestaurantList();
+  const { data: banRestaurantsResult, refetch: refetchBanRestaurant } = useGetBanRestaurantList();
+  const [searchResult, setSearchResult] = useState([] as Restaurant[]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (selectedOption.value === "restaurants") {
-      api(`/admin/restaurant`).then(({ data }) => setRestaurantList(data.restaurants));
+      refetchRestaurant();
     } else if (selectedOption.value === "ban-restaurants") {
-      api(`/admin/restaurant/banned`).then(({ data }) => setRestaurantList(data.restaurantsBanned));
+      refetchBanRestaurant();
     }
   }, [selectedOption]);
 
   useEffect(() => {
     if (search === "") {
-      api(`/admin/restaurant`).then(({ data }) => setRestaurantList(data.restaurants));
+      refetchRestaurant();
+      setSearchResult([]);
     }
   }, [search]);
 
-  const searchHandler = (e: React.FormEvent) => {
+  const searchHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     if (search !== "") {
-      api.post(`/search/restaurant`, { name: search }).then(({ data }) => setRestaurantList(data.result));
+      const result = await searchRestaurants(search);
+      setSearchResult(result);
     }
   };
 
@@ -52,7 +57,18 @@ const Index = () => {
         setSearch={setSearch}
         searchHandler={searchHandler}
       />
-      <RestaurantsTable restaurants={restaurantList ?? []} />
+      <RestaurantsTable
+        selectedOption={selectedOption}
+        refetchRestaurant={refetchRestaurant}
+        refetchBanRestaurant={refetchBanRestaurant}
+        restaurants={
+          searchResult.length > 0
+            ? searchResult
+            : selectedOption.value === "restaurants"
+              ? restaurantsResult?.restaurants
+              : banRestaurantsResult.restaurantsBanned
+        }
+      />
     </>
   );
 };
