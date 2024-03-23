@@ -32,7 +32,7 @@ const TopPage: React.FC<TopPageProps> = ({
   linkStyle = "btn-primary",
 }) => {
   return (
-    <div className={`my-5 flex flex-wrap justify-between gap-4 md:items-center ${options && "max-md:flex-col"}`}>
+    <div className={`my-2.5 flex flex-wrap justify-between gap-4 md:items-center ${options && "max-md:flex-col"}`}>
       {/* Right Side */}
       <div className="flex md:items-center lg:w-fit lg:gap-5 xl:px-5">
         <div className="hidden items-center xl:flex xl:gap-4">

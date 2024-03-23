@@ -129,7 +129,11 @@
     @apply btn btn-primary mt-10 py-4 text-base font-medium text-white transition-all duration-500 ease-linear disabled:cursor-not-allowed disabled:bg-blue-700/60;
   }
 
+  .delete-selection-btn {
+    @apply btn inline-flex max-h-6 disabled:cursor-not-allowed;
+  }
+
   .pagination-btn {
-    @apply md:child:size-5 child:size-4 flex size-8 items-center justify-center rounded-lg border bg-slate-50 p-1 transition-colors disabled:cursor-not-allowed disabled:bg-slate-200/50 md:size-10 dark:border-slate-700 dark:bg-blue-600 dark:disabled:bg-slate-700/50;
+    @apply flex size-8 items-center justify-center rounded-lg border bg-slate-50 p-1 transition-colors disabled:cursor-not-allowed disabled:bg-slate-200/50 child:size-4 md:size-10 md:child:size-5 dark:border-slate-700 dark:bg-blue-600 dark:disabled:bg-slate-700/50;
   }
 }

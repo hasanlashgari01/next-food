@@ -1,12 +1,13 @@
 import { IProvince } from "@/common/interface/province";
 import Modal from "@/components/modules/Modal/Modal";
 import Table from "@/components/modules/Table/Table";
-import { useRemoveProvince } from "@/hooks/useAdmin";
+import { useRemoveProvince, useRemoveSelectedProvince } from "@/hooks/useAdmin";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
+import DeleteSelectedBox from "../../_components/DeleteSelectedBox";
 
 interface TableProps {
   data: {
@@ -20,10 +21,30 @@ const columnHelper = createColumnHelper();
 
 const ProvinceTable: React.FC<TableProps> = ({ data: { count, provinces }, refetch }) => {
   const { mutateAsync } = useRemoveProvince();
+  const { mutateAsync: mutateAsyncRemoveSelected } = useRemoveSelectedProvince();
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+  const [isShowDeleteAllModal, setIsShowDeleteAllModal] = useState(false);
   const [provinceId, setProvinceId] = useState("");
+  const [provinceIds, setProvinceIds] = useState<string[]>([]);
 
   const columns: ColumnDef<unknown, never>[] = [
+    columnHelper.accessor("checkbox", {
+      header: () => <span></span>,
+      cell: info => {
+        const { _id: provinceId } = info.row.original as IProvince;
+
+        return (
+          <input
+            type="checkbox"
+            name=""
+            id=""
+            value={info.getValue()}
+            checked={provinceIds.includes(provinceId)}
+            onChange={e => checkboxHandler(e, provinceId)}
+          />
+        );
+      },
+    }),
     columnHelper.accessor("name", {
       header: () => <span>استان</span>,
       cell: info => <i>{info.getValue()}</i>,
@@ -58,13 +79,41 @@ const ProvinceTable: React.FC<TableProps> = ({ data: { count, provinces }, refet
     }
   };
 
+  const deleteAllDiscountHandler = async (provinceIds: string[]) => {
+    try {
+      const { message } = await mutateAsyncRemoveSelected(provinceIds);
+      toast.success(message);
+      setIsShowDeleteAllModal(false);
+      refetch();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   const showDeleteModal = (id: string) => {
     setIsShowDeleteModal(true);
     setProvinceId(id);
   };
 
+  const checkboxHandler = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
+    if (e.target.checked) {
+      setProvinceIds(prevState => [...prevState, id]);
+    } else {
+      setProvinceIds(prevState => prevState.filter(provinceId => provinceId !== id));
+    }
+  };
+
   return (
     <>
+      <DeleteSelectedBox
+        isShow={isShowDeleteAllModal}
+        setIsShow={setIsShowDeleteAllModal}
+        deleteAllHandler={() => deleteAllDiscountHandler(provinceIds)}
+        data={provinces}
+        message="استان"
+        selectedIds={provinceIds}
+        setSelectedIds={setProvinceIds}
+      />
       <Table
         count={count || provinces?.length}
         data={provinces ? provinces : []}

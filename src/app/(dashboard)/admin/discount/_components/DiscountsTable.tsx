@@ -8,6 +8,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { HiCheckCircle, HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
 import { MdRadioButtonUnchecked } from "react-icons/md";
+import DeleteSelectedBox from "../../_components/DeleteSelectedBox";
 
 interface TableProps {
   data: {
@@ -115,31 +116,17 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
     }
   };
 
-  const selectAll = () => {
-    setDiscountIds(prevState => [...prevState, ...coupons.map(coupon => coupon._id)]);
-  };
-
   return (
     <>
-      <div className="flex gap-4">
-        <button className="btn btn-info inline-flex max-h-11" onClick={() => selectAll()}>
-          <HiCheckCircle className="size-5" />
-        </button>
-        <button
-          disabled={discountIds.length === 0}
-          className="btn btn-warning inline-flex max-h-11 disabled:cursor-not-allowed disabled:bg-amber-300/60 disabled:dark:bg-amber-700/60"
-          onClick={() => setDiscountIds([])}
-        >
-          <MdRadioButtonUnchecked className="size-5" />
-        </button>
-        <button
-          disabled={discountIds.length === 0}
-          className="btn btn-danger inline-flex max-h-11 disabled:cursor-not-allowed disabled:bg-red-300/60 disabled:dark:bg-red-700/60"
-          onClick={() => setIsShowDeleteAllModal(true)}
-        >
-          <HiTrash className="size-5" />
-        </button>
-      </div>
+      <DeleteSelectedBox
+        isShow={isShowDeleteAllModal}
+        setIsShow={setIsShowDeleteAllModal}
+        deleteAllHandler={() => deleteAllDiscountHandler(discountIds)}
+        selectedIds={discountIds}
+        setSelectedIds={setDiscountIds}
+        message="کد تخفیف"
+        data={coupons}
+      />
       <Table count={count} data={coupons ? coupons : []} columns={columns} notFoundMsg="کد تخفیف" />
       <Modal
         isShow={isShowDeleteModal}
@@ -150,16 +137,6 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
         confirmStyle="btn-danger"
         cancelStyle="btn-default"
         confirmAction={() => deleteHandler(discountId)}
-      />
-      <Modal
-        isShow={isShowDeleteAllModal}
-        setIsShow={setIsShowDeleteAllModal}
-        title="از حذف کد تخفیف های انتخاب شده اطمینان دارید؟"
-        confirmText="حذف"
-        cancelText="لغو"
-        confirmStyle="btn-danger"
-        cancelStyle="btn-default"
-        confirmAction={() => deleteAllDiscountHandler(discountIds)}
       />
     </>
   );
