@@ -1,9 +1,8 @@
-import { IDiscountProps } from "@/common/interface/discount";
+import { IDiscount, IDiscountProps } from "@/common/interface/discount";
 import Modal from "@/components/modules/Modal/Modal";
 import Table from "@/components/modules/Table/Table";
 import { useRemoveDiscount, useRemoveSelectedDiscount } from "@/hooks/useAdmin";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { AxiosRequestConfig } from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -107,7 +106,7 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
 
   const deleteAllDiscountHandler = async (couponsId: string[]) => {
     try {
-      const { message } = await mutateAsyncRemoveSelected(couponsId as AxiosRequestConfig<any>);
+      const { message } = await mutateAsyncRemoveSelected(couponsId);
       toast.success(message);
       setIsShowDeleteAllModal(false);
       refetch();
@@ -123,19 +122,19 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
   return (
     <>
       <div className="flex gap-4">
-        <button className="btn btn-default inline-flex max-h-11" onClick={() => selectAll()}>
+        <button className="btn btn-info inline-flex max-h-11" onClick={() => selectAll()}>
           <HiCheckCircle className="size-5" />
         </button>
         <button
           disabled={discountIds.length === 0}
-          className="btn btn-warning inline-flex max-h-11 disabled:cursor-not-allowed disabled:bg-amber-300 disabled:dark:bg-amber-700"
+          className="btn btn-warning inline-flex max-h-11 disabled:cursor-not-allowed disabled:bg-amber-300/60 disabled:dark:bg-amber-700/60"
           onClick={() => setDiscountIds([])}
         >
           <MdRadioButtonUnchecked className="size-5" />
         </button>
         <button
           disabled={discountIds.length === 0}
-          className="btn btn-danger inline-flex max-h-11 disabled:cursor-not-allowed disabled:bg-red-300 disabled:dark:bg-red-700"
+          className="btn btn-danger inline-flex max-h-11 disabled:cursor-not-allowed disabled:bg-red-300/60 disabled:dark:bg-red-700/60"
           onClick={() => setIsShowDeleteAllModal(true)}
         >
           <HiTrash className="size-5" />
