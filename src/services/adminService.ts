@@ -1,5 +1,6 @@
 import { IDiscount } from "@/common/interface/discount";
 import { api } from "@/config/axiosConfig";
+import { AxiosRequestConfig } from "axios";
 
 interface Category {
   title: string;
@@ -61,6 +62,9 @@ const addDiscount = (data: IDiscount) => api.post("/api/coupon", data).then(({ d
 
 const removeDiscount = (id: string) => api.delete(`/api/coupon/${id}`).then(({ data }) => data);
 
+const removeSelectedDiscount = (data: AxiosRequestConfig<any>) =>
+  api.post(`/api/coupon/deleteMany`, { couponsId: data }).then(({ data }) => data);
+
 export {
   addDiscount,
   addNewCategory,
@@ -79,4 +83,5 @@ export {
   searchRestaurants,
   banOrUnbanRestaurant,
   updateValidRestaurant,
+  removeSelectedDiscount,
 };

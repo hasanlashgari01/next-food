@@ -12,6 +12,7 @@ import {
   getRestaurants,
   getUsers,
   removeDiscount,
+  removeSelectedDiscount,
   updateCategory,
   updateValidRestaurant,
 } from "@/services/adminService";
@@ -53,6 +54,8 @@ const useAddDiscount = () => useMutation({ mutationFn: addDiscount });
 
 const useRemoveDiscount = () => useMutation({ mutationFn: removeDiscount });
 
+const useRemoveSelectedDiscount = () => useMutation({ mutationFn: removeSelectedDiscount });
+
 export {
   useAddCategory,
   useGetCategoryList,
@@ -65,6 +68,7 @@ export {
   useGetDiscountList,
   useAddDiscount,
   useRemoveDiscount,
+  useRemoveSelectedDiscount,
   useGetRestaurantList,
   useGetBanRestaurantList,
   useBanOrUnbanRestaurant,

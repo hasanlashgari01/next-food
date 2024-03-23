@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div className="fixed">
       <div
-        className={`fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity dark:bg-slate-950/70 ${isShow ? "visible z-10 opacity-100" : "invisible opacity-0"}`}
+        className={`fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity dark:bg-slate-950/70 ${isShow ? "visible z-20 opacity-100" : "invisible opacity-0"}`}
         onClick={hideModal}
       ></div>
       <div
