@@ -6,7 +6,6 @@ import ProvinceTable from "./ProvinceTable";
 
 const Index = () => {
   const { isPending, data: provinceList, refetch } = useGetProvinceList();
-  console.log("🚀 ~ Index ~ provinceList:", provinceList);
 
   return (
     <>

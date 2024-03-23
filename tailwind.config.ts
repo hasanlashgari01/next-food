@@ -37,7 +37,18 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addVariant }: { addVariant: (name: string, selector: string) => void }) {
+      addVariant("child", "& > *");
+      addVariant("child-hover", "& > *:hover");
+      addVariant("child-focus", "& > *:focus");
+      addVariant("child-active", "& > *:active");
+      addVariant("child-disabled", "& > *:disabled");
+      addVariant("child-not-last", "& > *:not(:last-child)");
+      addVariant("child-not-first", "& > *:not(:first-child)");
+    },
+  ],
 } satisfies Config;
 
 export default config;

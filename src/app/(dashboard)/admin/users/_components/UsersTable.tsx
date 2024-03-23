@@ -77,7 +77,7 @@ const UsersTable: React.FC<TableProps> = ({ users, refetchUsers, refetchBanUsers
 
   return (
     <>
-      <Table data={users} columns={columns} notFoundMsg="کاربر" />
+      <Table data={users ? users : []} columns={columns} notFoundMsg="کاربر" />
     </>
   );
 };

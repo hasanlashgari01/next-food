@@ -72,7 +72,7 @@ const removeSelectedDiscount = (couponsId: TDeleteMany) =>
 
 const getProvinces = () => api(`${adminProvince}`).then(({ data }) => data);
 
-const addProvince = (data: IDiscount) => api.post(`${adminProvince}`, data).then(({ data }) => data);
+const addProvince = (data: IProvince) => api.post(`${adminProvince}`, data).then(({ data }) => data);
 
 const updateProvince = ({ id, data }: Update<IProvince>) =>
   api.put(`${adminProvince}${id}`, data).then(({ data }) => data);

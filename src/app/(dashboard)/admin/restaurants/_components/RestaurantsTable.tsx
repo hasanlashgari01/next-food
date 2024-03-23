@@ -108,7 +108,12 @@ const RestaurantsTable: React.FC<TableProps> = ({
 
   return (
     <>
-      <Table count={restaurants?.length} data={restaurants} columns={columns} notFoundMsg="رستوران" />
+      <Table
+        count={restaurants?.length}
+        data={restaurants ? restaurants : []}
+        columns={columns}
+        notFoundMsg="رستوران"
+      />
     </>
   );
 };

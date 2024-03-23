@@ -66,11 +66,7 @@ const AddCategory = () => {
             />
           </InputText>
         </div>
-        <button
-          type="submit"
-          disabled={!isValid}
-          className="btn btn-primary mt-5 py-4 text-base font-semibold text-white transition-all duration-500 ease-linear disabled:cursor-not-allowed disabled:bg-blue-700/90"
-        >
+        <button type="submit" disabled={!isValid} className="add-btn">
           ایجاد دسته بندی
         </button>
       </form>

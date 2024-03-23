@@ -170,11 +170,7 @@ const AddDiscount = () => {
           </div>
         </div>
 
-        <button
-          type="submit"
-          disabled={!isValid}
-          className="btn btn-primary mt-10 py-4 text-base font-medium text-white transition-all duration-500 ease-linear disabled:cursor-not-allowed disabled:bg-blue-700/90"
-        >
+        <button type="submit" disabled={!isValid} className="add-btn">
           ایجاد کد تخفیف
         </button>
       </form>

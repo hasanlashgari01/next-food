@@ -2,7 +2,6 @@ import { IProvince } from "@/common/interface/province";
 import Table from "@/components/modules/Table/Table";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
-import { useState } from "react";
 import { HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
 
 interface TableProps {
@@ -32,10 +31,17 @@ const ProvinceTable: React.FC<TableProps> = ({ data: { count, provinces }, refet
           <Link href={`/admin/province/${info.getValue()}`} className="table-btn bg-amber-300 dark:bg-amber-700">
             <HiMiniPencilSquare />
           </Link>
+          <span className="table-btn bg-red-300 dark:bg-red-700" onClick={() => showDeleteModal(info.getValue())}>
+            <HiTrash />
+          </span>
         </div>
       ),
     }),
   ];
+
+  const showDeleteModal = (id: string) => {
+    console.log(id);
+  };
 
   return (
     <>
