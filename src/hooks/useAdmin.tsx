@@ -1,6 +1,7 @@
 import {
   addDiscount,
   addNewCategory,
+  addProvince,
   banOrUnbanRestaurant,
   banOrUnbanUser,
   getBanRestaurants,
@@ -9,11 +10,15 @@ import {
   getCategory,
   getDashboard,
   getDiscounts,
+  getProvinces,
   getRestaurants,
   getUsers,
   removeDiscount,
+  removeProvince,
   removeSelectedDiscount,
+  removeSelectedProvince,
   updateCategory,
+  updateProvince,
   updateValidRestaurant,
 } from "@/services/adminService";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -56,6 +61,18 @@ const useRemoveDiscount = () => useMutation({ mutationFn: removeDiscount });
 
 const useRemoveSelectedDiscount = () => useMutation({ mutationFn: removeSelectedDiscount });
 
+// * Province
+
+const useGetProvinceList = () => useQuery({ queryKey: ["discounts"], queryFn: getProvinces });
+
+const useAddProvince = () => useMutation({ mutationFn: addProvince });
+
+const useUpdateProvince = () => useMutation({ mutationFn: updateProvince });
+
+const useRemoveProvince = () => useMutation({ mutationFn: removeProvince });
+
+const useRemoveSelectedProvince = () => useMutation({ mutationFn: removeSelectedProvince });
+
 export {
   useAddCategory,
   useGetCategoryList,
@@ -73,4 +90,9 @@ export {
   useGetBanRestaurantList,
   useBanOrUnbanRestaurant,
   useUpdateValidRestaurant,
+  useGetProvinceList,
+  useAddProvince,
+  useUpdateProvince,
+  useRemoveProvince,
+  useRemoveSelectedProvince,
 };
