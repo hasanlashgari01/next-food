@@ -1,5 +1,7 @@
+import Index from "./_components/Index";
+
 const page = () => {
-  return <div>صفحه استان ها</div>;
+  return <Index />;
 };
 
 export default page;
