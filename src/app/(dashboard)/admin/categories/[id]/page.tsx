@@ -41,7 +41,7 @@ const EditCategoryPage = () => {
 
   return (
     <>
-      <TopPage title="به روزرسانی دسته بندی ها" link="/admin/categories" linkText="بازگشت" />
+      <TopPage title="به روزرسانی دسته بندی ها" link="/admin/categories" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           <InputText id="title" label="عنوان دسته بندی" type="text" message={errors.title ? errors.title.message : ""}>

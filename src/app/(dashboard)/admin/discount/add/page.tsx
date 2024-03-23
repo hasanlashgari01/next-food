@@ -104,7 +104,7 @@ const AddDiscount = () => {
 
   return (
     <>
-      <TopPage title="افزودن کد تخفیف" link="/admin/discount" linkText="بازگشت" />
+      <TopPage title="افزودن کد تخفیف" link="/admin/discount" />
       <form onSubmit={handleSubmit(onSubmit)} className="font-IranYekan">
         <div className="grid grid-cols-5 gap-6">
           <div className="col-span-5 flex flex-col gap-2">

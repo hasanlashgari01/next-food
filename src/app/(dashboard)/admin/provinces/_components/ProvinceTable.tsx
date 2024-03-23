@@ -109,7 +109,7 @@ const ProvinceTable: React.FC<TableProps> = ({ data: { count, provinces }, refet
         isShow={isShowDeleteAllModal}
         setIsShow={setIsShowDeleteAllModal}
         deleteAllHandler={() => deleteAllDiscountHandler(provinceIds)}
-        data={provinces}
+        data={provinces ? provinces : []}
         message="استان"
         selectedIds={provinceIds}
         setSelectedIds={setProvinceIds}

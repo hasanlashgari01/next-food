@@ -12,9 +12,7 @@ const AddProvince = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     getValues,
-    reset,
     formState: { touchedFields, errors, isValid },
   } = useForm<IProvince>({
     mode: "onChange",
@@ -35,7 +33,7 @@ const AddProvince = () => {
 
   return (
     <>
-      <TopPage title="افزودن استان" link="/admin/provinces" linkText="بازگشت" />
+      <TopPage title="افزودن استان" link="/admin/provinces" />
       <form onSubmit={handleSubmit(onSubmit)} className="font-IranYekan">
         <div className="grid grid-cols-5 gap-6">
           <div className="col-span-5 grid gap-4 sm:col-span-4 xl:col-span-2">

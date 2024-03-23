@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from "react";
 import Select, { PropsValue } from "react-select";
 import TopPageTitle from "./TopPageTitle";
 import SearchBar from "./SearchBar";
+import { HiArrowSmallLeft } from "react-icons/hi2";
 
 interface TopPageProps extends SearchBarProps {
   readonly options?: readonly SelectOption[];
@@ -55,8 +56,8 @@ const TopPage: React.FC<TopPageProps> = ({
       )}
 
       {link && (
-        <Link href={link} className={`btn h-11 min-w-28 ${linkStyle}`}>
-          {linkText}
+        <Link href={link} className={`btn h-11 ${linkStyle} ${linkText ? "min-w-28" : "w-12 rounded-full p-0"}`}>
+          {linkText ? linkText : <HiArrowSmallLeft className="size-5" />}
         </Link>
       )}
     </div>
