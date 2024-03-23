@@ -10,7 +10,7 @@ const Index = () => {
   return (
     <>
       <TopPage title="لیست استان ها" link="/admin/provinces/add" linkText="افزودن استان" />
-      <ProvinceTable data={provinceList ?? []} refetch={refetch} />
+      <ProvinceTable data={{ count: provinceList?.count, provinces: provinceList?.provinces }} refetch={refetch} />
     </>
   );
 };

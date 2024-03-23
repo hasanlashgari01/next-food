@@ -106,14 +106,13 @@ const Table: React.FC<TableProps> = ({ count, data, columns, notFoundMsg }) => {
                 })}
           </tbody>
         </table>
+        {(count == 0 ?? data?.length == 0) && (
+          <div className="flex-1 bg-red-500 py-5 text-center text-xl font-semibold text-white">
+            {notFoundMsg} یافت نشد
+          </div>
+        )}
       </div>
-
-      <TablePagination table={table} />
-      {(count == 0 ?? data.length === 0) && (
-        <div className="flex-1 bg-red-500 py-5 text-center text-xl font-semibold text-white">
-          {notFoundMsg} یافت نشد
-        </div>
-      )}
+      {(count != 0 ?? data?.length != 0) && <TablePagination table={table} />}
     </div>
   );
 };

@@ -28,7 +28,7 @@ const ProvinceTable: React.FC<TableProps> = ({ data: { count, provinces }, refet
       header: "",
       cell: info => (
         <div className="flex flex-wrap gap-1.5">
-          <Link href={`/admin/province/${info.getValue()}`} className="table-btn bg-amber-300 dark:bg-amber-700">
+          <Link href={`/admin/provinces/${info.getValue()}/edit`} className="table-btn bg-amber-300 dark:bg-amber-700">
             <HiMiniPencilSquare />
           </Link>
           <span className="table-btn bg-red-300 dark:bg-red-700" onClick={() => showDeleteModal(info.getValue())}>
@@ -45,7 +45,12 @@ const ProvinceTable: React.FC<TableProps> = ({ data: { count, provinces }, refet
 
   return (
     <>
-      <Table count={count} data={provinces ? provinces : []} columns={columns} notFoundMsg="استان" />
+      <Table
+        count={count || provinces?.length}
+        data={provinces ? provinces : []}
+        columns={columns}
+        notFoundMsg="استان"
+      />
     </>
   );
 };

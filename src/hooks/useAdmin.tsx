@@ -10,6 +10,7 @@ import {
   getCategory,
   getDashboard,
   getDiscounts,
+  getProvince,
   getProvinces,
   getRestaurants,
   getUsers,
@@ -63,7 +64,9 @@ const useRemoveSelectedDiscount = () => useMutation({ mutationFn: removeSelected
 
 // * Province
 
-const useGetProvinceList = () => useQuery({ queryKey: ["discounts"], queryFn: getProvinces });
+const useGetProvinceList = () => useQuery({ queryKey: ["provinces"], queryFn: getProvinces });
+
+const useGetProvince = (id: string) => useQuery({ queryKey: ["province", id], queryFn: () => getProvince(id) });
 
 const useAddProvince = () => useMutation({ mutationFn: addProvince });
 
@@ -95,4 +98,5 @@ export {
   useUpdateProvince,
   useRemoveProvince,
   useRemoveSelectedProvince,
+  useGetProvince,
 };
