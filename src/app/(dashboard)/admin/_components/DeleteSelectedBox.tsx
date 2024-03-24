@@ -23,24 +23,17 @@ const DeleteSelectedBox: React.FC<SelectedBoxProps> = ({
   deleteAllHandler,
 }) => {
   const selectAll = () => setSelectedIds(prevState => [...prevState, ...data.map(item => item._id)]);
+  const isDisable = selectedIds.length === 0;
 
   return (
     <div className="mb-2.5 flex gap-4">
-      <button className="delete-selection-btn btn-default" onClick={() => selectAll()}>
+      <button className="selection-btn btn-primary" onClick={() => selectAll()}>
         <HiCheckCircle className="size-4" />
       </button>
-      <button
-        disabled={selectedIds.length === 0}
-        className="delete-selection-btn bg-amber-500 disabled:cursor-not-allowed disabled:bg-amber-300/60 disabled:dark:bg-amber-700/60"
-        onClick={() => setSelectedIds([])}
-      >
+      <button disabled={isDisable} className="selection-btn btn-warning" onClick={() => setSelectedIds([])}>
         <MdRadioButtonUnchecked className="size-4" />
       </button>
-      <button
-        disabled={selectedIds.length === 0}
-        className="delete-selection-btn bg-red-500 disabled:cursor-not-allowed disabled:bg-red-300/60 disabled:dark:bg-red-700/60"
-        onClick={() => setIsShow(true)}
-      >
+      <button disabled={isDisable} className="selection-btn btn-danger" onClick={() => setIsShow(true)}>
         <HiTrash className="size-4" />
       </button>
       <Modal

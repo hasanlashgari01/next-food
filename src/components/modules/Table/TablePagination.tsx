@@ -2,6 +2,8 @@ import { Table } from "@tanstack/react-table";
 import { HiChevronLeft, HiChevronRight, HiMiniChevronDoubleLeft, HiMiniChevronDoubleRight } from "react-icons/hi2";
 
 const TablePagination: React.FC<{ table: Table<any> }> = ({ table }) => {
+  const isDisable = !table.getCanPreviousPage();
+
   return (
     <>
       <div className="flex justify-center gap-2 justify-self-end">
@@ -20,32 +22,13 @@ const TablePagination: React.FC<{ table: Table<any> }> = ({ table }) => {
             </strong>
           </span>
 
-          <button
-            className="pagination-btn"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
+          <button className="pagination-btn" onClick={() => table.previousPage()} disabled={isDisable}>
             <HiChevronLeft />
           </button>
 
-          <button className="pagination-btn" onClick={() => table.firstPage()} disabled={!table.getCanPreviousPage()}>
+          <button className="pagination-btn" onClick={() => table.firstPage()} disabled={isDisable}>
             <HiMiniChevronDoubleLeft />
           </button>
-        </div>
-
-        <div>
-          {/* <span className="flex items-center gap-1">
-            | Go to page:
-            <input
-              type="number"
-              defaultValue={table.getState().pagination.pageIndex + 1}
-              onChange={e => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                table.setPageIndex(page);
-              }}
-              className="w-16 rounded border bg-white p-1 dark:bg-slate-800"
-            />
-          </span> */}
         </div>
       </div>
     </>
