@@ -3,47 +3,48 @@
 import { IDiscountInputs, TType } from "@/common/interface/discount";
 import InputText from "@/components/modules/Input/InputText";
 import { useGetDiscount, useUpdateDiscount } from "@/hooks/useAdmin";
+import { useParams } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import TopPage from "../../../_components/TopPage";
 import toast from "react-hot-toast";
-import { useParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
+import TopPage from "../../../_components/TopPage";
 
 const EditDiscountPage = () => {
   const { id }: { id: string } = useParams();
-  const { isLoading, data } = useGetDiscount(id);
+  const { isLoading, data: discountData } = useGetDiscount(id);
   const { mutateAsync } = useUpdateDiscount();
   const {
     register,
     handleSubmit,
     setValue,
     getValues,
-    formState: { touchedFields, errors, isValid },
+    formState: { errors, isValid },
   } = useForm<IDiscountInputs>({
-    mode: "onChange",
+    mode: "all",
     defaultValues: {
       code: "",
-      type: "fixedProduct",
-      amount: 0,
-      amountFixed: 0,
-      amountPercent: 0,
-      usageCount: 0,
+      type: null,
+      amount: null,
+      usageCount: null,
     },
-    values: data,
+    values: discountData,
   });
-  const [type, setType] = useState<TType>(getValues("type"));
+  const [type, setType] = useState(getValues("type"));
+  const [amountLabel, setAmountLabel] = useState<"مبلغ" | "درصد" | null>(null);
 
   useEffect(() => {
-    type === "fixedProduct"
-      ? setValue("amountFixed", getValues("amount"))
-      : setValue("amountPercent", getValues("amount"));
+    setAmountLabel(getValues("type") === "fixedProduct" ? "مبلغ" : "درصد");
   }, []);
 
-  const onSubmit: SubmitHandler<IDiscountInputs> = async data => {
-    data.amount = type === "fixedProduct" ? data.amountFixed : data.amountPercent;
-    delete data.amountFixed;
-    delete data.amountPercent;
+  const onSubmit: SubmitHandler<IDiscountInputs> = async () => {
+    let data: IDiscountInputs = {
+      code: getValues("code"),
+      type: getValues("type"),
+      amount: getValues("amount"),
+      usageCount: getValues("usageCount"),
+    };
+
     try {
       const { message } = await mutateAsync({ id, data });
       toast.success(message);
@@ -52,17 +53,16 @@ const EditDiscountPage = () => {
     }
   };
 
-  const typeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    let type = e.target.id as TType;
+  const typeHandler = (e?: ChangeEvent<HTMLInputElement>) => {
+    let type = e?.target?.id as TType;
     setValue("type", type);
     setType(type);
+    setAmountLabel(type === "fixedProduct" ? "مبلغ" : "درصد");
   };
 
-  const amountHandler = (type: TType) => {
-    console.log(type);
-
-    if (!isLoading) {
-    }
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    let curr = e.currentTarget;
+    setValue(curr.id as keyof IDiscountInputs, curr.value);
   };
 
   return (
@@ -70,6 +70,7 @@ const EditDiscountPage = () => {
       <TopPage title="به روز رسانی کد تخفیف" link="/admin/discount" />
       <form onSubmit={handleSubmit(onSubmit)} className="font-IranYekan">
         <div className="grid grid-cols-5 gap-6">
+          {/* input radio */}
           <div className="col-span-5 flex flex-col gap-2">
             <span className="mb-1 inline-block pr-4 text-sm font-semibold text-primary-900 dark:text-slate-300">
               نوع کد
@@ -78,30 +79,27 @@ const EditDiscountPage = () => {
               <label htmlFor="fixedProduct" className="radio-label">
                 <input
                   type="radio"
-                  name="type"
                   id="fixedProduct"
-                  checked={data?.type === "fixedProduct"}
-                  defaultChecked
+                  value="fixedProduct"
                   className="radio-input"
-                  onChange={e => typeHandler(e)}
+                  {...register("type", { required: true, onChange: event => typeHandler(event) })}
                 />
-                <span>کد</span>
+                <span>مبلغ</span>
               </label>
               <label htmlFor="percent" className="radio-label">
                 <input
                   type="radio"
-                  name="type"
                   id="percent"
-                  checked={data?.type === "percent"}
+                  value="percent"
                   className="radio-input"
-                  onChange={e => typeHandler(e)}
+                  {...register("type", { required: true, onChange: event => typeHandler(event) })}
                 />
                 <span>درصد</span>
               </label>
             </div>
           </div>
 
-          <div className="col-span-5 grid gap-4 sm:col-span-4 xl:col-span-2">
+          <div className="col-span-5 grid grid-cols-1 gap-4 sm:col-span-3 md:col-span-3 xl:col-span-2">
             <InputText
               id="code"
               label="عنوان"
@@ -113,8 +111,7 @@ const EditDiscountPage = () => {
                 type="text"
                 className={twMerge(
                   "form__input pr-6",
-                  `${errors.code && "border-cancel dark:border-cancel"}`,
-                  `${touchedFields.code && getValues().code !== "" && !errors?.code && "border-success dark:border-success"}`,
+                  `${getValues().code === "" || errors?.code ? "border-cancel dark:border-cancel" : "border-success dark:border-success"}`,
                 )}
                 dir="ltr"
                 {...register("code", {
@@ -125,79 +122,52 @@ const EditDiscountPage = () => {
                 })}
               />
             </InputText>
-            <>
-              {!isLoading &&
-                (type === "fixedProduct" ? (
-                  <InputText
-                    id="amountFixed"
-                    label="میزان"
-                    type="text"
-                    message={errors.amountFixed ? errors.amountFixed.message : ""}
-                    msgWidth="w-64"
-                  >
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      placeholder=""
-                      className={twMerge(
-                        "form__input pr-6",
-                        `${errors.amountFixed && "border-cancel dark:border-cancel"}`,
-                        `${touchedFields.amountFixed && !errors?.amountFixed && "border-success dark:border-success"}`,
-                      )}
-                      dir="rtl"
-                      {...register("amountFixed", {
-                        value: getValues("amountFixed"),
-                        required: { value: true, message: "میزان اجباری هست" },
-                        pattern: { value: /^[0-9]+$/, message: "فقط از عدد استفاده کنید" },
-                      })}
-                    />
-                  </InputText>
-                ) : (
-                  <InputText
-                    id="amountPercent"
-                    label="میزان"
-                    type="text"
-                    message={errors.amountPercent ? errors.amountPercent.message : ""}
-                    msgWidth="w-64"
-                  >
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      placeholder=""
-                      className={twMerge(
-                        "form__input pr-6",
-                        `${errors.amountPercent && "border-cancel dark:border-cancel"}`,
-                        `${touchedFields.amountPercent && !errors?.amountPercent && "border-success dark:border-success"}`,
-                      )}
-                      dir="rtl"
-                      {...register("amountPercent", {
-                        value: getValues("amountPercent"),
-                        required: { value: true, message: "میزان اجباری هست" },
-                        pattern: { value: /^[0-9]+$/, message: "فقط از عدد استفاده کنید" },
-                        min: { value: 1, message: "میزان باید بیشتر از ۱ باشد" },
-                        max: { value: 100, message: "میزان باید کمتر از ۱۰۰ باشد" },
-                      })}
-                    />
-                  </InputText>
-                ))}
-            </>
+
             <InputText
-              id="usageCount"
-              label="تعداد"
+              id="amountPercent"
+              label={amountLabel as string}
               type="text"
-              message={errors.usageCount ? errors.usageCount.message : ""}
+              message={errors?.amount?.message}
               msgWidth="w-64"
             >
+              <input
+                type="number"
+                inputMode="numeric"
+                className={twMerge(
+                  "form__input pr-6",
+                  `${errors.amount?.message ? "border-cancel dark:border-cancel" : "border-success dark:border-success"}`,
+                )}
+                dir="ltr"
+                {...register(
+                  "amount",
+                  type === "fixedProduct"
+                    ? {
+                        pattern: { value: /^[0-9]+$/, message: "فقط از عدد استفاده کنید" },
+                        min: { value: 1, message: "مبلغ باید بیشتر از ۱ باشد" },
+                        max: { value: 10_000_000, message: "مبلغ باید کمتر از ۱۰۰۰۰۰۰ باشد" },
+                        onChange: (e: ChangeEvent<HTMLInputElement>) => changeHandler(e),
+                      }
+                    : {
+                        required: { value: true, message: "درصد اجباری هست" },
+                        pattern: { value: /^[0-9]+$/, message: "فقط از عدد استفاده کنید" },
+                        min: { value: 1, message: "درصد باید بیشتر از ۱ باشد" },
+                        max: { value: 100, message: "درصد باید کمتر از ۱۰۰ باشد" },
+                        onChange: (e: ChangeEvent<HTMLInputElement>) => changeHandler(e),
+                      },
+                )}
+              />
+            </InputText>
+
+            <InputText id="usageCount" label="تعداد" type="text" message={errors?.usageCount?.message} msgWidth="w-64">
               <input
                 type="number"
                 inputMode="numeric"
                 placeholder=""
                 className={twMerge(
                   "form__input pr-6",
-                  `${errors.usageCount && "border-cancel dark:border-cancel"}`,
-                  `${!errors?.usageCount && "border-success dark:border-success"}`,
+                  `${errors?.usageCount ? "border-cancel dark:border-cancel" : "border-success dark:border-success"}`,
                 )}
-                dir="rtl"
+                dir="ltr"
                 {...register("usageCount", { min: { value: 1, message: "تعداد باید بیشتر از ۱ باشد" } })}
               />
             </InputText>
@@ -205,7 +175,7 @@ const EditDiscountPage = () => {
         </div>
 
         <button type="submit" disabled={!isValid} className="add-btn">
-          ایجاد کد تخفیف
+          به روز رسانی
         </button>
       </form>
     </>

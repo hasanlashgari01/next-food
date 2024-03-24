@@ -78,7 +78,7 @@
 
 @layer components {
   .form__input {
-    @apply w-full rounded-[10px] border-2 bg-slate-50 py-4 pl-6 pr-14 text-sm/6 text-primary-500 outline-none transition-all duration-200 ease-linear dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100;
+    @apply min-w-full rounded-[10px] border-2 bg-slate-50 py-4 pl-6 pr-14 text-sm/6 text-primary-500 outline-none transition-all duration-200 ease-linear dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100;
   }
 
   .search-btn {

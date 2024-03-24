@@ -1,5 +1,5 @@
 type TStatus = "notActive" | "active" | "expired";
-export type TType = "fixedProduct" | "percent";
+export type TType = "fixedProduct" | "percent" | null;
 
 export interface IDiscount {
   code: string;
