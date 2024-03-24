@@ -1,4 +1,4 @@
-import { IDiscount, IDiscountProps } from "@/common/interface/discount";
+import { IDiscountProps } from "@/common/interface/discount";
 import Modal from "@/components/modules/Modal/Modal";
 import Table from "@/components/modules/Table/Table";
 import { useRemoveDiscount, useRemoveSelectedDiscount } from "@/hooks/useAdmin";
@@ -6,8 +6,8 @@ import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { HiCheckCircle, HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
-import { MdRadioButtonUnchecked } from "react-icons/md";
+import { HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
+import { twMerge } from "tailwind-merge";
 import DeleteSelectedBox from "../../_components/DeleteSelectedBox";
 
 interface TableProps {
@@ -40,8 +40,8 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
             name=""
             id=""
             value={info.getValue()}
-            checked={discountIds.includes(discountId)}
-            onChange={e => checkboxHandler(e, discountId)}
+            checked={discountIds.includes(discountId as string)}
+            onChange={e => checkboxHandler(e, discountId as string)}
           />
         );
       },
@@ -64,7 +64,19 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
     }),
     columnHelper.accessor("status", {
       header: () => "وضعیت",
-      cell: info => info.renderValue(),
+      cell: info => (
+        <span
+          className={twMerge(
+            info.getValue() === "active"
+              ? "btn-success bg-opacity-70 px-1.5 py-0.5"
+              : info.getValue() === "notActive"
+                ? "btn-warning bg-opacity-70 px-1.5 py-0.5"
+                : "btn-danger bg-opacity-70 px-1.5 py-0.5",
+          )}
+        >
+          {info.getValue() === "active" ? "فعال" : info.getValue() === "notActive" ? "غیر فعال" : "منقضی شده"}
+        </span>
+      ),
     }),
     columnHelper.accessor("_id", {
       header: "",

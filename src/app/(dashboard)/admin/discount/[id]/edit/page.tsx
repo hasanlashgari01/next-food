@@ -1,6 +1,6 @@
 "use client";
 
-import { IDiscountInputs, TType } from "@/common/interface/discount";
+import { IDiscountInputs, TStatus, TType } from "@/common/interface/discount";
 import InputText from "@/components/modules/Input/InputText";
 import { useGetDiscount, useUpdateDiscount } from "@/hooks/useAdmin";
 import { useParams } from "next/navigation";
@@ -27,6 +27,7 @@ const EditDiscountPage = () => {
       type: null,
       amount: null,
       usageCount: null,
+      status: null,
     },
     values: discountData,
   });
@@ -43,6 +44,7 @@ const EditDiscountPage = () => {
       type: getValues("type"),
       amount: getValues("amount"),
       usageCount: getValues("usageCount"),
+      status: getValues("status"),
     };
 
     try {
@@ -54,10 +56,15 @@ const EditDiscountPage = () => {
   };
 
   const typeHandler = (e?: ChangeEvent<HTMLInputElement>) => {
-    let type = e?.target?.id as TType;
+    let type = e?.currentTarget?.id as TType;
     setValue("type", type);
     setType(type);
     setAmountLabel(type === "fixedProduct" ? "مبلغ" : "درصد");
+  };
+
+  const statusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    let curr = e.currentTarget?.id;
+    setValue("status", curr as TStatus);
   };
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -95,6 +102,44 @@ const EditDiscountPage = () => {
                   {...register("type", { required: true, onChange: event => typeHandler(event) })}
                 />
                 <span>درصد</span>
+              </label>
+            </div>
+          </div>
+
+          <div className="col-span-5 flex flex-col gap-2">
+            <span className="mb-1 inline-block pr-4 text-sm font-semibold text-primary-900 dark:text-slate-300">
+              وضعیت
+            </span>
+            <div className="flex gap-2">
+              <label htmlFor="notActive" className="radio-label">
+                <input
+                  type="radio"
+                  id="notActive"
+                  value="notActive"
+                  className="radio-input"
+                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
+                />
+                <span>غیرفعال</span>
+              </label>
+              <label htmlFor="active" className="radio-label">
+                <input
+                  type="radio"
+                  id="active"
+                  value="active"
+                  className="radio-input"
+                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
+                />
+                <span>فعال</span>
+              </label>
+              <label htmlFor="expired" className="radio-label">
+                <input
+                  type="radio"
+                  id="expired"
+                  value="expired"
+                  className="radio-input"
+                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
+                />
+                <span>منقضی شده</span>
               </label>
             </div>
           </div>
