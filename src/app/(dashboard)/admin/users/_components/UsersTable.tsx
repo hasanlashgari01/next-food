@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { FaBan } from "react-icons/fa";
 import { GrUserAdmin } from "react-icons/gr";
 import { HiOutlineUser } from "react-icons/hi2";
+import { twMerge } from "tailwind-merge";
 
 interface TableProps {
   users: Person[];
@@ -49,7 +50,10 @@ const UsersTable: React.FC<TableProps> = ({ users, refetchUsers, refetchBanUsers
             <FaBan />
           </span>
           <span
-            className={`table-btn ${info.row.original.role === "ADMIN" ? "bg-green-300 dark:bg-green-500" : "bg-amber-300 dark:bg-amber-700"}`}
+            className={twMerge(
+              "table-btn",
+              `${info.row.original.role === "ADMIN" ? "bg-green-300 dark:bg-green-500" : "bg-amber-300 dark:bg-amber-700"}`,
+            )}
             onClick={() => changeRoleHandler(info.getValue())}
           >
             {info.row.original.role === "ADMIN" ? <GrUserAdmin /> : <HiOutlineUser />}

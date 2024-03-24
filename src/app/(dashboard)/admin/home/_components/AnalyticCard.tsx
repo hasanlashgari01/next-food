@@ -1,4 +1,5 @@
 import React from "react";
+import { twMerge } from "tailwind-merge";
 
 interface AnalyticCardProps {
   name: string;
@@ -11,7 +12,10 @@ const AnalyticCard: React.FC<AnalyticCardProps> = ({ name, count, bgColor, Icon 
   return (
     <div className="group flex justify-center gap-3 rounded-xl bg-white p-5 shadow-md sm:gap-8 md:shadow-lg lg:rounded-2xl dark:bg-slate-800 dark:shadow-none">
       <div
-        className={`flex size-12 items-center justify-center self-center overflow-hidden rounded-2xl p-2 sm:size-16 sm:rounded-3xl sm:p-4 ${bgColor} shadow-xl dark:shadow-none`}
+        className={twMerge(
+          "flex size-12 items-center justify-center self-center overflow-hidden rounded-2xl p-2 shadow-xl sm:size-16 sm:rounded-3xl sm:p-4 dark:shadow-none",
+          `${bgColor}`,
+        )}
       >
         <Icon className="size-6 stroke-white stroke-1 text-white sm:size-full" />
       </div>

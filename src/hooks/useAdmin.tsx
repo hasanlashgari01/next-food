@@ -9,6 +9,7 @@ import {
   getCategories,
   getCategory,
   getDashboard,
+  getDiscount,
   getDiscounts,
   getProvince,
   getProvinces,
@@ -19,6 +20,7 @@ import {
   removeSelectedDiscount,
   removeSelectedProvince,
   updateCategory,
+  updateDiscount,
   updateProvince,
   updateValidRestaurant,
 } from "@/services/adminService";
@@ -57,6 +59,10 @@ const useUpdateCategory = () => useMutation({ mutationFn: updateCategory });
 const useGetDiscountList = () => useQuery({ queryKey: ["discounts"], queryFn: getDiscounts });
 
 const useAddDiscount = () => useMutation({ mutationFn: addDiscount });
+
+const useGetDiscount = (id: string) => useQuery({ queryKey: ["discount", id], queryFn: () => getDiscount(id) });
+
+const useUpdateDiscount = () => useMutation({ mutationFn: updateDiscount });
 
 const useRemoveDiscount = () => useMutation({ mutationFn: removeDiscount });
 
@@ -99,4 +105,6 @@ export {
   useRemoveProvince,
   useRemoveSelectedProvince,
   useGetProvince,
+  useUpdateDiscount,
+  useGetDiscount,
 };

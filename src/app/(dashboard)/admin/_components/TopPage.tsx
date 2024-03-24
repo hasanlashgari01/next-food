@@ -6,6 +6,7 @@ import Select, { PropsValue } from "react-select";
 import TopPageTitle from "./TopPageTitle";
 import SearchBar from "./SearchBar";
 import { HiArrowSmallLeft } from "react-icons/hi2";
+import { twMerge } from "tailwind-merge";
 
 interface TopPageProps extends SearchBarProps {
   readonly options?: readonly SelectOption[];
@@ -33,7 +34,12 @@ const TopPage: React.FC<TopPageProps> = ({
   linkStyle = "btn-primary",
 }) => {
   return (
-    <div className={`my-2.5 flex flex-wrap justify-between gap-4 md:items-center ${options && "max-md:flex-col"}`}>
+    <div
+      className={twMerge(
+        "my-2.5 flex flex-wrap justify-between gap-4 md:items-center",
+        `${options && "max-md:flex-col"}`,
+      )}
+    >
       {/* Right Side */}
       <div className="flex md:items-center lg:w-fit lg:gap-5 xl:px-5">
         <div className="hidden items-center xl:flex xl:gap-4">
@@ -46,7 +52,7 @@ const TopPage: React.FC<TopPageProps> = ({
       {/* Left Side */}
       {options && (
         <Select
-          className={`text-base md:w-64 dark:text-black`}
+          className="text-base md:w-64 dark:text-black"
           classNamePrefix="react-select"
           placeholder={placeholder ?? title}
           defaultValue={selectedOption}
@@ -56,7 +62,10 @@ const TopPage: React.FC<TopPageProps> = ({
       )}
 
       {link && (
-        <Link href={link} className={`btn h-11 ${linkStyle} ${linkText ? "min-w-28" : "w-12 rounded-full p-0"}`}>
+        <Link
+          href={link}
+          className={twMerge("btn h-11", `${linkStyle}`, `${linkText ? "min-w-28" : "w-12 rounded-full p-0"}`)}
+        >
           {linkText ? linkText : <HiArrowSmallLeft className="size-5" />}
         </Link>
       )}

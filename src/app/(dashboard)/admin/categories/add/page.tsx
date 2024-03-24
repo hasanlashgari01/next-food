@@ -5,6 +5,7 @@ import { useAddCategory } from "@/hooks/useAdmin";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import TopPage from "../../_components/TopPage";
+import { twMerge } from "tailwind-merge";
 
 interface Inputs {
   title: string;
@@ -44,7 +45,11 @@ const AddCategory = () => {
           <InputText id="title" label="عنوان دسته بندی" type="text" message={errors.title ? errors.title.message : ""}>
             <input
               type="text"
-              className={`form__input pr-6 ${errors.title && "border-cancel dark:border-cancel"} ${touchedFields.title && getValues().title !== "" && !errors?.title && "border-success dark:border-success"}`}
+              className={twMerge(
+                "form__input pr-6",
+                `${errors.title && "border-cancel dark:border-cancel"}`,
+                `${touchedFields.title && getValues().title !== "" && !errors?.title && "border-success dark:border-success"}`,
+              )}
               dir="rtl"
               {...register("title", {
                 required: { value: true, message: "عنوان اجباری هست" },
@@ -56,7 +61,11 @@ const AddCategory = () => {
           <InputText id="slug" label="لینک دسته بندی" type="text" message={errors.slug ? errors.slug.message : ""}>
             <input
               type="text"
-              className={`form__input pr-6 ${errors.slug && "border-cancel dark:border-cancel"} ${touchedFields.slug && getValues().slug !== "" && !errors?.slug && "border-success dark:border-success"}`}
+              className={twMerge(
+                "form__input pr-6",
+                `${errors.slug && "border-cancel dark:border-cancel"}`,
+                `${touchedFields.slug && getValues().slug !== "" && !errors?.slug && "border-success dark:border-success"}`,
+              )}
               dir="rtl"
               {...register("slug", {
                 required: { value: true, message: "لینک اجباری هست" },

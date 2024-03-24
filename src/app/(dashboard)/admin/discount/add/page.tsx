@@ -7,6 +7,7 @@ import TopPage from "../../_components/TopPage";
 import InputText from "@/components/modules/Input/InputText";
 import toast from "react-hot-toast";
 import { ChangeEvent, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const AddDiscount = () => {
   const [type, setType] = useState<TType>("fixedProduct");
@@ -140,7 +141,11 @@ const AddDiscount = () => {
             >
               <input
                 type="text"
-                className={`form__input pr-6 ${errors.code && "border-cancel dark:border-cancel"} ${touchedFields.code && getValues().code !== "" && !errors?.code && "border-success dark:border-success"}`}
+                className={twMerge(
+                  "form__input pr-6",
+                  `${errors.code && "border-cancel dark:border-cancel"}`,
+                  `${touchedFields.code && getValues().code !== "" && !errors?.code && "border-success dark:border-success"}`,
+                )}
                 dir="ltr"
                 {...register("code", {
                   required: { value: true, message: "عنوان اجباری هست" },
@@ -162,7 +167,11 @@ const AddDiscount = () => {
                 type="number"
                 inputMode="numeric"
                 placeholder=""
-                className={`form__input pr-6 ${errors.usageCount && "border-cancel dark:border-cancel"} ${!errors?.usageCount && "border-success dark:border-success"}`}
+                className={twMerge(
+                  "form__input pr-6",
+                  `${errors.usageCount && "border-cancel dark:border-cancel"}`,
+                  `${!errors?.usageCount && "border-success dark:border-success"}`,
+                )}
                 dir="rtl"
                 {...register("usageCount", { min: { value: 1, message: "تعداد باید بیشتر از ۱ باشد" } })}
               />

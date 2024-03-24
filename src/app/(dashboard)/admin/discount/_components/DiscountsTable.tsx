@@ -70,7 +70,7 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
       header: "",
       cell: info => (
         <div className="flex flex-wrap gap-1.5">
-          <Link href={`/admin/discount/${info.getValue()}`} className="table-btn bg-amber-300 dark:bg-amber-700">
+          <Link href={`/admin/discount/${info.getValue()}/edit`} className="table-btn bg-amber-300 dark:bg-amber-700">
             <HiMiniPencilSquare />
           </Link>
           <span className="table-btn bg-red-300 dark:bg-red-700" onClick={() => showDeleteModal(info.getValue())}>

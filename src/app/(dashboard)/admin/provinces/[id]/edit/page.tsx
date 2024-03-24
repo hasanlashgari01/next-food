@@ -7,6 +7,7 @@ import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import TopPage from "../../../_components/TopPage";
+import { twMerge } from "tailwind-merge";
 
 const EditProvincePage = () => {
   const { id }: { id: string } = useParams();
@@ -51,7 +52,11 @@ const EditProvincePage = () => {
             >
               <input
                 type="text"
-                className={`form__input pr-6 ${errors.name && "border-cancel dark:border-cancel"} ${touchedFields.name && getValues().name !== "" && !errors?.name && "border-success dark:border-success"}`}
+                className={twMerge(
+                  "form__input pr-6",
+                  `${errors.name && "border-cancel dark:border-cancel"}`,
+                  `${touchedFields.name && getValues().name !== "" && !errors?.name && "border-success dark:border-success"}`,
+                )}
                 dir="rtl"
                 {...register("name", { required: { value: true, message: "نام اجباری هست" } })}
               />
@@ -66,7 +71,11 @@ const EditProvincePage = () => {
               <input
                 type="text"
                 placeholder=""
-                className={`form__input pr-6 ${errors.englishTitle && "border-cancel dark:border-cancel"} ${touchedFields.englishTitle && getValues().englishTitle !== "" && !errors?.englishTitle && "border-success dark:border-success"}`}
+                className={twMerge(
+                  "form__input pr-6",
+                  `${errors.englishTitle && "border-cancel dark:border-cancel"}`,
+                  `${touchedFields.englishTitle && getValues().englishTitle !== "" && !errors?.englishTitle && "border-success dark:border-success"}`,
+                )}
                 dir="ltr"
                 {...register("englishTitle", {
                   required: { value: true, message: "نام انگلیسی اجباری هست" },

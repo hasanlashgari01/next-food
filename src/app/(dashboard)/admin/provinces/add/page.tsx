@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { IProvince } from "@/common/interface/province";
 import { useAddProvince } from "@/hooks/useAdmin";
 import toast from "react-hot-toast";
+import { twMerge } from "tailwind-merge";
 
 const AddProvince = () => {
   const { mutateAsync } = useAddProvince();
@@ -46,7 +47,11 @@ const AddProvince = () => {
             >
               <input
                 type="text"
-                className={`form__input pr-6 ${errors.name && "border-cancel dark:border-cancel"} ${touchedFields.name && getValues().name !== "" && !errors?.name && "border-success dark:border-success"}`}
+                className={twMerge(
+                  "form__input pr-6",
+                  `${errors.name && "border-cancel dark:border-cancel"}`,
+                  `${touchedFields.name && getValues().name !== "" && !errors?.name && "border-success dark:border-success"}`,
+                )}
                 dir="rtl"
                 {...register("name", { required: { value: true, message: "نام اجباری هست" } })}
               />
@@ -61,7 +66,11 @@ const AddProvince = () => {
               <input
                 type="text"
                 placeholder=""
-                className={`form__input pr-6 ${errors.englishTitle && "border-cancel dark:border-cancel"} ${touchedFields.englishTitle && getValues().englishTitle !== "" && !errors?.englishTitle && "border-success dark:border-success"}`}
+                className={twMerge(
+                  "form__input pr-6",
+                  `${errors.englishTitle && "border-cancel dark:border-cancel"}`,
+                  `${touchedFields.englishTitle && getValues().englishTitle !== "" && !errors?.englishTitle && "border-success dark:border-success"}`,
+                )}
                 dir="ltr"
                 {...register("englishTitle", {
                   required: { value: true, message: "نام انگلیسی اجباری هست" },

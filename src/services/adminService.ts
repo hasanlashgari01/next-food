@@ -63,6 +63,11 @@ const getDiscounts = () => api(`${adminCoupon}`).then(({ data }) => data);
 
 const addDiscount = (data: IDiscount) => api.post(`${adminCoupon}`, data).then(({ data }) => data);
 
+const getDiscount = (id: string) => api(`${adminCoupon}${id}`).then(({ data }) => data);
+
+const updateDiscount = ({ id, data }: Update<IDiscount>) =>
+  api.put(`${adminCoupon}${id}`, data).then(({ data }) => data);
+
 const removeDiscount = (id: string) => api.delete(`${adminCoupon}${id}`).then(({ data }) => data);
 
 const removeSelectedDiscount = (couponsId: TDeleteMany) =>
@@ -72,11 +77,7 @@ const removeSelectedDiscount = (couponsId: TDeleteMany) =>
 
 const getProvinces = () => api(`${adminProvince}`).then(({ data }) => data);
 
-const getProvince = (id: string) =>
-  api(`${adminProvince}${id}`).then(({ data }) => {
-    console.log(data);
-    return data;
-  });
+const getProvince = (id: string) => api(`${adminProvince}${id}`).then(({ data }) => data);
 
 const addProvince = (data: IProvince) => api.post(`${adminProvince}`, data).then(({ data }) => data);
 
@@ -90,6 +91,7 @@ const removeSelectedProvince = (provinceIds: TDeleteMany) =>
 
 export {
   addDiscount,
+  updateDiscount,
   addNewCategory,
   getBanUsers,
   banOrUnbanUser,
@@ -113,4 +115,5 @@ export {
   removeProvince,
   removeSelectedProvince,
   getProvince,
+  getDiscount,
 };

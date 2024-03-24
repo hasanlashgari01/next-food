@@ -3,6 +3,7 @@
 import { NotificationProps } from "@/common/interface/notification";
 import { useState } from "react";
 import { HiOutlineBell } from "react-icons/hi2";
+import { twMerge } from "tailwind-merge";
 
 const NotificationDropdown: React.FC<{ notifications: NotificationProps[] }> = ({ notifications }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,13 +15,19 @@ const NotificationDropdown: React.FC<{ notifications: NotificationProps[] }> = (
   return (
     <div className="relative">
       <div
-        className={`relative flex size-12 cursor-pointer items-center justify-center rounded-full bg-background transition-all duration-200 ease-linear lg:size-14  lg:bg-white dark:bg-slate-700 ${isOpen ? "z-20" : "z-0"}`}
+        className={twMerge(
+          "relative flex size-12 cursor-pointer items-center justify-center rounded-full bg-background transition-all duration-200 ease-linear lg:size-14  lg:bg-white dark:bg-slate-700",
+          `${isOpen ? "z-20" : "z-0"}`,
+        )}
         onClick={() => setIsOpen(!isOpen)}
       >
         <HiOutlineBell className="size-6 lg:size-7 dark:text-white" />
       </div>
       <div
-        className={`fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-all duration-200 ease-linear dark:bg-slate-950/70 ${isOpen ? "visible z-10 opacity-100" : "invisible opacity-0"}`}
+        className={twMerge(
+          "fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-all duration-200 ease-linear dark:bg-slate-950/70",
+          `${isOpen ? "visible z-10 opacity-100" : "invisible opacity-0"}`,
+        )}
         onClick={() => setIsOpen(false)}
       ></div>
       {isOpen && (
