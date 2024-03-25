@@ -111,16 +111,6 @@ const EditDiscountPage = () => {
               وضعیت
             </span>
             <div className="flex gap-2">
-              <label htmlFor="notActive" className="radio-label">
-                <input
-                  type="radio"
-                  id="notActive"
-                  value="notActive"
-                  className="radio-input"
-                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
-                />
-                <span>غیرفعال</span>
-              </label>
               <label htmlFor="active" className="radio-label">
                 <input
                   type="radio"
@@ -130,6 +120,16 @@ const EditDiscountPage = () => {
                   {...register("status", { required: true, onChange: event => statusHandler(event) })}
                 />
                 <span>فعال</span>
+              </label>
+              <label htmlFor="notActive" className="radio-label">
+                <input
+                  type="radio"
+                  id="notActive"
+                  value="notActive"
+                  className="radio-input"
+                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
+                />
+                <span>غیرفعال</span>
               </label>
               <label htmlFor="expired" className="radio-label">
                 <input
@@ -187,6 +187,7 @@ const EditDiscountPage = () => {
                   "amount",
                   type === "fixedProduct"
                     ? {
+                        required: { value: true, message: "مبلغ اجباری هست" },
                         pattern: { value: /^[0-9]+$/, message: "فقط از عدد استفاده کنید" },
                         min: { value: 1, message: "مبلغ باید بیشتر از ۱ باشد" },
                         max: { value: 10_000_000, message: "مبلغ باید کمتر از ۱۰۰۰۰۰۰ باشد" },

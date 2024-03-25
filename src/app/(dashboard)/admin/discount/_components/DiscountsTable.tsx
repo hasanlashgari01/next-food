@@ -68,10 +68,10 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
         <span
           className={twMerge(
             info.getValue() === "active"
-              ? "btn-success bg-opacity-70 px-1.5 py-0.5"
+              ? "btn-success rounded-md bg-opacity-70 px-1.5 py-0.5 text-white"
               : info.getValue() === "notActive"
-                ? "btn-warning bg-opacity-70 px-1.5 py-0.5"
-                : "btn-danger bg-opacity-70 px-1.5 py-0.5",
+                ? "btn-warning rounded-md bg-opacity-70 px-1.5 py-0.5 text-white"
+                : "btn-danger rounded-md bg-opacity-70 px-1.5 py-0.5 text-white",
           )}
         >
           {info.getValue() === "active" ? "فعال" : info.getValue() === "notActive" ? "غیر فعال" : "منقضی شده"}

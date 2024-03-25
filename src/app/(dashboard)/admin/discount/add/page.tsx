@@ -1,16 +1,15 @@
 "use client";
 
-import { IDiscountInputs, TType } from "@/common/interface/discount";
+import { IDiscountInputs, TStatus, TType } from "@/common/interface/discount";
 import { useAddDiscount } from "@/hooks/useAdmin";
 import { SubmitHandler, useForm } from "react-hook-form";
 import TopPage from "../../_components/TopPage";
 import InputText from "@/components/modules/Input/InputText";
 import toast from "react-hot-toast";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 const AddDiscount = () => {
-  const [type, setType] = useState<TType>("fixedProduct");
   const { mutateAsync } = useAddDiscount();
   const {
     register,
@@ -20,21 +19,31 @@ const AddDiscount = () => {
     reset,
     formState: { touchedFields, errors, isValid },
   } = useForm<IDiscountInputs>({
-    mode: "onChange",
+    mode: "all",
     defaultValues: {
       code: "",
       type: "fixedProduct",
       amount: null,
-      amountFixed: null,
-      amountPercent: null,
       usageCount: null,
+      status: "active",
     },
   });
+  const [type, setType] = useState<TType>("fixedProduct");
+  const [amountLabel, setAmountLabel] = useState<"مبلغ" | "درصد" | null>(null);
 
-  const onSubmit: SubmitHandler<IDiscountInputs> = async data => {
-    data.amount = type === "fixedProduct" ? data.amountFixed : data.amountPercent;
-    delete data.amountFixed;
-    delete data.amountPercent;
+  useEffect(() => {
+    setAmountLabel(type === "fixedProduct" ? "مبلغ" : "درصد");
+  }, [type]);
+
+  const onSubmit: SubmitHandler<IDiscountInputs> = async () => {
+    let data: IDiscountInputs = {
+      code: getValues("code"),
+      type: getValues("type"),
+      amount: getValues("amount"),
+      usageCount: getValues("usageCount"),
+      status: getValues("status"),
+    };
+
     try {
       const { message } = await mutateAsync(data);
       toast.success(message);
@@ -49,58 +58,14 @@ const AddDiscount = () => {
     setType(type);
   };
 
-  const amountHandler = () => {
-    switch (type) {
-      case "fixedProduct":
-        return (
-          <InputText
-            id="amountFixed"
-            label="میزان"
-            type="text"
-            message={errors.amountFixed ? errors.amountFixed.message : ""}
-            msgWidth="w-64"
-          >
-            <input
-              type="number"
-              inputMode="numeric"
-              placeholder=""
-              className={`form__input pr-6 ${errors.amountFixed && "border-cancel dark:border-cancel"} ${touchedFields.amountFixed && !errors?.amountFixed && "border-success dark:border-success"}`}
-              dir="rtl"
-              {...register("amountFixed", {
-                required: { value: true, message: "میزان اجباری هست" },
-                pattern: { value: /^[0-9]+$/, message: "فقط از عدد استفاده کنید" },
-              })}
-            />
-          </InputText>
-        );
-      case "percent":
-        return (
-          <InputText
-            id="amountPercent"
-            label="میزان"
-            type="text"
-            message={errors.amountPercent ? errors.amountPercent.message : ""}
-            msgWidth="w-64"
-          >
-            <input
-              type="number"
-              inputMode="numeric"
-              placeholder=""
-              className={`form__input pr-6 ${errors.amountPercent && "border-cancel dark:border-cancel"} ${touchedFields.amountPercent && !errors?.amountPercent && "border-success dark:border-success"}`}
-              dir="rtl"
-              {...register("amountPercent", {
-                required: { value: true, message: "میزان اجباری هست" },
-                pattern: { value: /^[0-9]+$/, message: "فقط از عدد استفاده کنید" },
-                min: { value: 1, message: "میزان باید بیشتر از ۱ باشد" },
-                max: { value: 100, message: "میزان باید کمتر از ۱۰۰ باشد" },
-              })}
-            />
-          </InputText>
-        );
+  const statusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    let curr = e.currentTarget?.id;
+    setValue("status", curr as TStatus);
+  };
 
-      default:
-        break;
-    }
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    let curr = e.currentTarget;
+    setValue(curr.id as keyof IDiscountInputs, curr.value);
   };
 
   return (
@@ -108,6 +73,7 @@ const AddDiscount = () => {
       <TopPage title="افزودن کد تخفیف" link="/admin/discount" />
       <form onSubmit={handleSubmit(onSubmit)} className="font-IranYekan">
         <div className="grid grid-cols-5 gap-6">
+          {/* input radio */}
           <div className="col-span-5 flex flex-col gap-2">
             <span className="mb-1 inline-block pr-4 text-sm font-semibold text-primary-900 dark:text-slate-300">
               نوع کد
@@ -116,17 +82,60 @@ const AddDiscount = () => {
               <label htmlFor="fixedProduct" className="radio-label">
                 <input
                   type="radio"
-                  name="type"
                   id="fixedProduct"
-                  defaultChecked
+                  value="fixedProduct"
                   className="radio-input"
-                  onChange={e => typeHandler(e)}
+                  {...register("type", { required: true, onChange: event => typeHandler(event) })}
                 />
-                <span>کد</span>
+                <span>مبلغ</span>
               </label>
               <label htmlFor="percent" className="radio-label">
-                <input type="radio" name="type" id="percent" className="radio-input" onChange={e => typeHandler(e)} />
+                <input
+                  type="radio"
+                  id="percent"
+                  value="percent"
+                  className="radio-input"
+                  {...register("type", { required: true, onChange: event => typeHandler(event) })}
+                />
                 <span>درصد</span>
+              </label>
+            </div>
+          </div>
+
+          <div className="col-span-5 flex flex-col gap-2">
+            <span className="mb-1 inline-block pr-4 text-sm font-semibold text-primary-900 dark:text-slate-300">
+              وضعیت
+            </span>
+            <div className="flex gap-2">
+              <label htmlFor="active" className="radio-label">
+                <input
+                  type="radio"
+                  id="active"
+                  value="active"
+                  className="radio-input"
+                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
+                />
+                <span>فعال</span>
+              </label>
+              <label htmlFor="notActive" className="radio-label">
+                <input
+                  type="radio"
+                  id="notActive"
+                  value="notActive"
+                  className="radio-input"
+                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
+                />
+                <span>غیرفعال</span>
+              </label>
+              <label htmlFor="expired" className="radio-label">
+                <input
+                  type="radio"
+                  id="expired"
+                  value="expired"
+                  className="radio-input"
+                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
+                />
+                <span>منقضی شده</span>
               </label>
             </div>
           </div>
@@ -155,7 +164,44 @@ const AddDiscount = () => {
                 })}
               />
             </InputText>
-            {amountHandler()}
+
+            <InputText
+              id="amountPercent"
+              label={amountLabel as string}
+              type="text"
+              message={errors?.amount?.message}
+              msgWidth="w-64"
+            >
+              <input
+                type="number"
+                inputMode="numeric"
+                className={twMerge(
+                  "form__input pr-6",
+                  `${errors.amount && "border-cancel dark:border-cancel"}`,
+                  `${touchedFields.amount && !errors?.amount && "border-success dark:border-success"}`,
+                )}
+                dir="ltr"
+                {...register(
+                  "amount",
+                  type === "fixedProduct"
+                    ? {
+                        required: { value: true, message: "مبلغ اجباری هست" },
+                        pattern: { value: /^[0-9]+$/, message: "فقط از عدد استفاده کنید" },
+                        min: { value: 1, message: "مبلغ باید بیشتر از ۱ باشد" },
+                        max: { value: 10_000_000, message: "مبلغ باید کمتر از ۱۰۰۰۰۰۰ باشد" },
+                        onChange: (e: ChangeEvent<HTMLInputElement>) => changeHandler(e),
+                      }
+                    : {
+                        required: { value: true, message: "درصد اجباری هست" },
+                        pattern: { value: /^[0-9]+$/, message: "فقط از عدد استفاده کنید" },
+                        min: { value: 1, message: "درصد باید بیشتر از ۱ باشد" },
+                        max: { value: 100, message: "درصد باید کمتر از ۱۰۰ باشد" },
+                        onChange: (e: ChangeEvent<HTMLInputElement>) => changeHandler(e),
+                      },
+                )}
+              />
+            </InputText>
+
             <InputText
               id="usageCount"
               label="تعداد"
@@ -170,10 +216,13 @@ const AddDiscount = () => {
                 className={twMerge(
                   "form__input pr-6",
                   `${errors.usageCount && "border-cancel dark:border-cancel"}`,
-                  `${!errors?.usageCount && "border-success dark:border-success"}`,
+                  `${touchedFields.usageCount && !errors?.usageCount && "border-success dark:border-success"}`,
                 )}
-                dir="rtl"
-                {...register("usageCount", { min: { value: 1, message: "تعداد باید بیشتر از ۱ باشد" } })}
+                dir="ltr"
+                {...register("usageCount", {
+                  required: { value: true, message: "تعداد اجباری هست" },
+                  min: { value: 1, message: "تعداد باید بیشتر از ۱ باشد" },
+                })}
               />
             </InputText>
           </div>
