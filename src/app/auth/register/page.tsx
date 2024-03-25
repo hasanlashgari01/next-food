@@ -96,7 +96,7 @@ const Register = () => {
         </InputText>
         <InputPassword
           message={errors.password ? errors.password.message : ""}
-          type={typePassword}
+          type="password"
           onType={setTypePassword}
         >
           <input

@@ -1,5 +1,13 @@
 import { api } from "@/config/axiosConfig";
+import { userRoute } from "./routeService";
 
-const getUser = () => api(`/api/user/whoami`).then(data => data.data);
+export interface IPasswordData {
+  currentPassword: string;
+  newPassword: string;
+}
 
-export { getUser };
+const getUser = () => api(`/api/user/whoami`).then(({ data }) => data);
+
+const changePassword = (data: IPasswordData) => api.patch(userRoute, { ...data }).then(({ data }) => data);
+
+export { getUser, changePassword };

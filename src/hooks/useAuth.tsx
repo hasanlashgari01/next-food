@@ -1,5 +1,5 @@
-import { getUser } from "@/services/authService";
-import { useQuery } from "@tanstack/react-query";
+import { IPasswordData, changePassword, getUser } from "@/services/authService";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetUser = () =>
   useQuery({
@@ -9,4 +9,6 @@ const useGetUser = () =>
     refetchOnWindowFocus: true,
   });
 
-export { useGetUser };
+const useChangePassword = () => useMutation({ mutationFn: changePassword });
+
+export { useGetUser, useChangePassword };

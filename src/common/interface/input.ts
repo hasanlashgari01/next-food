@@ -4,6 +4,7 @@ interface InputProps {
   message: string | undefined;
   children?: ReactNode;
   type: "password" | "text";
+  label?: string;
 }
 
 export interface TextProps extends InputProps {

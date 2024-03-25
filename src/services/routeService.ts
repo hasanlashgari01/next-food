@@ -4,6 +4,8 @@ const adminSearch = "/search/";
 const adminCoupon = "/api/coupon/";
 const adminProvince = "/api/province/";
 
+const userRoute = "/api/user/";
+
 const category = "/category/";
 
-export { adminUser, adminRestaurant, adminSearch, category, adminCoupon, adminProvince };
+export { adminUser, adminRestaurant, adminSearch, category, adminCoupon, adminProvince, userRoute };
