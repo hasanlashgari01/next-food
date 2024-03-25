@@ -1,4 +1,4 @@
-import { IPasswordData, changePassword, getUser } from "@/services/authService";
+import { changePassword, getUser, updateProfile } from "@/services/authService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetUser = () =>
@@ -9,6 +9,8 @@ const useGetUser = () =>
     refetchOnWindowFocus: true,
   });
 
+const useUpdateProfile = () => useMutation({ mutationFn: updateProfile });
+
 const useChangePassword = () => useMutation({ mutationFn: changePassword });
 
-export { useGetUser, useChangePassword };
+export { useChangePassword, useGetUser, useUpdateProfile };

@@ -8,7 +8,7 @@ const InputPassword: React.FC<PasswordProps> = ({ type, onType, message, childre
   return (
     <label htmlFor="password" className="text-xs sm:text-sm">
       <div className="mb-2 flex justify-between px-4">
-        <span className="font-semibold text-primary-900">{label}</span>
+        <span className="shrink-0 font-semibold text-primary-900">{label}</span>
         {message && <span className="w-48 text-left font-semibold text-red-500 sm:w-60">{message}</span>}
       </div>
       <div className="relative">
