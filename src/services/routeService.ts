@@ -8,4 +8,6 @@ const userRoute = "/api/user/";
 
 const category = "/category/";
 
-export { adminUser, adminRestaurant, adminSearch, category, adminCoupon, adminProvince, userRoute };
+const fileRoute = "http://localhost:5000/files/public/";
+
+export { adminUser, adminRestaurant, adminSearch, category, adminCoupon, adminProvince, userRoute, fileRoute };

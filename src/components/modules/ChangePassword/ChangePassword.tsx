@@ -119,7 +119,7 @@ const ChangePassword = () => {
         </button>
       </form>
       {/* describe */}
-      <ul className="col-span-6 h-fit list-decimal rounded-lg border border-green-300 p-5 drop-shadow-sm sm:col-span-4 xl:col-span-3 xl:mr-16 xl:mt-7">
+      <ul className="col-span-6 h-fit list-decimal rounded-lg border border-green-300 p-5 drop-shadow-sm sm:col-span-4 xl:col-span-3 xl:mr-16 xl:mt-7 dark:border-green-800/70">
         <h3>رمز عبور صحیح</h3>
         <div className="my-2 pr-8 child:text-xs/6 child:text-green-500 md:child:text-sm/7 xl:child:text-base/8">
           <li>بین ۸ الی ۳۲ کاراکتر</li>

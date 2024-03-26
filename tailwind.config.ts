@@ -47,6 +47,8 @@ const config = {
       addVariant("child-disabled", "& > *:disabled");
       addVariant("child-not-last", "& > *:not(:last-child)");
       addVariant("child-not-first", "& > *:not(:first-child)");
+      addVariant("child-first", "& > *:first-child");
+      addVariant("child-last", "& > *:last-child");
     },
   ],
 } satisfies Config;

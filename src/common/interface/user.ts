@@ -1,7 +1,7 @@
-type TRole = "ADMIN" | "USER" | "SELLER";
-type TGender = "male" | "female" | "other";
+export type TRole = "ADMIN" | "USER" | "SELLER";
+export type TGender = "male" | "female" | "other";
 
-interface ICart {
+export interface ICart {
   foods: [];
   coupon: string;
 }
@@ -10,13 +10,13 @@ export interface IUser {
   fullName?: string;
   email: string;
   mobile: string;
-  avatar: string;
+  avatarUrl: string;
   biography: string;
   isVerifiedMobile: boolean;
-  age: number;
-  gender: TGender;
+  age: number | null;
+  gender: TGender | null;
   verifiedAccount: boolean;
-  role: TRole;
+  role: TRole | null;
   restaurants: [];
   likedFoods: [];
   bookmarkedFoods: [];
@@ -24,5 +24,5 @@ export interface IUser {
   bookmarkedRestaurants: [];
   resetLink: string;
   foods: [];
-  cart: ICart;
+  cart: ICart | null;
 }

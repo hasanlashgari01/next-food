@@ -1,5 +1,7 @@
 import { NotificationProps } from "@/common/interface/notification";
 import NotificationDropdown from "@/components/modules/Header/NotificationDropdown";
+import { useGetUser } from "@/hooks/useAuth";
+import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
 import { useState } from "react";
 import { HiBars3 } from "react-icons/hi2";
@@ -11,6 +13,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const { isLoading, data } = useGetUser();
   const [notifications, setNotifications] = useState<NotificationProps[]>([]);
 
   return (
@@ -28,11 +31,11 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         <div className="flex gap-[18px]">
           <NotificationDropdown notifications={notifications} />
           <Image
-            src="/profile.jpg"
+            src={!isLoading && data?.avatarUrl ? `${fileRoute}user/${data?.avatarUrl}` : "/Auth.png"}
             alt="پروفایل"
             width={100}
             height={100}
-            priority={true}
+            loading="lazy"
             className="size-12 cursor-pointer rounded-full object-cover object-top lg:size-14"
           />
         </div>
