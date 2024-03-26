@@ -1,9 +1,7 @@
 import { tabs } from "@/constants/SettingsTab";
 import React, { Dispatch, SetStateAction } from "react";
 import { Tab, TabList } from "react-tabs";
-import "swiper/css";
 import { twMerge } from "tailwind-merge";
-import "swiper/css";
 
 interface Props {
   tabIndex: number;
@@ -15,13 +13,13 @@ const SettingTabs: React.FC<Props> = ({ tabIndex, setTabIndex }) => {
 
   return (
     <>
-      <TabList className="col-span-12 flex p-5 sm:justify-between sm:gap-5 xl:col-span-4 xl:flex-col xl:justify-start xl:gap-3">
+      <TabList className="col-span-12 flex h-fit gap-10 border-slate-300 p-5 pl-10 max-xl:border-b max-sm:justify-between xl:col-span-4 xl:flex-col xl:gap-3">
         {tabs.map(tab => (
           <Tab
             key={tab.id}
             className={twMerge(
-              "shrink-0 cursor-pointer px-5 text-xs max-xl:text-center sm:text-base xl:text-lg/10",
-              `${tab.id === tabIndex ? "text-blue-500" : ""}`,
+              "before:list-active-dot relative shrink-0 cursor-pointer  text-xs transition-colors duration-500 max-xl:text-center xs:text-base sm:px-5 xl:text-lg/10",
+              `${tab.id === tabIndex ? "text-blue-500 before:opacity-100" : "before:opacity-0"}`,
             )}
             onClick={() => tabHandler(tab.id)}
           >

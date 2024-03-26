@@ -118,7 +118,7 @@
   }
 
   .radio-label {
-    @apply mr-2 cursor-pointer rounded-md bg-slate-50 px-6 py-2 outline outline-1 outline-slate-300 ring-indigo-500 transition-all ease-in-out has-[:checked]:bg-indigo-500 has-[:checked]:text-white dark:bg-slate-800/100 dark:outline-slate-700 dark:has-[:checked]:bg-indigo-700;
+    @apply mr-2 cursor-pointer rounded-md bg-slate-50 px-4 py-1.5 md:px-6 md:py-2 outline outline-1 outline-slate-300 ring-indigo-500 transition-all ease-in-out has-[:checked]:bg-indigo-500 has-[:checked]:text-white dark:bg-slate-800/100 dark:outline-slate-700 dark:has-[:checked]:bg-indigo-700;
   }
 
   .radio-input {
@@ -135,5 +135,9 @@
 
   .pagination-btn {
     @apply flex size-8 items-center justify-center rounded-lg border border-slate-50 bg-blue-500 p-1 transition-colors duration-300 enabled:text-white disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-200/50 child:size-4 md:size-10 md:child:size-5 dark:border-slate-700 dark:bg-blue-600 dark:disabled:bg-slate-700/50;
+  }
+
+  .list-active-dot {
+    @apply absolute -right-3.5 top-1/2  size-1.5 -translate-y-1/2 rounded-full bg-sky-500 transition-opacity duration-1000 content-[''] before:size-5 before:rounded-full before:bg-sky-500 sm:right-0 dark:bg-sky-600 before:dark:bg-sky-600;
   }
 }

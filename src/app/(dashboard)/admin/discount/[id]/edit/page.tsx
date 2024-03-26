@@ -9,6 +9,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 import TopPage from "../../../_components/TopPage";
+import InputRadioGroup from "@/components/modules/Input/InputRadioGroup";
+import { codeStatusValues, codeValues } from "@/constants/radioValues";
 
 const EditDiscountPage = () => {
   const { id }: { id: string } = useParams();
@@ -77,71 +79,9 @@ const EditDiscountPage = () => {
       <TopPage title="به روز رسانی کد تخفیف" link="/admin/discount" />
       <form onSubmit={handleSubmit(onSubmit)} className="font-IranYekan">
         <div className="grid grid-cols-5 gap-6">
-          {/* input radio */}
           <div className="col-span-5 flex flex-col gap-2">
-            <span className="mb-1 inline-block pr-4 text-sm font-semibold text-primary-900 dark:text-slate-300">
-              نوع کد
-            </span>
-            <div className="flex gap-2">
-              <label htmlFor="fixedProduct" className="radio-label">
-                <input
-                  type="radio"
-                  id="fixedProduct"
-                  value="fixedProduct"
-                  className="radio-input"
-                  {...register("type", { required: true, onChange: event => typeHandler(event) })}
-                />
-                <span>مبلغ</span>
-              </label>
-              <label htmlFor="percent" className="radio-label">
-                <input
-                  type="radio"
-                  id="percent"
-                  value="percent"
-                  className="radio-input"
-                  {...register("type", { required: true, onChange: event => typeHandler(event) })}
-                />
-                <span>درصد</span>
-              </label>
-            </div>
-          </div>
-
-          <div className="col-span-5 flex flex-col gap-2">
-            <span className="mb-1 inline-block pr-4 text-sm font-semibold text-primary-900 dark:text-slate-300">
-              وضعیت
-            </span>
-            <div className="flex gap-2">
-              <label htmlFor="active" className="radio-label">
-                <input
-                  type="radio"
-                  id="active"
-                  value="active"
-                  className="radio-input"
-                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
-                />
-                <span>فعال</span>
-              </label>
-              <label htmlFor="notActive" className="radio-label">
-                <input
-                  type="radio"
-                  id="notActive"
-                  value="notActive"
-                  className="radio-input"
-                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
-                />
-                <span>غیرفعال</span>
-              </label>
-              <label htmlFor="expired" className="radio-label">
-                <input
-                  type="radio"
-                  id="expired"
-                  value="expired"
-                  className="radio-input"
-                  {...register("status", { required: true, onChange: event => statusHandler(event) })}
-                />
-                <span>منقضی شده</span>
-              </label>
-            </div>
+            <InputRadioGroup data={codeValues} register={register} handler={typeHandler} label="نوع کد" />
+            <InputRadioGroup data={codeStatusValues} register={register} handler={statusHandler} label="وضعیت" />
           </div>
 
           <div className="col-span-5 grid grid-cols-1 gap-4 sm:col-span-3 md:col-span-3 xl:col-span-2">

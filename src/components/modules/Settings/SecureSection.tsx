@@ -38,8 +38,8 @@ const SecureSection: React.FC<Props> = ({ isLoading, data, refetch, mutateAsync 
 
   return (
     <>
-      <form className="grid grid-cols-1 gap-6 lg:grid-cols-4" onSubmit={handleSubmit(onSubmit)}>
-        <div className="col-span-2 grid gap-4">
+      <form className="grid grid-cols-3 gap-6" onSubmit={handleSubmit(onSubmit)}>
+        <div className="col-span-3 grid gap-4 sm:col-span-2">
           <InputText id="mobile" label="شماره تلفن" type="text" message={errors.mobile ? errors.mobile.message : ""}>
             <input
               type="text"
@@ -63,7 +63,7 @@ const SecureSection: React.FC<Props> = ({ isLoading, data, refetch, mutateAsync 
             />
           </InputText>
         </div>
-        <button type="submit" className="add-btn col-span-5 mt-4 w-fit">
+        <button type="submit" className="add-btn col-span-2 mt-4 w-fit">
           ذخیره
         </button>
       </form>
