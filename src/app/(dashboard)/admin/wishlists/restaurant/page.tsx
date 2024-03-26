@@ -5,7 +5,7 @@ import { useGetUser } from "@/hooks/useAuth";
 import NotFound from "../_components/NotFound";
 
 const WishlistRestaurant = () => {
-  const { isLoading, data } = useGetUser();
+  const { isLoading, data, refetch } = useGetUser();
 
   return (
     <div className="grid grid-cols-6 gap-6 xl:grid-cols-12 xl:gap-12">
@@ -14,7 +14,14 @@ const WishlistRestaurant = () => {
         <div className="mt-6 grid place-items-center gap-x-4 gap-y-12 xs:grid-cols-2">
           {!isLoading &&
             data?.likedRestaurants.map((item, index) => (
-              <RestaurantWishlist key={index} status="like" image={item.logo} name={item.name} />
+              <RestaurantWishlist
+                key={index}
+                status="like"
+                image={item.logo}
+                name={item.name}
+                id={item._id}
+                refetch={refetch}
+              />
             ))}
           <NotFound data={data?.likedRestaurants} isLoading={isLoading} />
         </div>
@@ -24,9 +31,16 @@ const WishlistRestaurant = () => {
         <div className="mt-6 grid place-items-center gap-x-4 gap-y-12 xs:grid-cols-2">
           {!isLoading &&
             data?.bookmarkedRestaurants.map((item, index) => (
-              <RestaurantWishlist key={index} status="bookmark" image={item.logo} name={item.name} />
+              <RestaurantWishlist
+                key={index}
+                status="bookmark"
+                image={item.logo}
+                name={item.name}
+                id={item._id}
+                refetch={refetch}
+              />
             ))}
-          <NotFound data={data?.bookmarkedFoods} isLoading={isLoading} />
+          <NotFound data={data?.bookmarkedRestaurants} isLoading={isLoading} />
         </div>
       </div>
     </div>

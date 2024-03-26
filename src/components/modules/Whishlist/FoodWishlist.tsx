@@ -8,7 +8,7 @@ import Like from "../Action/Like";
 interface IFoodProps {
   status: "like" | "bookmark";
   image: string;
-  id?: number;
+  id?: string;
   title?: string;
 }
 
