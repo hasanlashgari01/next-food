@@ -1,5 +1,5 @@
 import { RestaurantsOption, SelectOption } from "@/common/interface/optionSelect";
-import { Restaurant } from "@/common/interface/restaurant";
+import { IRestaurant } from "@/common/interface/restaurant";
 import Table from "@/components/modules/Table/Table";
 import TableStatus from "@/components/modules/Table/TableStatus";
 import { useBanOrUnbanRestaurant, useUpdateValidRestaurant } from "@/hooks/useAdmin";
@@ -9,7 +9,7 @@ import { FaBan } from "react-icons/fa";
 import { GrValidate } from "react-icons/gr";
 
 interface TableProps {
-  restaurants: Restaurant[];
+  restaurants: IRestaurant[];
   selectedOption: RestaurantsOption | SelectOption;
   refetchRestaurant: () => void;
   refetchBanRestaurant: () => void;
@@ -67,7 +67,7 @@ const RestaurantsTable: React.FC<TableProps> = ({
     columnHelper.accessor("_id", {
       header: "",
       cell: info => {
-        const { _id, isValid } = info.cell.row.original as Restaurant;
+        const { _id, isValid } = info.cell.row.original as IRestaurant;
 
         return (
           <div className="flex gap-2">

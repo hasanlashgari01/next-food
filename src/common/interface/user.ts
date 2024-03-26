@@ -1,3 +1,6 @@
+import { IFood } from "./food";
+import { IRestaurant } from "./restaurant";
+
 export type TRole = "ADMIN" | "USER" | "SELLER";
 export type TGender = "male" | "female" | "other";
 export type TTheme = "AUTO" | "LIGHT" | "DARK";
@@ -19,12 +22,12 @@ export interface IUser {
   verifiedAccount: boolean;
   role: TRole | null;
   restaurants: [];
-  likedFoods: [];
-  bookmarkedFoods: [];
-  likedRestaurants: [];
-  bookmarkedRestaurants: [];
+  likedFoods: IFood[];
+  bookmarkedFoods: IFood[];
+  likedRestaurants: IRestaurant[];
+  bookmarkedRestaurants: IRestaurant[];
   resetLink: string;
-  foods: [];
+  foods: IFood[];
   cart: ICart | null;
   settings: {
     theme: TTheme;

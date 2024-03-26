@@ -1,5 +1,6 @@
-export interface Restaurant {
+export interface IRestaurant {
   _id: string;
+  name: string;
   author: string;
   category: string[];
   cover: string;

@@ -1,7 +1,7 @@
 "use client";
 
 import { RestaurantsOption, SelectOption } from "@/common/interface/optionSelect";
-import { Restaurant } from "@/common/interface/restaurant";
+import { IRestaurant } from "@/common/interface/restaurant";
 import { useGetBanRestaurantList, useGetRestaurantList } from "@/hooks/useAdmin";
 import React, { useEffect, useState } from "react";
 import TopPage from "../../_components/TopPage";
@@ -20,7 +20,7 @@ const Index = () => {
   });
   const { data: restaurantsResult, refetch: refetchRestaurant } = useGetRestaurantList();
   const { data: banRestaurantsResult, refetch: refetchBanRestaurant } = useGetBanRestaurantList();
-  const [searchResult, setSearchResult] = useState([] as Restaurant[]);
+  const [searchResult, setSearchResult] = useState([] as IRestaurant[]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {

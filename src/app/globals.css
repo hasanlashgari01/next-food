@@ -118,7 +118,7 @@
   }
 
   .radio-label {
-    @apply mr-2 cursor-pointer rounded-md bg-slate-50 px-4 py-1.5 md:px-6 md:py-2 outline outline-1 outline-slate-300 ring-indigo-500 transition-all ease-in-out has-[:checked]:bg-indigo-500 has-[:checked]:text-white dark:bg-slate-800/100 dark:outline-slate-700 dark:has-[:checked]:bg-indigo-700;
+    @apply mr-2 cursor-pointer rounded-md bg-slate-50 px-4 py-1.5 outline outline-1 outline-slate-300 ring-indigo-500 transition-all ease-in-out has-[:checked]:bg-indigo-500 has-[:checked]:text-white md:px-6 md:py-2 dark:bg-slate-800/100 dark:outline-slate-700 dark:has-[:checked]:bg-indigo-700;
   }
 
   .radio-input {
@@ -139,5 +139,29 @@
 
   .list-active-dot {
     @apply absolute -right-3.5 top-1/2  size-1.5 -translate-y-1/2 rounded-full bg-sky-500 transition-opacity duration-1000 content-[''] before:size-5 before:rounded-full before:bg-sky-500 sm:right-0 dark:bg-sky-600 before:dark:bg-sky-600;
+  }
+
+  .food-wishlist-btn {
+    @apply flex size-8 cursor-pointer items-center justify-center rounded-full bg-current drop-shadow-2xl transition-colors duration-500 lg:size-10 dark:drop-shadow-none;
+  }
+
+  .food-wishlist-btn.like {
+    @apply bg-red-50 hover:bg-red-200 dark:bg-slate-800 hover:dark:bg-slate-700;
+  }
+
+  .food-wishlist-btn.bookmark {
+    @apply bg-cyan-50 hover:bg-cyan-200 dark:bg-slate-800 dark:hover:bg-slate-700;
+  }
+
+  .like {
+    @apply fill-red-500 text-xl;
+  }
+
+  .bookmark {
+    @apply fill-cyan-500 text-xl;
+  }
+
+  .swiper {
+    @apply px-5 py-5 md:px-10 xl:px-20 !important;
   }
 }
