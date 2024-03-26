@@ -11,6 +11,8 @@ const getUser = () => api(`/api/user/whoami`).then(({ data }) => data);
 
 const updateProfile = (data: IUser) => apiUpload.put(userRoute, { ...data }).then(({ data }) => data);
 
+const removeAvatar = () => api.delete(userRoute).then(({ data }) => data);
+
 const changePassword = (data: IPasswordData) => api.patch(userRoute, { ...data }).then(({ data }) => data);
 
-export { getUser, changePassword, updateProfile };
+export { getUser, changePassword, updateProfile, removeAvatar };

@@ -1,4 +1,4 @@
-import { changePassword, getUser, updateProfile } from "@/services/authService";
+import { changePassword, getUser, removeAvatar, updateProfile } from "@/services/authService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetUser = () =>
@@ -11,6 +11,8 @@ const useGetUser = () =>
 
 const useUpdateProfile = () => useMutation({ mutationFn: updateProfile });
 
+const useRemoveAvatar = () => useMutation({ mutationFn: removeAvatar });
+
 const useChangePassword = () => useMutation({ mutationFn: changePassword });
 
-export { useChangePassword, useGetUser, useUpdateProfile };
+export { useChangePassword, useGetUser, useUpdateProfile, useRemoveAvatar };
