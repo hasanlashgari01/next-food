@@ -15,7 +15,8 @@ const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, 
     return str;
   };
 
-const toPersianDate = (date: Date) => {
+const toPersianDate = (date?: Date) => {
+  if (!date) return { persianDate: "", persianTime: "" };
   let d = new Date(date);
   let persianDate = d.toLocaleDateString("fa-IR");
   let persianTime = d.toLocaleTimeString("fa-IR");

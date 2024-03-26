@@ -33,7 +33,7 @@ const OrderTable: React.FC<TableProps> = ({ data: { count, orders }, refetch }) 
       cell: ({ getValue }: { getValue: () => IUserOrder }) => (
         <div className="flex w-fit flex-col gap-1">
           <span>{getValue().fullName}</span>
-          <span>{getValue().mobile}</span>
+          <span>{getValue().mobile.replace(/(\d{4})(\d{3})(\d{4})/, "$1-$2-$3")}</span>
         </div>
       ),
     }),

@@ -164,4 +164,18 @@
   .swiper {
     @apply px-5 py-5 md:px-10 xl:px-20 !important;
   }
+
+  .order-list {
+    & > li {
+      @apply flex flex-1 justify-between px-4 py-2 sm:px-10;
+
+      & > :first-child {
+        @apply dark:text-slate-400;
+      }
+
+      & > :last-child {
+        @apply dark:text-slate-200;
+      }
+    }
+  }
 }

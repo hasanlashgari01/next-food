@@ -9,6 +9,7 @@ export interface IUserOrder {
   _id: string;
   fullName: string;
   mobile: string;
+  email: string;
 }
 
 export interface IOrder {
