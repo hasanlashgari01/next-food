@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { HiArrowLeft } from "react-icons/hi2";
 
 interface CustomSwiperProps {
   data: any;
@@ -20,8 +21,8 @@ interface CustomSwiperProps {
 const CustomSwiper: React.FC<CustomSwiperProps> = ({ data, title, status, notFoundMsg, link }) => {
   return (
     <section className="grid min-h-72 grid-cols-8 gap-4 md:gap-2">
-      <div className="col-span-8 flex flex-row py-2.5 sm:px-5 xl:col-span-2 xl:flex-col">
-        <div className="flex flex-1 gap-5">
+      <div className="col-span-8 flex flex-row justify-between gap-3 py-2.5 sm:px-5 xl:col-span-2">
+        <div className="flex gap-5">
           <span
             className={twMerge(
               "my-1.5 inline-block size-2.5 animate-pulse rounded-full bg-red-600",
@@ -30,19 +31,17 @@ const CustomSwiper: React.FC<CustomSwiperProps> = ({ data, title, status, notFou
           ></span>
           <h3 className="flex-1">{title}</h3>
         </div>
-        <div className="flex h-fit flex-col-reverse gap-3 xl:flex-row xl:items-center xl:justify-between">
-          <Link
-            href={`/admin/wishlists/${link}`}
-            className="h-fit rounded-full bg-transparent px-2.5 py-1.5 text-center font-IranYekan text-sm text-primary-900 transition-colors hover:bg-cyan-600 hover:text-cyan-50"
-          >
-            مشاهده همه
-          </Link>
-        </div>
+        <Link
+          href={`/admin/wishlists/${link}`}
+          className="flex aspect-square h-fit items-center justify-center rounded-full bg-transparent px-2.5 py-1.5 text-center font-IranYekan text-sm text-primary-900 transition-colors hover:bg-cyan-600 hover:text-cyan-50 dark:text-white dark:hover:bg-sky-600 dark:hover:text-sky-50"
+        >
+          <HiArrowLeft />
+        </Link>
       </div>
       <div
         className={twMerge(
           "col-span-8 rounded-md xl:col-span-6 xl:rounded-3xl",
-          `${data.length === 0 ? "flex min-h-40 flex-col justify-center outline-dashed outline-2 outline-current md:min-h-64" : "bg-current"}`,
+          `${data.length === 0 ? "flex min-h-40 flex-col justify-center outline-dashed outline-2 outline-current md:min-h-64" : "bg-current dark:bg-slate-950/50"}`,
         )}
       >
         {data.length > 0 ? (
