@@ -1,5 +1,6 @@
 export type TRole = "ADMIN" | "USER" | "SELLER";
 export type TGender = "male" | "female" | "other";
+export type TTheme = "AUTO" | "LIGHT" | "DARK";
 
 export interface ICart {
   foods: [];
@@ -25,4 +26,7 @@ export interface IUser {
   resetLink: string;
   foods: [];
   cart: ICart | null;
+  settings: {
+    theme: TTheme;
+  };
 }

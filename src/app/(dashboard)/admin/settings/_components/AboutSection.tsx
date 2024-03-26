@@ -2,17 +2,22 @@
 
 import { IUser, TGender } from "@/common/interface/user";
 import InputText from "@/components/modules/Input/InputText";
-import { useGetUser, useRemoveAvatar, useUpdateProfile } from "@/hooks/useAuth";
+import { useRemoveAvatar } from "@/hooks/useAuth";
 import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
-import { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { HiTrash } from "react-icons/hi2";
 
-const AboutSection = () => {
-  const { isLoading, data, refetch } = useGetUser();
-  const { mutateAsync } = useUpdateProfile();
+interface Props {
+  isLoading: boolean;
+  data: IUser;
+  refetch: () => void;
+  mutateAsync: (data: any) => Promise<any>;
+}
+
+const AboutSection: React.FC<Props> = ({ isLoading, data, refetch, mutateAsync }) => {
   const { mutateAsync: mutateAsyncRemove } = useRemoveAvatar();
   const { register, getValues, setValue, handleSubmit } = useForm<IUser>({
     mode: "all",
@@ -23,7 +28,7 @@ const AboutSection = () => {
       age: null,
       gender: null,
     },
-    values: isLoading ? {} : data,
+    values: data,
   });
   const [avatar, setAvatar] = useState<string | null>(null);
 
