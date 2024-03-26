@@ -16,6 +16,7 @@ interface IRestaurantProps {
 const RestaurantWishlist: React.FC<IRestaurantProps> = ({ status, image = "/auth-food.jpg", id, name, refetch }) => {
   const { mutateAsync: unLikeMutateAsync } = useUnLikeRestaurant();
   const { mutateAsync: unBookmarkMutateAsync } = useUnBookmarkRestaurant();
+
   const getImage = image === "/auth-food.jpg" ? "/auth-food.jpg" : `${fileRoute}restaurant/${image}`;
 
   const unLikeHandler = async (id: string) => {
