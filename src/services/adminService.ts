@@ -1,7 +1,7 @@
 import { IDiscount } from "@/common/interface/discount";
 import { IProvince } from "@/common/interface/province";
 import { api } from "@/config/axiosConfig";
-import { adminCoupon, adminProvince, adminRestaurant, adminUser, category } from "./routeService";
+import { adminCoupon, adminProvince, adminRestaurant, adminUser, category, orders } from "./routeService";
 
 interface Category {
   title: string;
@@ -89,6 +89,12 @@ const removeProvince = (id: string) => api.delete(`${adminProvince}${id}`).then(
 const removeSelectedProvince = (provinceIds: TDeleteMany) =>
   api.delete(`${adminProvince}many`, { data: { provinceIds } }).then(({ data }) => data);
 
+// * Province
+
+const getOrders = () => api(`${orders}orders`).then(({ data }) => data);
+
+const getOrder = (id: string) => api(`${orders}order/${id}`).then(({ data }) => data);
+
 export {
   addDiscount,
   updateDiscount,
@@ -116,4 +122,6 @@ export {
   removeSelectedProvince,
   getProvince,
   getDiscount,
+  getOrders,
+  getOrder,
 };

@@ -15,4 +15,12 @@ const persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, 
     return str;
   };
 
-export { fixNumbers, recursivePath };
+const toPersianDate = (date: Date) => {
+  let d = new Date(date);
+  let persianDate = d.toLocaleDateString("fa-IR");
+  let persianTime = d.toLocaleTimeString("fa-IR");
+
+  return { persianDate, persianTime };
+};
+
+export { fixNumbers, recursivePath, toPersianDate };
