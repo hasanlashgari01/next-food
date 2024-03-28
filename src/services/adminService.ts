@@ -111,6 +111,8 @@ const getFoodComments = (): Promise<ICommentsData> => api(`${adminFood}comment`)
 
 const banOrUnbanFoodComment = (id: string) => api.patch(`${adminFood}comment/${id}/status`).then(({ data }) => data);
 
+const banUserAndRejectFoodComment = (id: string) => api(`${adminFood}comment/${id}`).then(({ data }) => data);
+
 export {
   addDiscount,
   updateDiscount,
@@ -145,4 +147,5 @@ export {
   banUserAndRejectRestaurantComment,
   getFoodComments,
   banOrUnbanFoodComment,
+  banUserAndRejectFoodComment,
 };

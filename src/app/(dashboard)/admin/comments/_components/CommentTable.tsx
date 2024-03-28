@@ -6,11 +6,11 @@ import TableStatus from "@/components/modules/Table/TableStatus";
 import {
   useBanOrUnbanFoodComment,
   useBanOrUnbanRestaurantComment,
+  useBanUserAndRejectFoodComment,
   useBanUserAndRejectRestaurantComment,
 } from "@/hooks/useAdmin";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import toast from "react-hot-toast";
-import { HiArchive, HiOutlineX } from "react-icons/hi";
 import { HiNoSymbol, HiShieldCheck, HiShieldExclamation } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
@@ -30,6 +30,7 @@ const CommentTable: React.FC<ITableProps> = ({
   refetchFoodComments,
 }) => {
   const { mutateAsync: mutateAsyncBanOrUnbanFoodComment } = useBanOrUnbanFoodComment();
+  const { mutateAsync: mutateAsyncBanUserAndRejectFoodComment } = useBanUserAndRejectFoodComment();
   const { mutateAsync: mutateAsyncBanOrUnbanRestaurantComment } = useBanOrUnbanRestaurantComment();
   const { mutateAsync: mutateAsyncBanUserAndRejectRestaurantComment } = useBanUserAndRejectRestaurantComment();
   const isRestaurant: boolean = selectedOption.value === "restaurantComments";
@@ -121,6 +122,10 @@ const CommentTable: React.FC<ITableProps> = ({
       if (isRestaurant) {
         const { message } = await mutateAsyncBanUserAndRejectRestaurantComment(commentId);
         refetchRestaurantComments();
+        msg = message;
+      } else {
+        const { message } = await mutateAsyncBanUserAndRejectFoodComment(commentId);
+        refetchFoodComments();
         msg = message;
       }
       toast.success(msg);
