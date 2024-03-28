@@ -2,9 +2,14 @@
 
 import { useGetUser } from "@/hooks/useAuth";
 import React, { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
-const WelcomeText: React.FC = () => {
-  const { isLoading, data } = useGetUser();
+interface IWelcomeTextProps {
+  isLoading: boolean;
+  fullName: string | undefined;
+}
+
+const WelcomeText: React.FC<IWelcomeTextProps> = ({ isLoading, fullName }) => {
   const [text, setText] = useState<string>("");
 
   useEffect(() => {
@@ -26,7 +31,7 @@ const WelcomeText: React.FC = () => {
         <div className="h-10 w-64 animate-pulse rounded-md bg-slate-200 dark:bg-slate-800"></div>
       ) : (
         <>
-          <span className="lg:text-2xl">سلام {data?.fullName} عزیز</span>
+          <span className="lg:text-2xl">سلام {fullName} عزیز</span>
           <span className="mx-2 h-7 w-[1px] rounded-full bg-slate-400 max-lg:hidden"></span>
           <h5 className="text-sm leading-7 lg:text-base dark:text-slate-200">{text}</h5>
         </>

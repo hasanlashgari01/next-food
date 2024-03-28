@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import LayoutPAdmin from "./_components/LayoutPAdmin";
 
 export const metadata: Metadata = {
-  title: "پنل ادمین",
+  title: "فروشگاه | پنل ادمین",
 };
 
 const PanelAdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {

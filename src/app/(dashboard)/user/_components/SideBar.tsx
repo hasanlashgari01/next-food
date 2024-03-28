@@ -1,11 +1,11 @@
 "use client";
 
 import Modal from "@/components/modules/Modal/Modal";
-import { adminPanelLinks } from "@/constants/navLinks";
+import { userPanelLinks } from "@/constants/navLinks";
 import { recursivePath } from "@/utils/func";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
@@ -16,20 +16,13 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const pathname = usePathname();
-  const { currentPath, parentPath } = recursivePath(pathname);
   const [isShow, setIsShow] = useState<boolean>(false);
 
-  useEffect(() => {
-    setIsSidebarOpen(false);
-  }, [pathname]);
+  const { currentPath, parentPath } = recursivePath(pathname);
 
   const showModalHandler = () => {
     setIsSidebarOpen(false);
     setIsShow(true);
-  };
-
-  const logoutHandler = () => {
-    console.log(1);
   };
 
   return (
@@ -51,16 +44,16 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
           <h3>لوگو</h3>
         </div>
         <ul className="sidebar__nav mt-8 flex flex-col gap-1.5">
-          {adminPanelLinks.map(({ name, path, icon }, index) => {
+          {userPanelLinks.map(({ name, path, icon }, index) => {
             const Icon = icon;
 
             return (
               <Link
                 key={index}
-                href={`/admin/${path}`}
+                href={`/user/${path}`}
                 className={twMerge(
                   "transition-colors duration-300 ease-out",
-                  `${currentPath === path || parentPath === path ? "bg-sky-100 dark:bg-sky-800" : ""}`,
+                  `${currentPath === path || parentPath === path ? "bg-lime-300 dark:bg-lime-800" : ""}`,
                 )}
               >
                 <Icon className="size-4 lg:size-5" />

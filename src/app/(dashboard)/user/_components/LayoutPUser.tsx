@@ -3,19 +3,19 @@
 import { Providers } from "@/app/providers";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import SideBar from "../../../../components/modules/SideBar/SideBar";
 import Header from "@/components/modules/Header/Header";
-import { adminPanelLinks } from "@/constants/navLinks";
+import { userPanelLinks } from "@/constants/navLinks";
+import SideBar from "@/components/modules/SideBar/SideBar";
 
-const LayoutPAdmin = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+const LayoutPUser = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <Providers>
       <div className="flex">
         <SideBar
-          mainRoute="admin"
-          links={adminPanelLinks}
+          mainRoute="user"
+          links={userPanelLinks}
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
@@ -29,4 +29,4 @@ const LayoutPAdmin = ({ children }: Readonly<{ children: React.ReactNode }>) => 
   );
 };
 
-export default LayoutPAdmin;
+export default LayoutPUser;

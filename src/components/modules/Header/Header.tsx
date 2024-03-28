@@ -1,11 +1,13 @@
+"use client";
+
 import { NotificationProps } from "@/common/interface/notification";
 import NotificationDropdown from "@/components/modules/Header/NotificationDropdown";
-import { useGetUser } from "@/hooks/useAuth";
-import { fileRoute } from "@/services/routeService";
-import Image from "next/image";
+import Profile from "@/components/modules/Header/Profile";
 import { useState } from "react";
 import { HiBars3 } from "react-icons/hi2";
-import WelcomeText from "../../../../components/modules/Header/WelcomeText";
+import WelcomeText from "./WelcomeText";
+import { useGetUser } from "@/hooks/useAuth";
+import { twMerge } from "tailwind-merge";
 
 interface HeaderProps {
   isSidebarOpen: boolean;
@@ -17,7 +19,12 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [notifications, setNotifications] = useState<NotificationProps[]>([]);
 
   return (
-    <div className="transition-all duration-200 ease-linear max-lg:-mx-6 max-lg:bg-white max-lg:px-6 max-lg:dark:bg-slate-800">
+    <div
+      className={twMerge(
+        "font-IranYekan transition-all duration-300 ease-linear max-lg:-mx-6 max-lg:bg-white max-lg:px-6 max-lg:dark:bg-slate-800",
+        `${!isLoading ? "opacity-100" : "opacity-0"}`,
+      )}
+    >
       <div className="flex justify-between max-lg:py-5 lg:mt-6">
         <div className="flex items-center justify-between gap-6">
           <div
@@ -26,18 +33,11 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           >
             <HiBars3 className="size-6 sm:size-7 dark:text-slate-100" />
           </div>
-          <WelcomeText />
+          <WelcomeText isLoading={isLoading} fullName={data?.fullName} />
         </div>
         <div className="flex gap-[18px]">
           <NotificationDropdown notifications={notifications} />
-          <Image
-            src={!isLoading && data?.avatarUrl ? `${fileRoute}user/${data?.avatarUrl}` : "/Auth.png"}
-            alt="پروفایل"
-            width={100}
-            height={100}
-            loading="lazy"
-            className="size-12 cursor-pointer rounded-full object-cover object-top lg:size-14"
-          />
+          <Profile isLoading={isLoading} avatarUrl={data?.avatarUrl} />{" "}
         </div>
       </div>
     </div>
