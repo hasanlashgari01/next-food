@@ -1,3 +1,5 @@
+"use client";
+
 import { ISelectOption } from "@/common/interface/optionSelect";
 import { SearchBarProps } from "@/common/interface/search";
 import Link from "next/link";

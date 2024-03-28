@@ -1,5 +1,3 @@
-"use client";
-
 import Index from "@/components/modules/Settings/Index";
 import TopPage from "../_components/TopPage";
 

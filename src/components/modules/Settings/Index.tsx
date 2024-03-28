@@ -1,3 +1,5 @@
+"use client";
+
 import { useGetUser, useUpdateProfile } from "@/hooks/useAuth";
 import { useState } from "react";
 import { TabPanel, Tabs } from "react-tabs";
