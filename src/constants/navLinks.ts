@@ -1,5 +1,6 @@
 import {
   HiOutlineBuildingStorefront,
+  HiOutlineChatBubbleLeftEllipsis,
   HiOutlineCog6Tooth,
   HiOutlineHeart,
   HiOutlineHome,
@@ -16,6 +17,7 @@ const adminPanelLinks: { name: string; path: string; icon: any }[] = [
   { name: "رستوران ها", path: "restaurants", icon: HiOutlineBuildingStorefront },
   { name: "غذا ها", path: "foods", icon: IoFastFoodOutline },
   { name: "دسته بندی ها", path: "categories", icon: HiOutlineSquares2X2 },
+  { name: "کامنت ها", path: "comments", icon: HiOutlineChatBubbleLeftEllipsis },
   { name: "سفارش ها", path: "orders", icon: HiOutlineQueueList },
   { name: "کد تخفیف", path: "discount", icon: HiOutlineReceiptPercent },
   { name: "استان ها", path: "provinces", icon: HiOutlineMapPin },
