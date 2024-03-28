@@ -1,5 +1,5 @@
 import { api } from "@/config/axiosConfig";
-import { userRoute } from "./routeService";
+import { orders, userRoute } from "./routeService";
 
 const likeFood = (id: string) => api.patch(`${userRoute}food/${id}/like`).then(({ data }) => data);
 
@@ -18,6 +18,8 @@ const bookmarkRestaurant = (id: string) => api.patch(`${userRoute}restaurant/${i
 const unBookmarkRestaurant = (id: string) =>
   api.delete(`${userRoute}restaurant/${id}/bookmark`).then(({ data }) => data);
 
+const getOrders = () => api(orders).then(({ data }) => data);
+
 export {
   likeFood,
   unLikeFood,
@@ -27,4 +29,5 @@ export {
   unLikeRestaurant,
   bookmarkRestaurant,
   unBookmarkRestaurant,
+  getOrders,
 };
