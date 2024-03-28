@@ -22,6 +22,7 @@ import {
   getProvinces,
   getRestaurantComments,
   getRestaurants,
+  getSellers,
   getUsers,
   removeDiscount,
   removeProvince,
@@ -41,6 +42,8 @@ const useGetUserList = () => useQuery({ queryKey: ["users"], queryFn: getUsers }
 const useGetBanUserList = () => useQuery({ queryKey: ["ban-users"], queryFn: getBanUsers });
 
 const useBanOrUnbanUser = () => useMutation({ mutationFn: banOrUnbanUser });
+
+const useGetSellerList = () => useQuery({ queryKey: ["sellers"], queryFn: getSellers });
 
 // * Restaurant
 
@@ -118,6 +121,7 @@ export {
   useGetUserList,
   useGetBanUserList,
   useBanOrUnbanUser,
+  useGetSellerList,
   useUpdateCategory,
   useGetCategory,
   useGetDiscountList,

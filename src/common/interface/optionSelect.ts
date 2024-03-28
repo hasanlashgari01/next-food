@@ -8,6 +8,11 @@ export interface IUsersOption {
   label: "لیست کاربران" | "لیست کاربران بن شده";
 }
 
+export interface ISellersOption {
+  value: "sellers";
+  label: "لیست فروشندگان";
+}
+
 export interface IRestaurantsOption {
   value: "restaurants" | "ban-restaurants";
   label: "لیست رستوران" | "لیست رستوران بن شده";

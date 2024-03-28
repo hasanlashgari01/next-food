@@ -37,6 +37,8 @@ const searchUsers = ({ fullName, mobile }: ISearch) => {
 
 const banOrUnbanUser = (id: string) => api(`${adminUser}${id}/ban`).then(({ data }) => data);
 
+const getSellers = () => api(`/admin/sellers`).then(({ data }) => data);
+
 // * Restaurant
 
 const getRestaurants = () => api(`${adminRestaurant}`).then(({ data }) => data);
@@ -119,6 +121,7 @@ export {
   addNewCategory,
   getBanUsers,
   banOrUnbanUser,
+  getSellers,
   getCategories,
   getCategory,
   getDashboard,

@@ -2,6 +2,7 @@ import {
   HiOutlineBuildingStorefront,
   HiOutlineChatBubbleLeftEllipsis,
   HiOutlineCog6Tooth,
+  HiOutlineCurrencyDollar,
   HiOutlineHeart,
   HiOutlineHome,
   HiOutlineMapPin,
@@ -14,6 +15,7 @@ import { IoFastFoodOutline } from "react-icons/io5";
 const adminPanelLinks: { name: string; path: string; icon: any }[] = [
   { name: "صفحه اصلی", path: "home", icon: HiOutlineHome },
   { name: "کاربران", path: "users", icon: HiOutlineBuildingStorefront },
+  { name: "فروشندگان", path: "sellers", icon: HiOutlineCurrencyDollar },
   { name: "رستوران ها", path: "restaurants", icon: HiOutlineBuildingStorefront },
   { name: "غذا ها", path: "foods", icon: IoFastFoodOutline },
   { name: "دسته بندی ها", path: "categories", icon: HiOutlineSquares2X2 },
