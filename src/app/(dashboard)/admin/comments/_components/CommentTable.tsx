@@ -3,7 +3,7 @@ import { ICommentsOption, ISelectOption } from "@/common/interface/optionSelect"
 import { IUser } from "@/common/interface/user";
 import Table from "@/components/modules/Table/Table";
 import TableStatus from "@/components/modules/Table/TableStatus";
-import { useBanOrUnbanFoodComment } from "@/hooks/useAdmin";
+import { useBanOrUnbanFoodComment, useBanOrUnbanRestaurantComment } from "@/hooks/useAdmin";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import toast from "react-hot-toast";
 import { HiArchive } from "react-icons/hi";
@@ -24,6 +24,7 @@ const CommentTable: React.FC<ITableProps> = ({
   refetchFoodComments,
 }) => {
   const { mutateAsync: mutateAsyncBanOrUnbanFoodComment } = useBanOrUnbanFoodComment();
+  const { mutateAsync: mutateAsyncBanOrUnbanRestaurantComment } = useBanOrUnbanRestaurantComment();
   const isRestaurant: boolean = selectedOption.value === "restaurantComments";
 
   const columns: ColumnDef<unknown, never>[] = [
@@ -81,7 +82,9 @@ const CommentTable: React.FC<ITableProps> = ({
     try {
       let msg: string = "";
       if (isRestaurant) {
+        const { message } = await mutateAsyncBanOrUnbanRestaurantComment(commentId);
         refetchRestaurantComments();
+        msg = message;
       } else {
         const { message } = await mutateAsyncBanOrUnbanFoodComment(commentId);
         refetchFoodComments();

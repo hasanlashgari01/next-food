@@ -4,6 +4,7 @@ import {
   addProvince,
   banOrUnbanFoodComment,
   banOrUnbanRestaurant,
+  banOrUnbanRestaurantComment,
   banOrUnbanUser,
   getBanRestaurants,
   getBanUsers,
@@ -98,6 +99,8 @@ const useGetOrder = (id: string) => useQuery({ queryKey: ["order", id], queryFn:
 const useGetRestaurantCommnetList = () =>
   useQuery({ queryKey: ["restaurant-comments"], queryFn: getRestaurantComments });
 
+const useBanOrUnbanRestaurantComment = () => useMutation({ mutationFn: banOrUnbanRestaurantComment });
+
 const useGetFoodCommnetList = () => useQuery({ queryKey: ["food-comments"], queryFn: getFoodComments });
 
 const useBanOrUnbanFoodComment = () => useMutation({ mutationFn: banOrUnbanFoodComment });
@@ -130,6 +133,7 @@ export {
   useGetOrderList,
   useGetOrder,
   useGetRestaurantCommnetList,
+  useBanOrUnbanRestaurantComment,
   useGetFoodCommnetList,
   useBanOrUnbanFoodComment,
 };

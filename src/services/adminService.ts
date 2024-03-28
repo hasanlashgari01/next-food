@@ -101,6 +101,9 @@ const getOrder = (id: string): Promise<IOrder> => api(`${orders}order/${id}`).th
 
 const getRestaurantComments = (): Promise<ICommentsData> => api(`${adminRestaurant}comment`).then(({ data }) => data);
 
+const banOrUnbanRestaurantComment = (id: string) =>
+  api.patch(`${adminRestaurant}comment/${id}/status`).then(({ data }) => data);
+
 const getFoodComments = (): Promise<ICommentsData> => api(`${adminFood}comment`).then(({ data }) => data);
 
 const banOrUnbanFoodComment = (id: string) => api.patch(`${adminFood}comment/${id}/status`).then(({ data }) => data);
@@ -135,6 +138,7 @@ export {
   getOrders,
   getOrder,
   getRestaurantComments,
+  banOrUnbanRestaurantComment,
   getFoodComments,
   banOrUnbanFoodComment,
 };
