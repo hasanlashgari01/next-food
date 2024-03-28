@@ -1,6 +1,6 @@
 "use client";
 
-import { RestaurantsOption, SelectOption } from "@/common/interface/optionSelect";
+import { IRestaurantsOption, ISelectOption } from "@/common/interface/optionSelect";
 import { IRestaurant } from "@/common/interface/restaurant";
 import { useGetBanRestaurantList, useGetRestaurantList } from "@/hooks/useAdmin";
 import React, { useEffect, useState } from "react";
@@ -8,13 +8,13 @@ import TopPage from "../../_components/TopPage";
 import RestaurantsTable from "./RestaurantsTable";
 import { searchRestaurants } from "@/services/adminService";
 
-const options: SelectOption[] = [
+const options: ISelectOption[] = [
   { value: "restaurants", label: "لیست رستوران" },
   { value: "ban-restaurants", label: "لیست رستوران بن شده" },
 ];
 
 const Index = () => {
-  const [selectedOption, setSelectedOption] = useState<RestaurantsOption | SelectOption>({
+  const [selectedOption, setSelectedOption] = useState<IRestaurantsOption | ISelectOption>({
     value: "restaurants",
     label: "لیست رستوران",
   });

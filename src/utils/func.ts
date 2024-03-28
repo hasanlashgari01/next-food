@@ -1,6 +1,6 @@
 const recursivePath = (pathname: string) => {
-  const currentPath = pathname.split("/").slice(-1).toString();
-  const parentPath = pathname.split("/")[2].toString();
+  const currentPath = pathname?.split("/")?.slice(-1)?.toString();
+  const parentPath = pathname?.split("/")[2]?.toString();
 
   return { currentPath, parentPath };
 };

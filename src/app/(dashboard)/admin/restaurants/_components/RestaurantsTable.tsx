@@ -1,4 +1,4 @@
-import { RestaurantsOption, SelectOption } from "@/common/interface/optionSelect";
+import { IRestaurantsOption, ISelectOption } from "@/common/interface/optionSelect";
 import { IRestaurant } from "@/common/interface/restaurant";
 import Table from "@/components/modules/Table/Table";
 import TableStatus from "@/components/modules/Table/TableStatus";
@@ -10,7 +10,7 @@ import { GrValidate } from "react-icons/gr";
 
 interface TableProps {
   restaurants: IRestaurant[];
-  selectedOption: RestaurantsOption | SelectOption;
+  selectedOption: IRestaurantsOption | ISelectOption;
   refetchRestaurant: () => void;
   refetchBanRestaurant: () => void;
 }

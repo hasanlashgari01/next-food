@@ -1,4 +1,4 @@
-import { SelectOption } from "@/common/interface/optionSelect";
+import { ISelectOption } from "@/common/interface/optionSelect";
 import { SearchBarProps } from "@/common/interface/search";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
@@ -9,12 +9,12 @@ import { HiArrowSmallLeft } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
 interface TopPageProps extends SearchBarProps {
-  readonly options?: readonly SelectOption[];
+  options?: ISelectOption[];
   readonly label?: string;
   title: string;
   placeholder?: string;
-  selectedOption?: PropsValue<SelectOption>;
-  setSelectedOption?: Dispatch<SetStateAction<SelectOption>>;
+  selectedOption?: PropsValue<ISelectOption>;
+  setSelectedOption?: Dispatch<SetStateAction<ISelectOption>>;
   link?: string;
   linkText?: string;
   linkStyle?: string;

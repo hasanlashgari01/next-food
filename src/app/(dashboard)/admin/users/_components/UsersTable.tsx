@@ -1,4 +1,4 @@
-import { SelectOption, UsersOption } from "@/common/interface/optionSelect";
+import { ISelectOption, IUsersOption } from "@/common/interface/optionSelect";
 import { Person } from "@/common/interface/person";
 import Table from "@/components/modules/Table/Table";
 import TableStatus from "@/components/modules/Table/TableStatus";
@@ -14,7 +14,7 @@ interface TableProps {
   users: Person[];
   refetchUsers: () => void;
   refetchBanUsers: () => void;
-  selectedOption: UsersOption | SelectOption;
+  selectedOption: IUsersOption | ISelectOption;
 }
 
 const columnHelper = createColumnHelper<Person>();

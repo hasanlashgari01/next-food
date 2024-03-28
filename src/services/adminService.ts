@@ -1,8 +1,9 @@
 import { IDiscount } from "@/common/interface/discount";
 import { IProvince } from "@/common/interface/province";
 import { api } from "@/config/axiosConfig";
-import { adminCoupon, adminProvince, adminRestaurant, adminUser, category, orders } from "./routeService";
+import { adminCoupon, adminFood, adminProvince, adminRestaurant, adminUser, category, orders } from "./routeService";
 import { IOrder } from "@/common/interface/order";
+import { IComment, ICommentsData } from "@/common/interface/comment";
 
 interface Category {
   title: string;
@@ -96,6 +97,14 @@ const getOrders = () => api(`${orders}orders`).then(({ data }) => data);
 
 const getOrder = (id: string): Promise<IOrder> => api(`${orders}order/${id}`).then(({ data }) => data);
 
+// * Comment
+
+const getRestaurantComments = (): Promise<ICommentsData> => api(`${adminRestaurant}comment`).then(({ data }) => data);
+
+const getFoodComments = (): Promise<ICommentsData> => api(`${adminFood}comment`).then(({ data }) => data);
+
+const banOrUnbanFoodComment = (id: string) => api.patch(`${adminFood}comment/${id}/status`).then(({ data }) => data);
+
 export {
   addDiscount,
   updateDiscount,
@@ -125,4 +134,7 @@ export {
   getDiscount,
   getOrders,
   getOrder,
+  getRestaurantComments,
+  getFoodComments,
+  banOrUnbanFoodComment,
 };

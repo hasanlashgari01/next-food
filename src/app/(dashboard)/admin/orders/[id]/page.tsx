@@ -7,7 +7,6 @@ import { useParams } from "next/navigation";
 const OrderDetails = () => {
   const { id } = useParams();
   const { isLoading, data } = useGetOrder(String(id));
-  console.log("🚀 ~ OrderDetails ~ data:", data);
   const { _id, user, foods, total, status, address, coupon, couponAmount, province } = data || {};
   const { deliveryStatus, discount, discountType, orderDate, payment, paymentDate, paymentStatus } = data || {};
 

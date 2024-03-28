@@ -12,7 +12,7 @@ import InputRadioGroup from "../Input/InputRadioGroup";
 
 interface Props {
   isLoading: boolean;
-  data: IUser;
+  data: IUser | undefined;
   refetch: () => void;
   mutateAsync: (data: any) => Promise<any>;
 }

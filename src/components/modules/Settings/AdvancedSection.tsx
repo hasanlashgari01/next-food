@@ -7,7 +7,7 @@ import InputRadioGroup from "../Input/InputRadioGroup";
 
 interface Props {
   isLoading: boolean;
-  data: IUser;
+  data: IUser | undefined;
   refetch: () => void;
   mutateAsync: (data: any) => Promise<any>;
 }
@@ -23,7 +23,7 @@ const AdvancedSection: React.FC<Props> = ({ isLoading, data, refetch, mutateAsyn
       theme: "AUTO",
     },
     values: {
-      theme: data?.settings?.theme,
+      theme: data?.settings?.theme as TTheme,
     },
   });
 

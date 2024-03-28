@@ -5,7 +5,6 @@ import OrderTable from "./OrderTable";
 
 const Index = () => {
   const { isPending, data: orderList, refetch } = useGetOrderList();
-  console.log("🚀 ~ Index ~ orderList:", orderList);
 
   return (
     <div>

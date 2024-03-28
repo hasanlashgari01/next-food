@@ -8,9 +8,9 @@ import toast from "react-hot-toast";
 interface IRestaurantProps {
   status: "like" | "bookmark";
   image: string;
-  id: string;
-  name?: string;
-  refetch: () => void;
+  id?: string;
+  name: string | undefined;
+  refetch?: () => void;
 }
 
 const RestaurantWishlist: React.FC<IRestaurantProps> = ({ status, image = "/auth-food.jpg", id, name, refetch }) => {
@@ -23,7 +23,7 @@ const RestaurantWishlist: React.FC<IRestaurantProps> = ({ status, image = "/auth
     try {
       const { message } = await unLikeMutateAsync(id);
       toast.success(message);
-      refetch();
+      refetch && refetch();
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
@@ -33,7 +33,7 @@ const RestaurantWishlist: React.FC<IRestaurantProps> = ({ status, image = "/auth
     try {
       const { message } = await unBookmarkMutateAsync(id);
       toast.success(message);
-      refetch();
+      refetch && refetch();
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
@@ -56,7 +56,7 @@ const RestaurantWishlist: React.FC<IRestaurantProps> = ({ status, image = "/auth
       </div>
       <div
         className="absolute left-5 top-5 flex flex-col gap-2"
-        onClick={status === "like" ? () => unLikeHandler(id) : () => unBookmarkHandler(id)}
+        onClick={status === "like" ? () => unLikeHandler(id || "") : () => unBookmarkHandler(id || "")}
       >
         {status === "like" ? <Like /> : <Bookmark />}
       </div>

@@ -2,6 +2,7 @@ import {
   addDiscount,
   addNewCategory,
   addProvince,
+  banOrUnbanFoodComment,
   banOrUnbanRestaurant,
   banOrUnbanUser,
   getBanRestaurants,
@@ -11,10 +12,12 @@ import {
   getDashboard,
   getDiscount,
   getDiscounts,
+  getFoodComments,
   getOrder,
   getOrders,
   getProvince,
   getProvinces,
+  getRestaurantComments,
   getRestaurants,
   getUsers,
   removeDiscount,
@@ -90,6 +93,15 @@ const useGetOrderList = () => useQuery({ queryKey: ["orders"], queryFn: getOrder
 
 const useGetOrder = (id: string) => useQuery({ queryKey: ["order", id], queryFn: () => getOrder(id) });
 
+// * Comment
+
+const useGetRestaurantCommnetList = () =>
+  useQuery({ queryKey: ["restaurant-comments"], queryFn: getRestaurantComments });
+
+const useGetFoodCommnetList = () => useQuery({ queryKey: ["food-comments"], queryFn: getFoodComments });
+
+const useBanOrUnbanFoodComment = () => useMutation({ mutationFn: banOrUnbanFoodComment });
+
 export {
   useAddCategory,
   useGetCategoryList,
@@ -117,4 +129,7 @@ export {
   useGetDiscount,
   useGetOrderList,
   useGetOrder,
+  useGetRestaurantCommnetList,
+  useGetFoodCommnetList,
+  useBanOrUnbanFoodComment,
 };

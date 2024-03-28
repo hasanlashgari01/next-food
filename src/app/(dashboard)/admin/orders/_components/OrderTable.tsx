@@ -70,7 +70,9 @@ const OrderTable: React.FC<TableProps> = ({ data: { count, orders }, refetch }) 
       header: () => <span>وضعیت پرداخت</span>,
       cell: ({ getValue }: { getValue: () => TPaymentStatus }) => {
         return (
-          <span className={twMerge("rounded px-3 py-1", getValue() === "PAID" ? "bg-green-600" : "bg-red-600")}>
+          <span
+            className={twMerge("rounded px-3 py-1 text-white", getValue() === "PAID" ? "bg-green-600" : "bg-red-600")}
+          >
             {getValue() === "PAID" ? "موفق" : "ناموفق"}
           </span>
         );

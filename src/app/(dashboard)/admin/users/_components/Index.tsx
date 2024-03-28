@@ -1,6 +1,6 @@
 "use client";
 
-import { SelectOption, UsersOption } from "@/common/interface/optionSelect";
+import { ISelectOption, IUsersOption } from "@/common/interface/optionSelect";
 import { Person } from "@/common/interface/person";
 import { useGetBanUserList, useGetUserList } from "@/hooks/useAdmin";
 import { searchUsers } from "@/services/adminService";
@@ -9,13 +9,13 @@ import { useEffect, useState } from "react";
 import TopPage from "../../_components/TopPage";
 import UsersTable from "./UsersTable";
 
-const options: UsersOption[] = [
+const options: IUsersOption[] = [
   { value: "users", label: "لیست کاربران" },
   { value: "ban-users", label: "لیست کاربران بن شده" },
 ];
 
 const Index = () => {
-  const [selectedOption, setSelectedOption] = useState<UsersOption | SelectOption>({
+  const [selectedOption, setSelectedOption] = useState<IUsersOption | ISelectOption>({
     value: "users",
     label: "لیست کاربران",
   });
