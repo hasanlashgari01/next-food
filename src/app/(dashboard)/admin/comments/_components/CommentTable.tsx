@@ -6,7 +6,9 @@ import TableStatus from "@/components/modules/Table/TableStatus";
 import { useBanOrUnbanFoodComment, useBanOrUnbanRestaurantComment } from "@/hooks/useAdmin";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import toast from "react-hot-toast";
-import { HiArchive } from "react-icons/hi";
+import { HiArchive, HiOutlineX } from "react-icons/hi";
+import { HiShieldCheck, HiShieldExclamation } from "react-icons/hi2";
+import { twMerge } from "tailwind-merge";
 
 interface ITableProps {
   data: ICommentsData | undefined;
@@ -65,12 +67,18 @@ const CommentTable: React.FC<ITableProps> = ({
     columnHelper.accessor("actions", {
       header: () => <span></span>,
       cell: info => {
-        let { _id: commentId } = info.row.original as IComment;
+        let { _id: commentId, isAccepted } = info.row.original as IComment;
 
         return (
           <div className="flex w-fit flex-col gap-1">
-            <span onClick={() => banHandler(commentId)}>
-              <HiArchive />
+            <span
+              className={twMerge(
+                "table-btn",
+                `${!isAccepted ? "bg-green-300 dark:bg-green-500" : "bg-amber-300 dark:bg-amber-700"}`,
+              )}
+              onClick={() => banHandler(commentId)}
+            >
+              {!isAccepted ? <HiShieldCheck /> : <HiShieldExclamation />}
             </span>
           </div>
         );
