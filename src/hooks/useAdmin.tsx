@@ -6,6 +6,7 @@ import {
   banOrUnbanRestaurant,
   banOrUnbanRestaurantComment,
   banOrUnbanUser,
+  banUserAndRejectRestaurantComment,
   getBanRestaurants,
   getBanUsers,
   getCategories,
@@ -101,6 +102,8 @@ const useGetRestaurantCommnetList = () =>
 
 const useBanOrUnbanRestaurantComment = () => useMutation({ mutationFn: banOrUnbanRestaurantComment });
 
+const useBanUserAndRejectRestaurantComment = () => useMutation({ mutationFn: banUserAndRejectRestaurantComment });
+
 const useGetFoodCommnetList = () => useQuery({ queryKey: ["food-comments"], queryFn: getFoodComments });
 
 const useBanOrUnbanFoodComment = () => useMutation({ mutationFn: banOrUnbanFoodComment });
@@ -134,6 +137,7 @@ export {
   useGetOrder,
   useGetRestaurantCommnetList,
   useBanOrUnbanRestaurantComment,
+  useBanUserAndRejectRestaurantComment,
   useGetFoodCommnetList,
   useBanOrUnbanFoodComment,
 };

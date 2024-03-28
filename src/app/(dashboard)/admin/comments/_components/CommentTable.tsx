@@ -3,11 +3,15 @@ import { ICommentsOption, ISelectOption } from "@/common/interface/optionSelect"
 import { IUser } from "@/common/interface/user";
 import Table from "@/components/modules/Table/Table";
 import TableStatus from "@/components/modules/Table/TableStatus";
-import { useBanOrUnbanFoodComment, useBanOrUnbanRestaurantComment } from "@/hooks/useAdmin";
+import {
+  useBanOrUnbanFoodComment,
+  useBanOrUnbanRestaurantComment,
+  useBanUserAndRejectRestaurantComment,
+} from "@/hooks/useAdmin";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import toast from "react-hot-toast";
 import { HiArchive, HiOutlineX } from "react-icons/hi";
-import { HiShieldCheck, HiShieldExclamation } from "react-icons/hi2";
+import { HiNoSymbol, HiShieldCheck, HiShieldExclamation } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
 interface ITableProps {
@@ -27,6 +31,7 @@ const CommentTable: React.FC<ITableProps> = ({
 }) => {
   const { mutateAsync: mutateAsyncBanOrUnbanFoodComment } = useBanOrUnbanFoodComment();
   const { mutateAsync: mutateAsyncBanOrUnbanRestaurantComment } = useBanOrUnbanRestaurantComment();
+  const { mutateAsync: mutateAsyncBanUserAndRejectRestaurantComment } = useBanUserAndRejectRestaurantComment();
   const isRestaurant: boolean = selectedOption.value === "restaurantComments";
 
   const columns: ColumnDef<unknown, never>[] = [
@@ -70,7 +75,7 @@ const CommentTable: React.FC<ITableProps> = ({
         let { _id: commentId, isAccepted } = info.row.original as IComment;
 
         return (
-          <div className="flex w-fit flex-col gap-1">
+          <div className="flex w-fit items-center gap-2 lg:gap-5">
             <span
               className={twMerge(
                 "table-btn",
@@ -79,6 +84,12 @@ const CommentTable: React.FC<ITableProps> = ({
               onClick={() => banHandler(commentId)}
             >
               {!isAccepted ? <HiShieldCheck /> : <HiShieldExclamation />}
+            </span>
+            <span
+              className="table-btn bg-red-300 dark:bg-red-500"
+              onClick={() => banUserAndRejectCommentHandler(commentId)}
+            >
+              <HiNoSymbol />
             </span>
           </div>
         );
@@ -96,6 +107,20 @@ const CommentTable: React.FC<ITableProps> = ({
       } else {
         const { message } = await mutateAsyncBanOrUnbanFoodComment(commentId);
         refetchFoodComments();
+        msg = message;
+      }
+      toast.success(msg);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const banUserAndRejectCommentHandler = async (commentId: string) => {
+    try {
+      let msg: string = "";
+      if (isRestaurant) {
+        const { message } = await mutateAsyncBanUserAndRejectRestaurantComment(commentId);
+        refetchRestaurantComments();
         msg = message;
       }
       toast.success(msg);

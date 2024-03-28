@@ -104,6 +104,9 @@ const getRestaurantComments = (): Promise<ICommentsData> => api(`${adminRestaura
 const banOrUnbanRestaurantComment = (id: string) =>
   api.patch(`${adminRestaurant}comment/${id}/status`).then(({ data }) => data);
 
+const banUserAndRejectRestaurantComment = (id: string) =>
+  api(`${adminRestaurant}comment/${id}`).then(({ data }) => data);
+
 const getFoodComments = (): Promise<ICommentsData> => api(`${adminFood}comment`).then(({ data }) => data);
 
 const banOrUnbanFoodComment = (id: string) => api.patch(`${adminFood}comment/${id}/status`).then(({ data }) => data);
@@ -139,6 +142,7 @@ export {
   getOrder,
   getRestaurantComments,
   banOrUnbanRestaurantComment,
+  banUserAndRejectRestaurantComment,
   getFoodComments,
   banOrUnbanFoodComment,
 };
