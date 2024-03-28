@@ -1,10 +1,10 @@
 "use client";
 
+import { Providers } from "@/app/providers";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import Header from "./Header";
 import SideBar from "./SideBar";
-import { Providers } from "@/app/providers";
 
 const LayoutPAdmin = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

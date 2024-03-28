@@ -5,7 +5,7 @@ import { adminPanelLinks } from "@/constants/navLinks";
 import { recursivePath } from "@/utils/func";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
@@ -18,6 +18,10 @@ const SideBar: React.FC<SideBarProps> = ({ isSidebarOpen, setIsSidebarOpen }) =>
   const pathname = usePathname();
   const { currentPath, parentPath } = recursivePath(pathname);
   const [isShow, setIsShow] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsSidebarOpen(false);
+  }, [pathname]);
 
   const showModalHandler = () => {
     setIsSidebarOpen(false);
