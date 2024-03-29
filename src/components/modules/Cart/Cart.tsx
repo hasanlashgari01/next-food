@@ -43,7 +43,7 @@ const Cart = () => {
 
           <hr className="dark:border-slate-700" />
 
-          <CartFooter count={foods?.length} total={total} />
+          <CartFooter count={foods?.length} total={total} refetch={refetch} />
         </div>
       )}
     </div>
