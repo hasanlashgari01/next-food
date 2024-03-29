@@ -178,4 +178,8 @@
       }
     }
   }
+
+  .cart-btn {
+    @apply flex aspect-square cursor-pointer items-center justify-center rounded-md bg-teal-600 px-1.5 sm:px-2 disabled:bg-opacity-65 text-base font-medium transition-colors duration-300 hover:bg-teal-700 disabled:cursor-not-allowed;
+  }
 }

@@ -35,10 +35,10 @@ const SideBar: React.FC<SideBarProps> = ({ mainRoute, links, isSidebarOpen, setI
   };
 
   return (
-    <div className="sticky top-0 z-10 h-dvh pt-2 font-IranYekan">
+    <div className="sticky top-0 h-dvh pt-2 font-IranYekan max-lg:z-10">
       <div
         className={twMerge(
-          "fixed inset-0 bg-slate-900/60 transition-all duration-200 ease-linear lg:hidden dark:bg-slate-950/50",
+          "fixed inset-0 bg-slate-900/60 backdrop-blur-md transition-all duration-200 ease-linear lg:hidden dark:bg-slate-950/50",
           `${isSidebarOpen ? "visible z-10 opacity-100" : "invisible opacity-0"}`,
         )}
         onClick={() => setIsSidebarOpen(false)}

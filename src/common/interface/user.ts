@@ -6,7 +6,7 @@ export type TGender = "male" | "female" | "other";
 export type TTheme = "AUTO" | "LIGHT" | "DARK";
 
 export interface ICart {
-  foods: [];
+  foods: IFood[];
   coupon: string;
 }
 

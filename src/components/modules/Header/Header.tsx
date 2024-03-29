@@ -8,6 +8,7 @@ import { HiBars3 } from "react-icons/hi2";
 import WelcomeText from "./WelcomeText";
 import { useGetUser } from "@/hooks/useAuth";
 import { twMerge } from "tailwind-merge";
+import Cart from "../Cart/Cart";
 
 interface HeaderProps {
   isSidebarOpen: boolean;
@@ -37,6 +38,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
         <div className="flex gap-[18px]">
           <NotificationDropdown notifications={notifications} />
+          <Cart />
           <Profile isLoading={isLoading} avatarUrl={data?.avatarUrl} />{" "}
         </div>
       </div>

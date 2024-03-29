@@ -1,5 +1,6 @@
 import { api } from "@/config/axiosConfig";
 import { orders, userRoute } from "./routeService";
+import { ICart } from "@/common/interface/cart";
 
 const likeFood = (id: string) => api.patch(`${userRoute}food/${id}/like`).then(({ data }) => data);
 
@@ -24,6 +25,8 @@ const getComments = () => api(`${userRoute}comments`).then(({ data }) => data);
 
 const getOffers = () => api(`${userRoute}offers`).then(({ data }) => data);
 
+const getCart = (): Promise<ICart> => api(`${userRoute}cart`).then(({ data }) => data.cart);
+
 export {
   likeFood,
   unLikeFood,
@@ -36,4 +39,5 @@ export {
   getOrders,
   getComments,
   getOffers,
+  getCart,
 };

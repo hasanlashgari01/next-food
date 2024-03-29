@@ -25,7 +25,7 @@ const NotificationDropdown: React.FC<{ notifications: NotificationProps[] }> = (
       </div>
       <div
         className={twMerge(
-          "fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-all duration-200 ease-linear dark:bg-slate-950/70",
+          "fixed inset-0 bg-slate-900/60 backdrop-blur-md transition-all duration-200 ease-linear dark:bg-slate-950/70",
           `${isOpen ? "visible z-10 opacity-100" : "invisible opacity-0"}`,
         )}
         onClick={() => setIsOpen(false)}

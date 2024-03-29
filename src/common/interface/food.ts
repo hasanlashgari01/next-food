@@ -22,5 +22,5 @@ export interface IFood extends IFoodDefault {
   image: string;
   category: string;
   kind: IKindFood[];
-  kindId: string | null;
+  kindId: IKindFood | undefined;
 }
