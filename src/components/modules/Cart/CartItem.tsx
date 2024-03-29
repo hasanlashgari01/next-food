@@ -3,11 +3,16 @@ import Image from "next/image";
 import CartItemAction from "./CartItemAction";
 import CartItemDetail from "./CartItemDetail";
 
-const CartItem: React.FC<{ food: ICartItem }> = ({ food }) => {
+interface Props {
+  food: ICartItem;
+  refetch: () => void;
+}
+
+const CartItem: React.FC<Props> = ({ food, refetch }) => {
   const total = Number(food?.kindId?.price) * Number(food?.quantity);
 
   return (
-    <li className="flex flex-1 gap-4 border-b px-6 py-2 text-xs transition-colors last:border-none sm:text-sm md:text-base dark:border-slate-700 dark:hover:bg-sky-800/60">
+    <li className="flex flex-1 gap-4 border-b px-6 py-2 text-xs transition-colors last:border-none sm:text-sm md:text-base dark:border-slate-700">
       <Image
         src="/auth-food.jpg"
         width={1000}
@@ -18,7 +23,7 @@ const CartItem: React.FC<{ food: ICartItem }> = ({ food }) => {
       />
       <div className="flex flex-1 flex-col justify-between">
         <CartItemDetail title={food?.kindId?.title as string} total={total} />
-        <CartItemAction foodId={food._id} quantity={food.quantity} />
+        <CartItemAction foodId={food._id} quantity={food.quantity} refetch={refetch} />
       </div>
     </li>
   );

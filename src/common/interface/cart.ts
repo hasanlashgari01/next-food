@@ -8,6 +8,6 @@ export interface ICartItem {
 }
 
 export interface ICart {
-  foods: ICartItem[];
+  foods: ICartItem[] | [];
   coupon: string;
 }
