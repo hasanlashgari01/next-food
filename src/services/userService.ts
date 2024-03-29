@@ -20,6 +20,8 @@ const unBookmarkRestaurant = (id: string) =>
 
 const getOrders = () => api(orders).then(({ data }) => data);
 
+const getComments = () => api(`${userRoute}comments`).then(({ data }) => data);
+
 export {
   likeFood,
   unLikeFood,
@@ -30,4 +32,5 @@ export {
   bookmarkRestaurant,
   unBookmarkRestaurant,
   getOrders,
+  getComments,
 };

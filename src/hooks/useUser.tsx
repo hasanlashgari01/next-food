@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   bookmarkFood,
   bookmarkRestaurant,
+  getComments,
   getOrders,
   likeFood,
   likeRestaurant,
@@ -29,6 +30,8 @@ const useUnBookmarkRestaurant = () => useMutation({ mutationFn: unBookmarkRestau
 
 const useGetOrderList = () => useQuery({ queryKey: ["user-orders"], queryFn: getOrders });
 
+const useGetCommentList = () => useQuery({ queryKey: ["user-comments"], queryFn: getComments });
+
 export {
   useLikeFood,
   useUnLikeFood,
@@ -39,4 +42,5 @@ export {
   useBookmarkRestaurant,
   useUnBookmarkRestaurant,
   useGetOrderList,
+  useGetCommentList,
 };
