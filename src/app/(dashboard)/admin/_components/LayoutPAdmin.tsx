@@ -19,7 +19,7 @@ const LayoutPAdmin = ({ children }: Readonly<{ children: React.ReactNode }>) => 
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
-        <div className="flex-1 rounded-t-2xl bg-background px-6 pb-6 lg:m-6 lg:mb-0 dark:bg-slate-900 dark:text-white">
+        <div className="w-full rounded-t-2xl bg-background px-6 pb-6 lg:m-6 lg:mb-0 dark:bg-slate-900 dark:text-white">
           <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
           {children}
         </div>

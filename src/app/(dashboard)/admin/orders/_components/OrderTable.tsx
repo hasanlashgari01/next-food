@@ -31,7 +31,7 @@ const OrderTable: React.FC<TableProps> = ({ data: { count, orders }, refetch }) 
     columnHelper.accessor("user", {
       header: () => <span>کاربر</span>,
       cell: ({ getValue }: { getValue: () => IUserOrder }) => (
-        <div className="flex w-fit flex-col gap-1">
+        <div className="flex w-fit min-w-32 flex-col gap-1">
           <span>{getValue().fullName}</span>
           <span>{getValue().mobile.replace(/(\d{4})(\d{3})(\d{4})/, "$1-$2-$3")}</span>
         </div>
@@ -41,7 +41,7 @@ const OrderTable: React.FC<TableProps> = ({ data: { count, orders }, refetch }) 
       header: () => "لیست غذا ها",
       cell: ({ getValue }: { getValue: () => IFood[] }) => {
         return (
-          <div className="flex w-fit flex-col gap-1.5">
+          <div className="flex min-w-72 flex-wrap gap-1.5">
             {getValue().map(food => (
               <Link
                 key={food._id}

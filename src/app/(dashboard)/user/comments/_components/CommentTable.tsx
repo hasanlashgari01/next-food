@@ -15,7 +15,7 @@ const CommentTable: React.FC<TableProps> = ({ isLoading, data, refetch }) => {
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("body", {
       header: () => "دیدگاه",
-      cell: info => <span className="line-clamp-1 max-w-52 overflow-hidden">{info.getValue()}</span>,
+      cell: info => <div className="line-clamp-1 min-w-32 max-w-20">{info.getValue()}</div>,
     }),
     columnHelper.accessor("rate", {
       header: () => <span>امتیاز</span>,

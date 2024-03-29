@@ -5,12 +5,14 @@ import TopPage from "../../_components/TopPage";
 import ProvinceTable from "./ProvinceTable";
 
 const Index = () => {
-  const { isPending, data: provinceList, refetch } = useGetProvinceList();
+  const { isLoading, data: provinceList, refetch } = useGetProvinceList();
 
   return (
     <>
       <TopPage title="لیست استان ها" link="/admin/provinces/add" linkText="افزودن استان" />
-      <ProvinceTable data={{ count: provinceList?.count, provinces: provinceList?.provinces }} refetch={refetch} />
+      {!isLoading && (
+        <ProvinceTable data={{ count: provinceList?.count, provinces: provinceList?.provinces }} refetch={refetch} />
+      )}
     </>
   );
 };

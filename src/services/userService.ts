@@ -22,6 +22,8 @@ const getOrders = () => api(orders).then(({ data }) => data);
 
 const getComments = () => api(`${userRoute}comments`).then(({ data }) => data);
 
+const getOffers = () => api(`${userRoute}offers`).then(({ data }) => data);
+
 export {
   likeFood,
   unLikeFood,
@@ -33,4 +35,5 @@ export {
   unBookmarkRestaurant,
   getOrders,
   getComments,
+  getOffers,
 };

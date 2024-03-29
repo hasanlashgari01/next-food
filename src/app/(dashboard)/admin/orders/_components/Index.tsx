@@ -4,12 +4,10 @@ import { useGetOrderList } from "@/hooks/useAdmin";
 import OrderTable from "./OrderTable";
 
 const Index = () => {
-  const { isPending, data: orderList, refetch } = useGetOrderList();
+  const { isLoading, data: orderList, refetch } = useGetOrderList();
 
   return (
-    <div>
-      <OrderTable data={{ count: orderList?.count, orders: orderList?.orders }} refetch={refetch} />
-    </div>
+    <>{!isLoading && <OrderTable data={{ count: orderList?.count, orders: orderList?.orders }} refetch={refetch} />}</>
   );
 };
 

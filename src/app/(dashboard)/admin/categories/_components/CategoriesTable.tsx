@@ -18,19 +18,19 @@ const columnHelper = createColumnHelper();
 const CategoriesTable: React.FC<TableProps> = ({ categories }) => {
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("title", {
-      cell: info => <i>{info.getValue()}</i>,
       header: () => <span>عنوان</span>,
+      cell: info => <div className="line-clamp-1 min-w-32">{info.getValue()}</div>,
     }),
     columnHelper.accessor("slug", {
       header: () => "لینک",
-      cell: info => info.renderValue(),
+      cell: info => <div className="line-clamp-1 min-w-32">{info.getValue()}</div>,
     }),
     columnHelper.accessor("children", {
       header: "زیرمجموعه ها",
       cell: info => {
         let children: Children[] = info.getValue();
         return (
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex min-w-52 flex-wrap gap-1.5">
             {children.map((child, index: number) => (
               <span
                 key={index}
@@ -46,7 +46,7 @@ const CategoriesTable: React.FC<TableProps> = ({ categories }) => {
     columnHelper.accessor("_id", {
       header: "",
       cell: info => (
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex min-w-20 flex-wrap gap-1.5">
           <Link href={`/admin/categories/${info.getValue()}`} className="table-btn bg-amber-300 dark:bg-amber-700">
             <HiMiniPencilSquare />
           </Link>

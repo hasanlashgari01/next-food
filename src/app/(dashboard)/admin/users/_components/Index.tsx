@@ -19,7 +19,7 @@ const Index = () => {
     value: "users",
     label: "لیست کاربران",
   });
-  const { data: usersResult, refetch: refetchUsers } = useGetUserList();
+  const { isLoading, data: usersResult, refetch: refetchUsers } = useGetUserList();
   const { data: banUsersResult, refetch: refetchBanUsers } = useGetBanUserList();
   const [searchResult, setSearchResult] = useState([] as Person[]);
   const [search, setSearch] = useState("");
@@ -54,27 +54,31 @@ const Index = () => {
 
   return (
     <>
-      <TopPage
-        selectedOption={selectedOption}
-        setSelectedOption={setSelectedOption}
-        title="لیست کاربران"
-        options={options}
-        search={search}
-        setSearch={setSearch}
-        searchHandler={searchHandler}
-      />
-      <UsersTable
-        selectedOption={selectedOption}
-        refetchUsers={refetchUsers}
-        refetchBanUsers={refetchBanUsers}
-        users={
-          searchResult.length > 0
-            ? searchResult
-            : selectedOption.value === "users"
-              ? usersResult?.users
-              : banUsersResult.result
-        }
-      />
+      {!isLoading && (
+        <>
+          <TopPage
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            title="لیست کاربران"
+            options={options}
+            search={search}
+            setSearch={setSearch}
+            searchHandler={searchHandler}
+          />
+          <UsersTable
+            selectedOption={selectedOption}
+            refetchUsers={refetchUsers}
+            refetchBanUsers={refetchBanUsers}
+            users={
+              searchResult.length > 0
+                ? searchResult
+                : selectedOption.value === "users"
+                  ? usersResult?.users
+                  : banUsersResult.result
+            }
+          />
+        </>
+      )}
     </>
   );
 };

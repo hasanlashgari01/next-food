@@ -1,3 +1,5 @@
+import { IFood } from "./food";
+
 export type TStatus = "notActive" | "active" | "expired";
 export type TType = "fixedProduct" | "percent" | null;
 
@@ -19,4 +21,8 @@ export interface IDiscountProps extends IDiscount {
 export interface IDiscountInputs extends IDiscountProps {
   amountFixed?: number | null;
   amountPercent?: number | null;
+}
+
+export interface IOffer extends IDiscountInputs {
+  foodIds?: IFood[];
 }

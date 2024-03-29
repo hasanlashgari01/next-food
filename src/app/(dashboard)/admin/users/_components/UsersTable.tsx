@@ -23,8 +23,8 @@ const UsersTable: React.FC<TableProps> = ({ users, refetchUsers, refetchBanUsers
   const { mutateAsync } = useBanOrUnbanUser();
   const columns = [
     columnHelper.accessor("fullName", {
-      cell: info => <i>{info.getValue()}</i>,
       header: () => <span>نام</span>,
+      cell: info => <div className="line-clamp-1 min-w-32">{info.getValue()}</div>,
     }),
     columnHelper.accessor("mobile", {
       header: () => "شماره تلفن",
@@ -40,7 +40,7 @@ const UsersTable: React.FC<TableProps> = ({ users, refetchUsers, refetchBanUsers
     }),
     columnHelper.accessor("gender", {
       header: "جنسیت",
-      cell: info => (info.getValue() === "male" ? "مرد" : info.getValue() === "female" ? "زن" : "تعیین نشده"),
+      cell: info => (info.getValue() === "male" ? "مرد" : info.getValue() === "female" ? "زن" : "سایر"),
     }),
     columnHelper.accessor("_id", {
       header: "",

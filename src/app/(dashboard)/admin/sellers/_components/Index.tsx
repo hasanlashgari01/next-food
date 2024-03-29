@@ -5,12 +5,12 @@ import TopPage from "../../_components/TopPage";
 import SellersTable from "./SellersTable";
 
 const Index = () => {
-  const { data: sellerResult, refetch: refetchSellers } = useGetSellerList();
+  const { isLoading, data: sellerResult, refetch: refetchSellers } = useGetSellerList();
 
   return (
     <>
       <TopPage title="لیست فروشندگان" />
-      <SellersTable refetchSellers={refetchSellers} sellers={sellerResult?.sellers} />
+      {!isLoading && <SellersTable refetchSellers={refetchSellers} sellers={sellerResult?.sellers} />}
     </>
   );
 };

@@ -17,8 +17,6 @@ interface TableProps {
 const columnHelper = createColumnHelper();
 
 const OrderTable: React.FC<TableProps> = ({ data: { count, orders }, refetch }) => {
-  console.log("🚀 ~ orders:", orders);
-
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("_id", {
       header: () => <span>شناسه</span>,
@@ -32,12 +30,12 @@ const OrderTable: React.FC<TableProps> = ({ data: { count, orders }, refetch }) 
       header: () => "لیست غذا ها",
       cell: ({ getValue }: { getValue: () => IFood[] }) => {
         return (
-          <div className="flex w-fit flex-col gap-1.5">
+          <div className="flex min-w-52 flex-wrap gap-1.5">
             {getValue().map(food => (
               <Link
                 key={food._id}
                 href={`/foods/${food._id}`}
-                className="text-primary-700 rounded-lg bg-primary-300 px-1.5 py-1 text-xs transition-colors hover:bg-amber-300 dark:bg-primary-900"
+                className="text-primary-700 inline-flex rounded-lg bg-primary-300 px-1.5 py-1 text-xs transition-colors hover:bg-amber-300 dark:bg-primary-900"
               >
                 {food.title}
               </Link>
@@ -61,11 +59,13 @@ const OrderTable: React.FC<TableProps> = ({ data: { count, orders }, refetch }) 
       header: () => <span>وضعیت پرداخت</span>,
       cell: ({ getValue }: { getValue: () => TPaymentStatus }) => {
         return (
-          <span
-            className={twMerge("rounded px-3 py-1 text-white", getValue() === "PAID" ? "bg-green-600" : "bg-red-600")}
-          >
-            {getValue() === "PAID" ? "موفق" : "ناموفق"}
-          </span>
+          <div className="min-w-28">
+            <span
+              className={twMerge("rounded px-3 py-1 text-white", getValue() === "PAID" ? "bg-green-600" : "bg-red-600")}
+            >
+              {getValue() === "PAID" ? "موفق" : "ناموفق"}
+            </span>
+          </div>
         );
       },
     }),

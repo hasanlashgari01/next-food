@@ -42,8 +42,8 @@ const Table: React.FC<TableProps> = ({ count, data, columns, notFoundMsg }) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="min-h-[60vh]">
-        <table className="w-full rounded-sm bg-slate-50 font-IranYekan text-xs max-lg:table-fixed md:text-base">
+      <div className="min-h-[60vh] flex-1 overflow-x-auto">
+        <table className="size-full rounded-sm  bg-slate-50 font-IranYekan text-xs md:text-base">
           <thead className="bg-sky-50">
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id}>
@@ -52,7 +52,7 @@ const Table: React.FC<TableProps> = ({ count, data, columns, notFoundMsg }) => {
                     <th
                       key={header.id}
                       colSpan={header.colSpan}
-                      className="border border-slate-300 bg-sky-200 px-5 py-2 text-right dark:border-slate-900 dark:bg-sky-800 dark:text-slate-100"
+                      className="border border-slate-300 bg-sky-200 px-2 py-2 text-right lg:px-5 dark:border-slate-900 dark:bg-sky-800 dark:text-slate-100"
                     >
                       {header.isPlaceholder ? null : (
                         <div
@@ -95,7 +95,7 @@ const Table: React.FC<TableProps> = ({ count, data, columns, notFoundMsg }) => {
                         return (
                           <td
                             key={cell.id}
-                            className="border border-slate-300 px-5 py-2 text-right dark:border-slate-900"
+                            className="border border-slate-300 px-2 py-2 text-right lg:px-5 dark:border-slate-900"
                           >
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                           </td>

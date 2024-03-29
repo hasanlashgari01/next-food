@@ -13,11 +13,11 @@ const options: ISelectOption[] = [
 
 const Index = () => {
   const {
-    isPending: isPendingRestaurants,
+    isLoading: isLoadingRestaurants,
     data: restaurantCommentList,
     refetch: refetchRestaurantsComments,
   } = useGetRestaurantCommnetList();
-  const { isPending: isPendingFood, data: foodCommentList, refetch: refetchFoodComments } = useGetFoodCommnetList();
+  const { isLoading: isLoadingFood, data: foodCommentList, refetch: refetchFoodComments } = useGetFoodCommnetList();
 
   const [selectedOption, setSelectedOption] = useState<ICommentsOption | ISelectOption>({
     value: "restaurantComments",
@@ -34,22 +34,22 @@ const Index = () => {
 
   return (
     <>
-      <TopPage
-        title="لیست نظرات"
-        options={options}
-        selectedOption={selectedOption}
-        setSelectedOption={setSelectedOption}
-      />
-      <CommentTable
-        data={
-          !isPendingRestaurants && selectedOption.value === "restaurantComments"
-            ? restaurantCommentList
-            : foodCommentList
-        }
-        selectedOption={selectedOption}
-        refetchRestaurantComments={refetchRestaurantsComments}
-        refetchFoodComments={refetchFoodComments}
-      />
+      {!isLoadingRestaurants && (
+        <>
+          <TopPage
+            title="لیست نظرات"
+            options={options}
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+          />
+          <CommentTable
+            data={selectedOption.value === "restaurantComments" ? restaurantCommentList : foodCommentList}
+            selectedOption={selectedOption}
+            refetchRestaurantComments={refetchRestaurantsComments}
+            refetchFoodComments={refetchFoodComments}
+          />
+        </>
+      )}
     </>
   );
 };

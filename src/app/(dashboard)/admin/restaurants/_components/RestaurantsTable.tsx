@@ -27,8 +27,8 @@ const RestaurantsTable: React.FC<TableProps> = ({
   const { mutateAsync: mutateAsyncUpdateValid } = useUpdateValidRestaurant();
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("name", {
-      cell: info => <i>{info.getValue()}</i>,
       header: () => <span>نام</span>,
+      cell: info => <div className="line-clamp-1 min-w-32">{info.getValue()}</div>,
     }),
     columnHelper.accessor("phone", {
       header: () => "تلفن",
@@ -40,7 +40,7 @@ const RestaurantsTable: React.FC<TableProps> = ({
     }),
     columnHelper.accessor("province.name", {
       header: "استان",
-      cell: info => info.getValue(),
+      cell: info => <div className="line-clamp-1 min-w-20">{info.getValue()}</div>,
     }),
     columnHelper.accessor("score", {
       header: "امتیاز",
@@ -51,7 +51,7 @@ const RestaurantsTable: React.FC<TableProps> = ({
       cell: info => {
         let categories: string[] = info.getValue();
         return (
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex min-w-52 flex-wrap gap-1.5">
             {categories.map((category: string, index: number) => (
               <span
                 key={index}

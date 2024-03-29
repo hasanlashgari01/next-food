@@ -30,7 +30,7 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
 
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("checkbox", {
-      header: () => <span></span>,
+      header: () => "",
       cell: info => {
         const { _id: discountId } = info.row.original as IDiscountProps;
 
@@ -47,12 +47,12 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
       },
     }),
     columnHelper.accessor("code", {
-      header: () => <span>کد</span>,
-      cell: info => <i>{info.getValue()}</i>,
+      header: () => "کد",
+      cell: info => <div className="min-w-24">{info.getValue()}</div>,
     }),
     columnHelper.accessor("type", {
       header: () => "نوع",
-      cell: info => info.renderValue(),
+      cell: info => <div className="min-w-20">{info.getValue()}</div>,
     }),
     columnHelper.accessor("amount", {
       header: () => "میزان",
@@ -65,23 +65,25 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
     columnHelper.accessor("status", {
       header: () => "وضعیت",
       cell: info => (
-        <span
-          className={twMerge(
-            info.getValue() === "active"
-              ? "btn-success rounded-md bg-opacity-70 px-1.5 py-0.5 text-white"
-              : info.getValue() === "notActive"
-                ? "btn-warning rounded-md bg-opacity-70 px-1.5 py-0.5 text-white"
-                : "btn-danger rounded-md bg-opacity-70 px-1.5 py-0.5 text-white",
-          )}
-        >
-          {info.getValue() === "active" ? "فعال" : info.getValue() === "notActive" ? "غیر فعال" : "منقضی شده"}
-        </span>
+        <div className="min-w-28">
+          <span
+            className={twMerge(
+              info.getValue() === "active"
+                ? "btn-success rounded-md bg-opacity-70 px-1.5 py-0.5 text-white"
+                : info.getValue() === "notActive"
+                  ? "btn-warning rounded-md bg-opacity-70 px-1.5 py-0.5 text-white"
+                  : "btn-danger rounded-md bg-opacity-70 px-1.5 py-0.5 text-white",
+            )}
+          >
+            {info.getValue() === "active" ? "فعال" : info.getValue() === "notActive" ? "غیر فعال" : "منقضی شده"}
+          </span>
+        </div>
       ),
     }),
     columnHelper.accessor("_id", {
       header: "",
       cell: info => (
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex min-w-20 flex-wrap gap-1.5">
           <Link href={`/admin/discount/${info.getValue()}/edit`} className="table-btn bg-amber-300 dark:bg-amber-700">
             <HiMiniPencilSquare />
           </Link>

@@ -18,7 +18,7 @@ const Index = () => {
     value: "restaurants",
     label: "لیست رستوران",
   });
-  const { data: restaurantsResult, refetch: refetchRestaurant } = useGetRestaurantList();
+  const { isLoading, data: restaurantsResult, refetch: refetchRestaurant } = useGetRestaurantList();
   const { data: banRestaurantsResult, refetch: refetchBanRestaurant } = useGetBanRestaurantList();
   const [searchResult, setSearchResult] = useState([] as IRestaurant[]);
   const [search, setSearch] = useState("");
@@ -48,27 +48,31 @@ const Index = () => {
 
   return (
     <>
-      <TopPage
-        selectedOption={selectedOption}
-        setSelectedOption={setSelectedOption}
-        title="لیست رستوران"
-        options={options}
-        search={search}
-        setSearch={setSearch}
-        searchHandler={searchHandler}
-      />
-      <RestaurantsTable
-        selectedOption={selectedOption}
-        refetchRestaurant={refetchRestaurant}
-        refetchBanRestaurant={refetchBanRestaurant}
-        restaurants={
-          searchResult.length > 0
-            ? searchResult
-            : selectedOption.value === "restaurants"
-              ? restaurantsResult?.restaurants
-              : banRestaurantsResult.restaurantsBanned
-        }
-      />
+      {!isLoading && (
+        <>
+          <TopPage
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            title="لیست رستوران"
+            options={options}
+            search={search}
+            setSearch={setSearch}
+            searchHandler={searchHandler}
+          />
+          <RestaurantsTable
+            selectedOption={selectedOption}
+            refetchRestaurant={refetchRestaurant}
+            refetchBanRestaurant={refetchBanRestaurant}
+            restaurants={
+              searchResult.length > 0
+                ? searchResult
+                : selectedOption.value === "restaurants"
+                  ? restaurantsResult?.restaurants
+                  : banRestaurantsResult.restaurantsBanned
+            }
+          />
+        </>
+      )}
     </>
   );
 };

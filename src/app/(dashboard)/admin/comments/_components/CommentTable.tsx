@@ -37,13 +37,13 @@ const CommentTable: React.FC<ITableProps> = ({
 
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("body", {
-      cell: info => <i>{info.getValue()}</i>,
       header: () => <span>متن نظر</span>,
+      cell: info => <div className="line-clamp-1 min-w-32 max-w-20">{info.getValue()}</div>,
     }),
     columnHelper.accessor("authorId", {
       header: () => <span>کاربر</span>,
       cell: ({ getValue }: { getValue: () => IUser }) => (
-        <div className="flex w-fit flex-col gap-1">
+        <div className="flex w-fit min-w-32 flex-col gap-1">
           <span>{getValue()?.fullName}</span>
           <span>{getValue()?.mobile.replace(/(\d{4})(\d{3})(\d{4})/, "$1-$2-$3")}</span>
         </div>
@@ -53,7 +53,7 @@ const CommentTable: React.FC<ITableProps> = ({
       header: () => <span>{isRestaurant ? "رستوران" : "غذا"}</span>,
       cell: ({ getValue }: { getValue: () => IComment["restaurantId"] & IComment["foodId"] }) => {
         return (
-          <div className="flex w-fit flex-col gap-1">
+          <div className="flex w-fit min-w-32 flex-col gap-1">
             <span>{isRestaurant ? getValue()?.name : getValue()?.title}</span>
             <span className="empty:hidden">
               {isRestaurant && getValue()?.phone.replace(/(\d{4})(\d{3})(\d{4})/, "$1-$2-$3")}
@@ -76,7 +76,7 @@ const CommentTable: React.FC<ITableProps> = ({
         let { _id: commentId, isAccepted } = info.row.original as IComment;
 
         return (
-          <div className="flex w-fit items-center gap-2 lg:gap-5">
+          <div className="flex w-fit min-w-20 items-center gap-2 lg:gap-5">
             <span
               className={twMerge(
                 "table-btn",

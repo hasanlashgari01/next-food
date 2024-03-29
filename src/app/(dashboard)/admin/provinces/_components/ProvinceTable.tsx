@@ -47,11 +47,11 @@ const ProvinceTable: React.FC<TableProps> = ({ data: { count, provinces }, refet
     }),
     columnHelper.accessor("name", {
       header: () => <span>استان</span>,
-      cell: info => <i>{info.getValue()}</i>,
+      cell: info => <div className="line-clamp-1 min-w-32">{info.getValue()}</div>,
     }),
     columnHelper.accessor("englishTitle", {
       header: () => "نام انگلیسی",
-      cell: info => info.renderValue(),
+      cell: info => <div className="line-clamp-1 min-w-32">{info.getValue()}</div>,
     }),
     columnHelper.accessor("_id", {
       header: "",

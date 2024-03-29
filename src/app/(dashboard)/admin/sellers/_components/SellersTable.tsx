@@ -13,8 +13,8 @@ const columnHelper = createColumnHelper<Person>();
 const SellersTable: React.FC<TableProps> = ({ sellers }) => {
   const columns = [
     columnHelper.accessor("fullName", {
-      cell: info => <i>{info.getValue()}</i>,
       header: () => <span>نام</span>,
+      cell: info => <div className="line-clamp-1 min-w-32">{info.getValue()}</div>,
     }),
     columnHelper.accessor("mobile", {
       header: () => "شماره تلفن",

@@ -6,7 +6,11 @@ import OrderTable from "./OrderTable";
 const Index = () => {
   const { isPending, data: orderList, refetch } = useGetOrderList();
 
-  return <OrderTable data={{ count: orderList?.count, orders: orderList?.orders }} refetch={refetch} />;
+  return (
+    <div className="mt-5">
+      <OrderTable data={{ count: orderList?.count, orders: orderList?.orders }} refetch={refetch} />;
+    </div>
+  );
 };
 
 export default Index;
