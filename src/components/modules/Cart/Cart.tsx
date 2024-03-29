@@ -6,12 +6,14 @@ import CartFooter from "./CartFooter";
 import CartHeader from "./CartHeader";
 import CartList from "./CartList";
 import { ICart } from "@/common/interface/cart";
+import { calculateTotalCart } from "@/utils/func";
 
 const Cart = () => {
   const { isLoading, data, refetch } = useGetCart();
   const [isOpen, setIsOpen] = useState(false);
   const foods = data?.foods;
-  console.log("🚀 ~ Cart ~ foods:", data);
+
+  const total = calculateTotalCart(foods as ICart["foods"]);
 
   return (
     <div className="relative">
@@ -33,7 +35,7 @@ const Cart = () => {
       ></div>
       {isOpen && (
         <div className="absolute left-0 top-full z-20 mt-5 flex w-fit -translate-x-16 flex-col overflow-hidden rounded-xl bg-slate-100 shadow-lg transition-all duration-300 ease-linear sm:-translate-x-8 dark:bg-slate-800 dark:shadow-none">
-          <CartHeader count={foods?.length} />
+          <CartHeader count={foods?.length} total={total} />
 
           <hr className="dark:border-slate-700" />
 
@@ -41,7 +43,7 @@ const Cart = () => {
 
           <hr className="dark:border-slate-700" />
 
-          <CartFooter count={foods?.length} />
+          <CartFooter count={foods?.length} total={total} />
         </div>
       )}
     </div>

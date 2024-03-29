@@ -4,9 +4,10 @@ import CartTotalPrice from "./CartTotalPrice";
 
 interface CartFooterProps {
   count: number | undefined;
+  total: number | undefined;
 }
 
-const CartFooter: React.FC<CartFooterProps> = ({ count }) => {
+const CartFooter: React.FC<CartFooterProps> = ({ count, total }) => {
   return (
     <div className="flex w-full items-center justify-between self-end px-6 py-2.5 text-sm lg:text-base">
       <div className="flex gap-2">
@@ -23,7 +24,7 @@ const CartFooter: React.FC<CartFooterProps> = ({ count }) => {
           <HiTrash className="text-white" size={20} />
         </button>
       </div>
-      <CartTotalPrice isHide={true} />
+      <CartTotalPrice isHide={true} total={total} />
     </div>
   );
 };

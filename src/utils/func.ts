@@ -1,3 +1,5 @@
+import { ICart } from "@/common/interface/cart";
+
 const recursivePath = (pathname: string) => {
   const currentPath = pathname?.split("/")?.slice(-1)?.toString();
   const parentPath = pathname?.split("/")[2]?.toString();
@@ -24,4 +26,14 @@ const toPersianDate = (date?: Date) => {
   return { persianDate, persianTime };
 };
 
-export { fixNumbers, recursivePath, toPersianDate };
+const calculateTotalCart = (foods: ICart["foods"]) => {
+  let sum = 0;
+  if (foods) {
+    foods.forEach(food => {
+      sum += Number(food.kindId?.price) * Number(food.quantity!);
+    });
+  }
+  return sum;
+};
+
+export { fixNumbers, recursivePath, toPersianDate, calculateTotalCart };
