@@ -2,7 +2,7 @@
 
 import RestaurantWishlist from "@/components/modules/Whishlist/RestaurantWishlist";
 import { useGetUser } from "@/hooks/useAuth";
-import NotFound from "../_components/NotFound";
+import NotFound from "../../../../../components/modules/Whishlist/NotFound";
 
 const WishlistRestaurant = () => {
   const { isLoading, data, refetch } = useGetUser();

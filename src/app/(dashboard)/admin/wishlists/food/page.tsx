@@ -2,7 +2,7 @@
 
 import FoodWishlist from "@/components/modules/Whishlist/FoodWishlist";
 import { useGetUser } from "@/hooks/useAuth";
-import NotFound from "../_components/NotFound";
+import NotFound from "../../../../../components/modules/Whishlist/NotFound";
 
 const WishlistFood = () => {
   const { isLoading, data } = useGetUser();
