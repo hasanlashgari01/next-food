@@ -1,7 +1,7 @@
 import { ICart, ICartItem } from "@/common/interface/cart";
 import CartItemAction from "@/components/modules/Cart/CartItemAction";
 import { calculateTotalCart } from "@/utils/func";
-import { HiOutlineTrash } from "react-icons/hi2";
+import { HiChevronLeft, HiOutlineCheckCircle, HiOutlineTrash, HiOutlineWallet } from "react-icons/hi2";
 import FactorItem from "./FactorItem";
 import { useState } from "react";
 
@@ -10,9 +10,10 @@ interface FactorProps {
   refetch: () => void;
   setIsModalOpen: (value: boolean) => void;
   step: number;
+  nextStep: () => void;
 }
 
-const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step }) => {
+const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step, nextStep }) => {
   const [shippingAmount, setShippingAmount] = useState(10000);
   const { sum: total, discount } = calculateTotalCart(foods as ICart["foods"], shippingAmount);
 
@@ -59,7 +60,26 @@ const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step })
       />
       <hr className="dark:border-slate-700" />
       <FactorItem text="مبلغ قابل پرداخت" value={total.toLocaleString()} total={true} />
-      <button className="btn btn-success rounded py-1.5 text-white">ثبت سفارش</button>
+      <button className="btn btn-success rounded py-1.5 text-white" onClick={nextStep}>
+        {step === 1 && (
+          <span className="flex items-center gap-2">
+            <span>تکمیل اطلاعات</span>
+            <HiChevronLeft className="text-2xl" />
+          </span>
+        )}
+        {step === 2 && (
+          <span className="flex items-center gap-2">
+            <HiOutlineCheckCircle className="text-2xl" />
+            <span>ثبت سفارش</span>
+          </span>
+        )}
+        {step === 3 && (
+          <span className="flex items-center gap-2">
+            <HiOutlineWallet className="text-2xl" />
+            <span>تایید و پرداخت</span>
+          </span>
+        )}
+      </button>
     </div>
   );
 };

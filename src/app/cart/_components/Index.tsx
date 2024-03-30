@@ -15,9 +15,7 @@ const Index = () => {
   const [step, setStep] = useState<number>(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const previousStep = () => {
-    setStep(step - 1);
-  };
+  const previousStep = () => setStep(step - 1);
 
   const nextStep = () => {
     if (step === 3) return false;
@@ -49,7 +47,13 @@ const Index = () => {
             <div className="col-span-1 lg:col-span-2">
               {step === 1 && <CartList isLoading={isLoading} data={data} refetch={refetch} />}
             </div>
-            <Factor step={step} foods={data?.foods} refetch={refetch} setIsModalOpen={setIsModalOpen} />
+            <Factor
+              step={step}
+              nextStep={nextStep}
+              foods={data?.foods}
+              refetch={refetch}
+              setIsModalOpen={setIsModalOpen}
+            />
           </div>
         ) : (
           <EmptyPage />
