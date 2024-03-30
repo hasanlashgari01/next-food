@@ -85,6 +85,10 @@
   .cart-border {
     @apply absolute h-0.5 w-full bg-neutral-200 after:absolute after:h-0.5 after:w-0 after:bg-neutral-200 after:transition-all after:delay-500 after:duration-500 after:ease-linear after:content-[''];
   }
+
+  .factor-item {
+    @apply flex-1 p-2 odd:bg-neutral-100 even:bg-neutral-200;
+  }
 }
 
 @layer components {

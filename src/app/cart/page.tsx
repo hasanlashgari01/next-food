@@ -1,9 +1,9 @@
-import Position from "./_components/Position";
+import Index from "./_components/Index";
 
 const page = () => {
   return (
     <div className="container">
-      <Position />
+      <Index />
     </div>
   );
 };

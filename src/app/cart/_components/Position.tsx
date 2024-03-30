@@ -8,9 +8,12 @@ import PositionPayment from "./PositionPayment";
 import { twMerge } from "tailwind-merge";
 import Modal from "@/components/modules/Modal/Modal";
 
-const Position = () => {
+interface Props {
+  setIsModalOpen: (value: boolean) => void;
+}
+
+const Position: React.FC<Props> = ({ setIsModalOpen }) => {
   const [step, setStep] = useState<number>(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const previousStep = () => {
     setStep(step - 1);
@@ -64,17 +67,6 @@ const Position = () => {
           <HiOutlineTrash className="text-lg" />
         </button>
       </div>
-      <Modal
-        isShow={isModalOpen}
-        setIsShow={setIsModalOpen}
-        cancelText="بازگشت"
-        cancelStyle="btn-success"
-        confirmText="حذف"
-        confirmStyle="btn-danger"
-        title="حذف محصولات"
-        description="همه محصولات سبد خرید شما حذف شود؟"
-        // confirmAction={}
-      />
     </section>
   );
 };
