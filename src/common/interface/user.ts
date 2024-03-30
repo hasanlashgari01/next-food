@@ -32,4 +32,6 @@ export interface IUser {
   settings: {
     theme: TTheme;
   };
+  createdAt: Date;
+  updatedAt: Date;
 }

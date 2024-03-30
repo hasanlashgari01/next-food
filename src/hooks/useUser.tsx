@@ -3,6 +3,7 @@ import {
   bookmarkFood,
   bookmarkRestaurant,
   getComments,
+  getDashboard,
   getOffers,
   getOrders,
   likeFood,
@@ -35,6 +36,8 @@ const useGetCommentList = () => useQuery({ queryKey: ["user-comments"], queryFn:
 
 const useGetOfferList = () => useQuery({ queryKey: ["user-offers"], queryFn: getOffers });
 
+const useGetDashboard = () => useQuery({ queryKey: ["user-dashboard"], queryFn: getDashboard });
+
 export {
   useLikeFood,
   useUnLikeFood,
@@ -47,4 +50,5 @@ export {
   useGetOrderList,
   useGetCommentList,
   useGetOfferList,
+  useGetDashboard,
 };

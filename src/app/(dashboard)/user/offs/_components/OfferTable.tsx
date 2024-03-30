@@ -26,7 +26,7 @@ const OfferTable: React.FC<IData<IOffer[]>> = ({ data, isLoading, refetch }) => 
                 <li key={food._id} className="flex-initial">
                   <Link
                     href={`/foods/${food._id}`}
-                    className="line-clamp-1 rounded-md bg-primary-300 px-1.5 py-1 text-xs"
+                    className="line-clamp-1 rounded-md bg-primary-300 px-1.5 py-1 text-xs dark:bg-primary-900"
                   >
                     {food.title}
                   </Link>

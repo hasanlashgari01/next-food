@@ -34,6 +34,7 @@ const config = {
       },
       fontFamily: {
         IranYekan: "IranYekan-Regular",
+        Dana: "Dana",
       },
     },
   },

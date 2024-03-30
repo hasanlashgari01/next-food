@@ -53,6 +53,13 @@
     src: url("../assets/fonts/IranYekan/iranyekan-bold.woff") format("woff");
   }
 
+  @font-face {
+    font-family: "Dana";
+    font-style: normal;
+    font-weight: 500;
+    src: url("../assets/fonts/Dana/DanaFaNum-Medium.woff2") format("woff2");
+  }
+
   /* Chrome, Safari, Edge, Opera */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -180,6 +187,6 @@
   }
 
   .cart-btn {
-    @apply flex aspect-square cursor-pointer items-center justify-center rounded-md bg-teal-600 px-1.5 sm:px-2 disabled:bg-opacity-65 text-base font-medium transition-colors duration-300 hover:bg-teal-700 disabled:cursor-not-allowed;
+    @apply flex aspect-square cursor-pointer items-center justify-center rounded-md bg-teal-600 px-1.5 text-base font-medium transition-colors duration-300 hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-opacity-65 sm:px-2;
   }
 }
