@@ -43,7 +43,7 @@ const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step, n
   };
 
   return (
-    <div className="col-span-1 flex h-fit flex-col rounded-lg border border-neutral-300 p-6 dark:border-slate-700">
+    <div className="box col-span-1 flex h-fit flex-col p-6">
       <div className="mb-3 hidden items-center justify-between  text-sm/8 lg:flex">
         <span className="text-[#353535] dark:text-white">سبد خرید ({foods.length})</span>
         <button className="cart__topbar-btn bg-transparent" onClick={() => setIsModalOpen(true)}>

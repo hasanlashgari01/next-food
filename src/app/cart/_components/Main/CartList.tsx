@@ -4,7 +4,7 @@ import { IData } from "@/common/interface/getData";
 
 const CartList: React.FC<IData<ICart>> = ({ isLoading, data, refetch }) => {
   return (
-    <div className="flex max-h-[554px] flex-col gap-1 overflow-y-auto rounded-lg border border-neutral-300 sm:p-6 md:gap-4 dark:border-slate-700">
+    <div className="box flex max-h-[554px] flex-col gap-1 overflow-y-auto sm:p-6 md:gap-4">
       {data &&
         data.foods?.map(food => (
           <>

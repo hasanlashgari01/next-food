@@ -11,11 +11,11 @@ const CompletionForm = () => {
   });
 
   return (
-    <>
+    <div className="child:box flex flex-col gap-6">
       <CompletionDelivery delivery={delivery} setDelivery={setDelivery} />
       {delivery.value === "DELIVERY" && <CompletionAddress />}
       <CompletionDescription />
-    </>
+    </div>
   );
 };
 

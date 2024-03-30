@@ -87,7 +87,7 @@
   }
 
   .factor-item {
-    @apply flex-1 p-2 odd:bg-neutral-100 even:bg-neutral-200 dark:odd:bg-slate-700 dark:even:bg-slate-600 dark:text-slate-100;
+    @apply flex-1 p-2 odd:bg-neutral-100 even:bg-neutral-200 dark:text-slate-100 dark:odd:bg-slate-700 dark:even:bg-slate-600;
   }
 }
 
@@ -208,5 +208,9 @@
 
   .cart__topbar-btn {
     @apply inline-flex aspect-square size-7 items-center justify-center rounded-md bg-slate-200 text-slate-900 transition-colors duration-300 ease-linear hover:bg-slate-300 disabled:cursor-not-allowed disabled:bg-slate-200/40 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 disabled:dark:bg-slate-700/40;
+  }
+
+  .box {
+    @apply rounded-lg border border-neutral-300 dark:border-slate-700;
   }
 }

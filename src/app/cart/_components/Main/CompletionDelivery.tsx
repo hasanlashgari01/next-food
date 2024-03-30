@@ -9,10 +9,10 @@ interface ICompletionDeliveryProps {
 
 const CompletionDelivery: React.FC<ICompletionDeliveryProps> = ({ delivery, setDelivery }) => {
   return (
-    <div className="grid grid-cols-3 rounded-lg border border-neutral-300 p-4 lg:p-6 xl:grid-cols-4 dark:border-slate-700">
+    <div className="grid grid-cols-3 rounded-lg p-4 lg:p-6 xl:grid-cols-4">
       <div className="col-span-3 flex items-center gap-2 lg:w-fit xl:col-span-1">
         <HiOutlineTruck className="text-2xl" />
-        <span className="leading-8">روش تحویل سفارش</span>
+        <span className="text-sm leading-8 md:text-base">روش تحویل سفارش</span>
       </div>
 
       <hr className="col-span-3 mb-4 mt-2 xl:hidden" />
@@ -31,7 +31,10 @@ const CompletionDelivery: React.FC<ICompletionDeliveryProps> = ({ delivery, setD
                 className="accent-blue-500"
                 onChange={() => setDelivery({ value: item.value, label: item.text })}
               />
-              <label htmlFor={item.value} className="flex flex-1 cursor-pointer items-center gap-1">
+              <label
+                htmlFor={item.value}
+                className="flex flex-1 cursor-pointer items-center gap-1 text-sm md:text-base"
+              >
                 <div className="flex flex-col child:leading-8">
                   <span className="text-neutral-900">{item.text}</span>
                   <span className="text-neutral-300 empty:hidden max-lg:hidden">{item?.description}</span>

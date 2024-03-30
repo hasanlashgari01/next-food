@@ -58,7 +58,7 @@ const Index = () => {
             />
           </div>
         ) : (
-          <EmptyPage />
+          <EmptyPage message="شما در حال حاضر هیچ سفارشی ثبت نکرده‌اید!" link="/food" linkText="منوی رستوران" />
         ))}
       <Modal
         isShow={isModalOpen}
