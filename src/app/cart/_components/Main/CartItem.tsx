@@ -1,7 +1,7 @@
 import CartItemAction from "@/components/modules/Cart/CartItemAction";
 import Image from "next/image";
 import { HiOutlineTrash } from "react-icons/hi2";
-import CartItemDiscount from "./CartItemDiscount";
+import CartItemDiscount from "../CartItemDiscount";
 import { IData } from "@/common/interface/getData";
 import { ICartItem } from "@/common/interface/cart";
 import { calcFoodDiscount } from "@/utils/func";

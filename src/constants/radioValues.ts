@@ -1,3 +1,7 @@
+import { TCompletionDeliveryLabel, TCompletionDeliveryValue } from "@/common/interface/cart-page";
+import { FaTruckFast } from "react-icons/fa6";
+import { HiShoppingBag } from "react-icons/hi2";
+
 export const themeValues = [
   { id: 1, text: "شب", value: "DARK", field: "theme" },
   { id: 2, text: "خودکار", value: "AUTO", field: "theme" },
@@ -19,4 +23,15 @@ export const codeStatusValues = [
   { id: 1, text: "فعال", value: "active", field: "status" },
   { id: 2, text: "غیرفعال", value: "notActive", field: "status" },
   { id: 3, text: "منقضی", value: "expired", field: "status" },
+];
+
+export const completionDeliveryValues: {
+  id: number;
+  text: TCompletionDeliveryLabel;
+  description?: string | undefined | null;
+  value: TCompletionDeliveryValue;
+  icon: any;
+}[] = [
+  { id: 1, text: "ارسال توسط پیک", description: "توسط پیک رستوران ارسال شود.", value: "DELIVERY", icon: FaTruckFast },
+  { id: 2, text: "تحویل حضوری", value: "SELF_PICKUP", icon: HiShoppingBag },
 ];

@@ -6,8 +6,9 @@ import Factor from "./Factor";
 import Position from "./Position";
 import { useState } from "react";
 import Modal from "@/components/modules/Modal/Modal";
-import CartList from "./CartList";
+import CartList from "./Main/CartList";
 import toast from "react-hot-toast";
+import CompletionForm from "./Main/Completion";
 
 const Index = () => {
   const { isLoading, data, refetch } = useGetCart();
@@ -46,6 +47,7 @@ const Index = () => {
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="col-span-1 lg:col-span-2">
               {step === 1 && <CartList isLoading={isLoading} data={data} refetch={refetch} />}
+              {step === 2 && <CompletionForm />}
             </div>
             <Factor
               step={step}
