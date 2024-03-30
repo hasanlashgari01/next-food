@@ -6,9 +6,11 @@ import PositionCart from "./PositionCart";
 import PositionCompletion from "./PositionCompletion";
 import PositionPayment from "./PositionPayment";
 import { twMerge } from "tailwind-merge";
+import Modal from "@/components/modules/Modal/Modal";
 
 const Position = () => {
   const [step, setStep] = useState<number>(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const previousStep = () => {
     setStep(step - 1);
@@ -43,13 +45,13 @@ const Position = () => {
         <div className="relative hidden flex-1 items-center lg:flex">
           <div
             className={twMerge(
-              "cart-border",
+              "cart-border -z-10",
               step === 1 && "after:w-0 after:bg-blue-500",
               step === 2 && "after:w-3/6 after:bg-blue-500",
               step === 3 && "after:w-full after:bg-blue-500",
             )}
           ></div>
-          <div className="z-10 flex flex-1 justify-between child:px-2.5">
+          <div className="flex flex-1 justify-between child:px-2.5">
             <PositionCart step={step} setStep={setStep} action={nextStep} />
             <PositionCompletion step={step} setStep={setStep} action={nextStep} />
             <PositionPayment step={step} setStep={setStep} />
@@ -58,10 +60,21 @@ const Position = () => {
       </div>
 
       <div className="lg:hidden">
-        <button className="cart__topbar-btn">
+        <button className="cart__topbar-btn" onClick={() => setIsModalOpen(true)}>
           <HiOutlineTrash className="text-lg" />
         </button>
       </div>
+      <Modal
+        isShow={isModalOpen}
+        setIsShow={setIsModalOpen}
+        cancelText="بازگشت"
+        cancelStyle="btn-success"
+        confirmText="حذف"
+        confirmStyle="btn-danger"
+        title="حذف محصولات"
+        description="همه محصولات سبد خرید شما حذف شود؟"
+        // confirmAction={}
+      />
     </section>
   );
 };
