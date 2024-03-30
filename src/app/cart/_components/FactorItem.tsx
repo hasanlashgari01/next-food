@@ -12,7 +12,7 @@ const FactorItem: React.FC<FactorItemProps> = ({ text, value, message, total }) 
     <div className="my-3">
       <div className="flex items-center justify-between text-sm/8">
         <span className="text-[#353535] dark:text-slate-300">{text}</span>
-        <span className={total ? "text-lime-500" : "text-[#353535] dark:text-white"}>{value} تومان</span>
+        <span className={total ? "text-lime-500 lg:text-lg" : "text-[#353535] dark:text-white"}>{value} تومان</span>
       </div>
       {message !== undefined && (
         <div className="mt-2 flex items-center gap-2 text-yellow-500">

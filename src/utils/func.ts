@@ -1,4 +1,4 @@
-import { ICart } from "@/common/interface/cart";
+import { ICart, ICartItem } from "@/common/interface/cart";
 
 const recursivePath = (pathname: string) => {
   const currentPath = pathname?.split("/")?.slice(-1)?.toString();
@@ -26,14 +26,37 @@ const toPersianDate = (date?: Date) => {
   return { persianDate, persianTime };
 };
 
-const calculateTotalCart = (foods: ICart["foods"]) => {
+const calculateTotalCart = (foods: ICart["foods"], shippingAmount: number) => {
+  let total = 0;
   let sum = 0;
+  let discount = 0;
   if (foods) {
-    foods.forEach(food => {
-      sum += Number(food.kindId?.price) * Number(food.quantity!);
+    foods.forEach((food: ICartItem) => {
+      if (food.kindId?.discount && food.kindId?.discount?.percent > 0) {
+        let discountPrice = calcFoodDiscount(food.kindId?.price, food.kindId?.discount.percent);
+        sum += calcFoodPriceWithQuantity(discountPrice, food.quantity || 1);
+        total += calcFoodPriceWithQuantity(food.kindId?.price || 0, food.quantity || 1);
+      } else {
+        sum += calcFoodPriceWithQuantity(food.kindId?.price || 0, food.quantity || 1);
+        total += calcFoodPriceWithQuantity(food.kindId?.price || 0, food.quantity || 1);
+      }
     });
+    discount = total - sum;
+    sum += shippingAmount;
   }
-  return sum;
+
+  return { sum, discount };
 };
 
-export { fixNumbers, recursivePath, toPersianDate, calculateTotalCart };
+const calcFoodPriceWithQuantity = (price: string | number, quantity: number) => {
+  return Number(price) * Number(quantity);
+};
+
+const calcFoodDiscount = (price: string | number, percent: number) => {
+  if (percent) {
+    return Number(price) - Number(price) * (percent / 100);
+  }
+  return 0;
+};
+
+export { fixNumbers, recursivePath, toPersianDate, calculateTotalCart, calcFoodDiscount };

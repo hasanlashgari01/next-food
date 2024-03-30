@@ -3,7 +3,7 @@ interface IFoodDefault {
   title: string;
 }
 
-interface IDiscount {
+export interface IDiscount {
   percent: number;
   startDate: Date;
   endDate: Date;
