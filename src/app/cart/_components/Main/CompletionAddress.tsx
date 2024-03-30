@@ -4,7 +4,7 @@ import AddressItem from "./AddressItem";
 
 const CompletionAddress = () => {
   return (
-    <div className="p-4 lg:px-6">
+    <div className="p-4 lg:px-6 dark:text-slate-100">
       <div className="flex items-center justify-between text-sm md:text-base">
         <span className="flex gap-1">
           <HiOutlineLocationMarker className="text-2xl" />
@@ -16,7 +16,7 @@ const CompletionAddress = () => {
         </button>
       </div>
 
-      <hr className="mb-4 mt-2" />
+      <hr className="mb-4 mt-2 dark:border-slate-700" />
 
       <div className="min-h-fit lg:max-h-52">
         {/* {[].length > 0 ? [] : <EmptyPage message="شما در حال حاضر هیچ آدرسی ثبت نکرده‌اید!" />} */}

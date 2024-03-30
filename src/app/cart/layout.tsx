@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const PanelUserLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <html lang="fa" dir="rtl" className="text-primary-900 dark:bg-slate-800">
+    <html lang="fa" dir="rtl" className="text-primary-900 dark:bg-slate-900">
       <body className={iranYekan.className} suppressHydrationWarning={true}>
         <div>
           <Providers>{children}</Providers>

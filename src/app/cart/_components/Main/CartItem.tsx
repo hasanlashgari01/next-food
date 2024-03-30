@@ -10,7 +10,7 @@ const CartItem: React.FC<IData<ICartItem>> = ({ isLoading, data, refetch }) => {
   const { _id, kindId, quantity } = data;
 
   return (
-    <div className="flex flex-col gap-5 rounded-lg border-neutral-300 px-6 py-3 xs:flex-row sm:items-center sm:border md:py-6 dark:border-slate-700">
+    <div className="flex flex-col gap-5 rounded-lg border-neutral-300 px-6 py-3 xs:flex-row sm:items-center sm:border md:py-6 dark:border-slate-700 dark:bg-slate-900">
       <div className="flex basis-32 max-xs:flex-1 max-xs:justify-center xl:basis-44">
         <Image
           src="/auth-food.jpg"

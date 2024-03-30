@@ -199,7 +199,7 @@
   }
 
   .cart__topbar-item {
-    @apply flex select-none items-center gap-1 bg-white py-1 pl-2 font-bold leading-[22.4px] text-slate-700 transition-colors delay-700 duration-500 dark:bg-slate-800 dark:text-white;
+    @apply flex select-none items-center gap-1 bg-white py-1 pl-2 font-bold leading-[22.4px] text-slate-700 transition-colors delay-700 duration-500 dark:bg-slate-900 dark:text-white;
 
     &.active {
       @apply text-sky-500;
@@ -211,6 +211,6 @@
   }
 
   .box {
-    @apply rounded-lg border border-neutral-300 dark:border-slate-700;
+    @apply rounded-lg border border-neutral-300 dark:border-slate-900 dark:bg-slate-800;
   }
 }
