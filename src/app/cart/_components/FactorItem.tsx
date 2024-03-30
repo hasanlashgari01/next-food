@@ -2,7 +2,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
 interface FactorItemProps {
   text: string;
-  value: string;
+  value: string | number;
   message?: string;
   total?: boolean;
 }

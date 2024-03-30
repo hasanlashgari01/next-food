@@ -1,29 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { HiChevronRight, HiOutlineTrash } from "react-icons/hi2";
 import PositionCart from "./PositionCart";
 import PositionCompletion from "./PositionCompletion";
 import PositionPayment from "./PositionPayment";
 import { twMerge } from "tailwind-merge";
-import Modal from "@/components/modules/Modal/Modal";
 
 interface Props {
+  step: number;
+  setStep: Dispatch<SetStateAction<number>>;
+  previousStep: () => void;
+  nextStep: () => void;
   setIsModalOpen: (value: boolean) => void;
 }
 
-const Position: React.FC<Props> = ({ setIsModalOpen }) => {
-  const [step, setStep] = useState<number>(1);
-
-  const previousStep = () => {
-    setStep(step - 1);
-  };
-
-  const nextStep = () => {
-    if (step === 3) return false;
-    setStep(step + 1);
-  };
-
+const Position: React.FC<Props> = ({ step, setStep, previousStep, nextStep, setIsModalOpen }) => {
   const renderStep = () => {
     switch (step) {
       case 1:
