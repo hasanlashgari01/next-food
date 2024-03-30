@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { iranYekan } from "@/config/font";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body suppressHydrationWarning={true}>{children}</body>
+      <body className={iranYekan.className}>{children}</body>
     </html>
   );
 }

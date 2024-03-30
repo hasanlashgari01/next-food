@@ -81,6 +81,10 @@
   .sidebar__nav > * {
     @apply inline-flex h-10 cursor-pointer items-center gap-2.5 rounded-lg px-4;
   }
+
+  .cart-border {
+    @apply absolute h-0.5 w-full bg-neutral-200 after:absolute after:h-0.5 after:w-0 after:bg-neutral-200 after:transition-all after:delay-500 after:duration-500 after:ease-linear after:content-[''];
+  }
 }
 
 @layer components {
@@ -188,5 +192,17 @@
 
   .cart-btn {
     @apply flex aspect-square cursor-pointer items-center justify-center rounded-md bg-teal-600 px-1.5 text-base font-medium transition-colors duration-300 hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-opacity-65 sm:px-2;
+  }
+
+  .cart__topbar-item {
+    @apply flex select-none items-center gap-1 bg-white py-1 pl-2 font-bold leading-[22.4px] text-slate-700 transition-colors delay-100 duration-500 ease-linear dark:text-slate-300;
+
+    &.active {
+      @apply text-sky-500;
+    }
+  }
+
+  .cart__topbar-btn {
+    @apply inline-flex aspect-square size-7 items-center justify-center rounded-md bg-slate-200 text-slate-900 transition-colors duration-300 ease-linear hover:bg-slate-300 disabled:cursor-not-allowed disabled:bg-slate-200/40 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 disabled:dark:bg-slate-700/40;
   }
 }

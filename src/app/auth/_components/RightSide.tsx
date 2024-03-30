@@ -51,8 +51,12 @@ const RightSide: React.FC<RightSideProps> = ({
         ) : (
           <form onSubmit={submitHandler}>
             <div className="text-center">
-              <h3 className="font-semibold/8 text-2xl text-primary-900 lg:text-4xl lg:font-bold">{formTitle}</h3>
-              <p className="mt-2 text-sm/5 font-medium text-primary-500 lg:text-2xl">{formSubTitle}</p>
+              <h3 className="font-semibold/8 text-2xl text-primary-900 lg:text-4xl lg:font-bold dark:text-white">
+                {formTitle}
+              </h3>
+              <p className="mt-2 text-sm/5 font-medium text-primary-500 lg:text-2xl dark:text-slate-300">
+                {formSubTitle}
+              </p>
             </div>
             <div className="mx-auto mt-5 flex max-w-xs flex-col gap-4 sm:max-w-sm lg:mt-10">
               {children}
@@ -65,8 +69,8 @@ const RightSide: React.FC<RightSideProps> = ({
               </button>
             </div>
             <div className="mt-4 flex justify-center gap-1.5 text-sm/8 font-semibold">
-              <span className="text-primary-900">{helpText}</span>
-              <Link href={`/auth/${helpLink}`} className="text-blue-700">
+              <span className="text-primary-900 dark:text-slate-300">{helpText}</span>
+              <Link href={`/auth/${helpLink}`} className="text-blue-700 dark:text-blue-500">
                 {helpLinkTitle}
               </Link>
             </div>

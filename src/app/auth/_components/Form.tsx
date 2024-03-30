@@ -9,7 +9,7 @@ interface FormProps {
 
 const Form: React.FC<FormProps> = ({ form, children }) => {
   return (
-    <div className="flex min-h-screen flex-col bg-background lg:flex-row-reverse lg:px-8 lg:py-11">
+    <div className="flex min-h-screen flex-col bg-background lg:flex-row-reverse lg:px-8 lg:py-11 dark:bg-slate-900">
       <LeftSide height={form === "Register" ? "h-40" : "h-60"} />
       {children}
     </div>
