@@ -5,7 +5,11 @@ import { twMerge } from "tailwind-merge";
 const PositionCart: React.FC<IPositionItemProps> = ({ step, setStep, action }) => {
   return (
     <div
-      className={twMerge("cart__topbar-item max-lg:cursor-pointer", step == 1 && "active", step > 1 && "text-blue-200")}
+      className={twMerge(
+        "cart__topbar-item max-lg:cursor-pointer",
+        step == 1 && "active",
+        step > 1 && "text-blue-200 dark:text-slate-200/60",
+      )}
       onClick={action}
     >
       <HiOutlineShoppingCart className="text-2xl max-lg:hidden" />

@@ -6,7 +6,9 @@ interface Props {
 }
 
 const CartList: React.FC<Props> = ({ data, refetch }) => {
-  return <div className="flex h-full flex-col overflow-y-auto rounded-lg border border-neutral-300 p-6"></div>;
+  return (
+    <div className="flex h-full flex-col overflow-y-auto rounded-lg border border-neutral-300 p-6 dark:border-slate-700"></div>
+  );
 };
 
 export default CartList;

@@ -33,8 +33,9 @@ const Index = () => {
       {!isLoading &&
         (data && data?.foods.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {/* {step === 1 && <CartList data={data} refetch={refetch} />} */}
-            <div className="col-span-1 lg:col-span-2">{step === 1 && <CartList data={data} refetch={refetch} />}</div>
+            <div className="col-span-1 max-lg:order-last lg:col-span-2">
+              {step === 1 && <CartList data={data} refetch={refetch} />}
+            </div>
             <Factor step={step} foods={data?.foods} refetch={refetch} setIsModalOpen={setIsModalOpen} />
           </div>
         ) : (

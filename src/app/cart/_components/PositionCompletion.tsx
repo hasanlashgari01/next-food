@@ -5,7 +5,11 @@ import { twMerge } from "tailwind-merge";
 const PositionCompletion: React.FC<IPositionItemProps> = ({ step, setStep, action }) => {
   return (
     <div
-      className={twMerge("cart__topbar-item max-lg:cursor-pointer", step == 2 && "active", step > 2 && "text-blue-200")}
+      className={twMerge(
+        "cart__topbar-item max-lg:cursor-pointer",
+        step == 2 && "active",
+        step > 2 && "text-blue-200 dark:text-slate-200/60",
+      )}
       onClick={action}
     >
       <HiOutlineCheckCircle className="text-2xl max-lg:hidden" />

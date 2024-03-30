@@ -28,7 +28,7 @@ const Position: React.FC<Props> = ({ step, setStep, previousStep, nextStep, setI
   };
 
   return (
-    <section className="my-6 flex items-center justify-between lg:my-10">
+    <section className="flex items-center justify-between py-6 lg:py-10">
       <div className="lg:hidden">
         <button disabled={step === 1} className="cart__topbar-btn" onClick={previousStep}>
           <HiChevronRight className="text-lg" />

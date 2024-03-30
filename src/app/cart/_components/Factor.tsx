@@ -17,14 +17,14 @@ const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step })
   const total = calculateTotalCart(foods as ICart["foods"]);
 
   return (
-    <div className="col-span-1 flex flex-col rounded-lg border border-neutral-300 p-6">
+    <div className="col-span-1 flex flex-col rounded-lg border border-neutral-300 p-6 dark:border-slate-700">
       <div className="mb-3 hidden items-center justify-between  text-sm/8 lg:flex">
-        <span className="text-[#353535]">سبد خرید ({foods.length})</span>
+        <span className="text-[#353535] dark:text-white">سبد خرید ({foods.length})</span>
         <button className="cart__topbar-btn bg-transparent" onClick={() => setIsModalOpen(true)}>
           <HiOutlineTrash className="text-lg" />
         </button>
       </div>
-      <hr />
+      <hr className="dark:border-slate-700" />
       {step > 1 && foods && foods?.length > 0 && (
         <ul className="child:factor-item my-3 max-h-64 flex-1 overflow-y-auto">
           {foods?.map(food => (
@@ -38,15 +38,15 @@ const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step })
           ))}
         </ul>
       )}
-      <hr />
+      <hr className="dark:border-slate-700" />
       <FactorItem text="تخفیف محصولات" value="۶۳٬۰۰۰" />
-      <hr />
+      <hr className="dark:border-slate-700" />
       <FactorItem
         text="هزینه ارسال"
         value="0"
         message="هزینه ارسال در ادامه بر اساس آدرس، زمان و نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه خواهد شد."
       />
-      <hr />
+      <hr className="dark:border-slate-700" />
       <FactorItem text="مبلغ قابل پرداخت" value={total.toLocaleString()} total={true} />
       <button className="btn btn-success rounded py-1.5 text-white">ثبت سفارش</button>
     </div>
