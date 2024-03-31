@@ -4,6 +4,7 @@ import { calculateTotalCart } from "@/utils/func";
 import { HiChevronLeft, HiOutlineCheckCircle, HiOutlineTrash, HiOutlineWallet } from "react-icons/hi2";
 import FactorItem from "./FactorItem";
 import { useState } from "react";
+import { TPayment } from "@/common/interface/order";
 
 interface FactorProps {
   foods: ICartItem[] | [];
@@ -11,9 +12,10 @@ interface FactorProps {
   setIsModalOpen: (value: boolean) => void;
   step: number;
   nextStep: () => void;
+  paymentMethod: TPayment;
 }
 
-const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step, nextStep }) => {
+const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step, nextStep, paymentMethod }) => {
   const [shippingAmount, setShippingAmount] = useState(10000);
   const { sum: total, discount } = calculateTotalCart(foods as ICart["foods"], shippingAmount);
 
@@ -42,6 +44,10 @@ const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step, n
     }
   };
 
+  const paymentHandler = () => {
+    console.log(paymentMethod, total, discount);
+  };
+
   return (
     <div className="box col-span-1 flex h-fit flex-col p-6">
       <div className="mb-3 hidden items-center justify-between  text-sm/8 lg:flex">
@@ -60,7 +66,7 @@ const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step, n
       />
       <hr className="dark:border-slate-700" />
       <FactorItem text="مبلغ قابل پرداخت" value={total.toLocaleString()} total={true} />
-      <button className="btn btn-success rounded py-1.5 text-white" onClick={nextStep}>
+      <button className="btn btn-success rounded py-1.5 text-white" onClick={step > 2 ? paymentHandler : nextStep}>
         {step === 1 && (
           <span className="flex items-center gap-2">
             <span>تکمیل اطلاعات</span>

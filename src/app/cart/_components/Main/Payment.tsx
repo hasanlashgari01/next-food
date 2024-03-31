@@ -1,21 +1,27 @@
 import { IPayment } from "@/common/interface/cart-page";
+import { TPayment } from "@/common/interface/order";
 import SelectRadio from "@/components/modules/Cart/SelectRadio";
 import { paymentMethodValues } from "@/constants/radioValues";
-import { ChangeEvent, Dispatch, FormEvent, FormEventHandler, SetStateAction, useState } from "react";
+import { ChangeEvent, Dispatch, FormEvent, FormEventHandler, SetStateAction, useEffect, useState } from "react";
 import { HiOutlineCreditCard, HiOutlineExclamationCircle, HiOutlineReceiptPercent } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
 interface IPaymentProps {
   coupon: string;
   setCoupon: Dispatch<SetStateAction<string>>;
+  setPaymentMethod: Dispatch<SetStateAction<TPayment>>;
 }
 
-const Payment: React.FC<IPaymentProps> = ({ coupon, setCoupon }) => {
+const Payment: React.FC<IPaymentProps> = ({ coupon, setCoupon, setPaymentMethod }) => {
   const [couponCode, setCouponCode] = useState<string>("");
   const [payment, setPayment] = useState<IPayment>({
-    value: "CREDIT",
+    value: "ONLINE",
     label: "پرداخت اینترنتی",
   });
+
+  useEffect(() => {
+    setPaymentMethod(payment.value);
+  }, [payment]);
 
   const couponHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,8 +66,8 @@ const Payment: React.FC<IPaymentProps> = ({ coupon, setCoupon }) => {
         />
       </div>
       <div className="bg-neutral-100 p-4 lg:p-6 dark:bg-slate-800">
-        {payment.value === "CREDIT" ? (
-          <div className="flex flex-col xl:flex-row xl:gap-16">
+        {payment.value === "ONLINE" ? (
+          <div className="flex flex-col items-center xl:flex-row xl:gap-16">
             <div className="flex shrink-0 items-center gap-1 lg:gap-2">
               <HiOutlineCreditCard className="text-base xl:text-2xl" />
               <span className="text-sm md:text-base">درگاه پرداخت</span>

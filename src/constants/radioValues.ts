@@ -48,10 +48,16 @@ export const completionDeliveryValues: IRadioValues<TCompletionDeliveryLabel, TC
 export const paymentMethodValues: IRadioValues<TPaymentLabel, TPaymentValue>[] = [
   {
     id: 1,
-    value: "CREDIT",
+    value: "ONLINE",
     text: "پرداخت اینترنتی",
     description: "توسط پیک رستوران ارسال شود.",
     icon: HiOutlineCreditCard,
   },
-  { id: 2, value: "CASH", text: "پرداخت در محل", description: "توسط پیک رستوران ارسال شود.", icon: HiOutlineBanknotes },
+  {
+    id: 2,
+    value: "CASH_ON_DELIVERY",
+    text: "پرداخت در محل",
+    description: "توسط پیک رستوران ارسال شود.",
+    icon: HiOutlineBanknotes,
+  },
 ];

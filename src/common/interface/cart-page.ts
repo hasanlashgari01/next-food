@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export type TCompletionDeliveryValue = "DELIVERY" | "SELF_PICKUP";
 export type TCompletionDeliveryLabel = "ارسال توسط پیک" | "تحویل حضوری";
-export type TPaymentValue = "CASH" | "CREDIT";
+export type TPaymentValue = "CASH_ON_DELIVERY" | "ONLINE";
 export type TPaymentLabel = "پرداخت در محل" | "پرداخت اینترنتی";
 
 export interface IPositionItemProps {

@@ -10,12 +10,14 @@ import CartList from "./Main/CartList";
 import toast from "react-hot-toast";
 import CompletionForm from "./Main/Completion";
 import Payment from "./Main/Payment";
+import { TPayment } from "@/common/interface/order";
 
 const Index = () => {
   const { isLoading, data, refetch } = useGetCart();
   const { mutateAsync } = useEmptyCart();
   const [step, setStep] = useState<number>(1);
   const [coupon, setCoupon] = useState<string>("");
+  const [paymentMethod, setPaymentMethod] = useState<TPayment>("ONLINE");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const previousStep = () => setStep(step - 1);
@@ -50,7 +52,7 @@ const Index = () => {
             <div className="col-span-1 lg:col-span-2">
               {step === 1 && <CartList isLoading={isLoading} data={data} refetch={refetch} />}
               {step === 2 && <CompletionForm />}
-              {step === 3 && <Payment coupon={coupon} setCoupon={setCoupon} />}
+              {step === 3 && <Payment coupon={coupon} setCoupon={setCoupon} setPaymentMethod={setPaymentMethod} />}
             </div>
             <Factor
               step={step}
@@ -58,6 +60,7 @@ const Index = () => {
               foods={data?.foods}
               refetch={refetch}
               setIsModalOpen={setIsModalOpen}
+              paymentMethod={paymentMethod}
             />
           </div>
         ) : (
