@@ -1,6 +1,21 @@
-import { TCompletionDeliveryLabel, TCompletionDeliveryValue } from "@/common/interface/cart-page";
+import {
+  TCompletionDeliveryLabel,
+  TCompletionDeliveryValue,
+  TPaymentLabel,
+  TPaymentValue,
+} from "@/common/interface/cart-page";
 import { FaTruckFast } from "react-icons/fa6";
-import { HiShoppingBag } from "react-icons/hi2";
+import { HiOutlineBanknotes, HiOutlineCreditCard, HiShoppingBag } from "react-icons/hi2";
+
+export type TPaymentRadio = "delivery" | "payment";
+
+export interface IRadioValues<T, V> {
+  id: number;
+  text: T;
+  value: V;
+  description?: string | undefined | null;
+  icon: any;
+}
 
 export const themeValues = [
   { id: 1, text: "شب", value: "DARK", field: "theme" },
@@ -25,13 +40,18 @@ export const codeStatusValues = [
   { id: 3, text: "منقضی", value: "expired", field: "status" },
 ];
 
-export const completionDeliveryValues: {
-  id: number;
-  text: TCompletionDeliveryLabel;
-  description?: string | undefined | null;
-  value: TCompletionDeliveryValue;
-  icon: any;
-}[] = [
+export const completionDeliveryValues: IRadioValues<TCompletionDeliveryLabel, TCompletionDeliveryValue>[] = [
   { id: 1, text: "ارسال توسط پیک", description: "توسط پیک رستوران ارسال شود.", value: "DELIVERY", icon: FaTruckFast },
   { id: 2, text: "تحویل حضوری", value: "SELF_PICKUP", icon: HiShoppingBag },
+];
+
+export const paymentMethodValues: IRadioValues<TPaymentLabel, TPaymentValue>[] = [
+  {
+    id: 1,
+    value: "CREDIT",
+    text: "پرداخت اینترنتی",
+    description: "توسط پیک رستوران ارسال شود.",
+    icon: HiOutlineCreditCard,
+  },
+  { id: 2, value: "CASH", text: "پرداخت در محل", description: "توسط پیک رستوران ارسال شود.", icon: HiOutlineBanknotes },
 ];

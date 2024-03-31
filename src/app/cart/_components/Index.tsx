@@ -9,11 +9,13 @@ import Modal from "@/components/modules/Modal/Modal";
 import CartList from "./Main/CartList";
 import toast from "react-hot-toast";
 import CompletionForm from "./Main/Completion";
+import Payment from "./Main/Payment";
 
 const Index = () => {
   const { isLoading, data, refetch } = useGetCart();
   const { mutateAsync } = useEmptyCart();
   const [step, setStep] = useState<number>(1);
+  const [coupon, setCoupon] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const previousStep = () => setStep(step - 1);
@@ -48,6 +50,7 @@ const Index = () => {
             <div className="col-span-1 lg:col-span-2">
               {step === 1 && <CartList isLoading={isLoading} data={data} refetch={refetch} />}
               {step === 2 && <CompletionForm />}
+              {step === 3 && <Payment coupon={coupon} setCoupon={setCoupon} />}
             </div>
             <Factor
               step={step}

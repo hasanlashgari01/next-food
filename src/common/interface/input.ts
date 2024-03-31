@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface InputProps {
-  message: string | undefined;
+  message?: string | undefined;
   children?: ReactNode;
   type: "password" | "text";
   label?: string;
