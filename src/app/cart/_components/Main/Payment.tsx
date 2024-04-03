@@ -2,7 +2,9 @@ import { IPayment } from "@/common/interface/cart-page";
 import { TPayment } from "@/common/interface/order";
 import SelectRadio from "@/components/modules/Cart/SelectRadio";
 import { paymentMethodValues } from "@/constants/radioValues";
-import { ChangeEvent, Dispatch, FormEvent, FormEventHandler, SetStateAction, useEffect, useState } from "react";
+import { getCoupon } from "@/services/cartService";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { HiOutlineCreditCard, HiOutlineExclamationCircle, HiOutlineReceiptPercent } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
@@ -10,10 +12,10 @@ interface IPaymentProps {
   coupon: string;
   setCoupon: Dispatch<SetStateAction<string>>;
   setPaymentMethod: Dispatch<SetStateAction<TPayment>>;
+  setCouponResult: Dispatch<SetStateAction<{ amount: number; type: string }>>;
 }
 
-const Payment: React.FC<IPaymentProps> = ({ coupon, setCoupon, setPaymentMethod }) => {
-  const [couponCode, setCouponCode] = useState<string>("");
+const Payment: React.FC<IPaymentProps> = ({ setCouponResult, coupon, setCoupon, setPaymentMethod }) => {
   const [payment, setPayment] = useState<IPayment>({
     value: "ONLINE",
     label: "پرداخت اینترنتی",
@@ -23,8 +25,16 @@ const Payment: React.FC<IPaymentProps> = ({ coupon, setCoupon, setPaymentMethod 
     setPaymentMethod(payment.value);
   }, [payment]);
 
-  const couponHandler = (e: FormEvent<HTMLFormElement>) => {
+  const couponHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    await getCoupon(coupon)
+      .then(res => {
+        console.log(res);
+        setCouponResult({ amount: res.amount, type: res.type });
+        toast.success("کد تخفیف با موفقیت اعمال شد");
+      })
+      .catch(err => toast.error(err.response.data.message));
   };
 
   return (

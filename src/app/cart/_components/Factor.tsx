@@ -1,9 +1,9 @@
 import { ICart, ICartItem } from "@/common/interface/cart";
 import CartItemAction from "@/components/modules/Cart/CartItemAction";
-import { calculateTotalCart } from "@/utils/func";
+import { calcFoodDiscount, calculateTotalCart } from "@/utils/func";
 import { HiChevronLeft, HiOutlineCheckCircle, HiOutlineTrash, HiOutlineWallet } from "react-icons/hi2";
 import FactorItem from "./FactorItem";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { TPayment } from "@/common/interface/order";
 
 interface FactorProps {
@@ -13,11 +13,34 @@ interface FactorProps {
   step: number;
   nextStep: () => void;
   paymentMethod: TPayment;
+  couponResult: { amount: number; type: string };
 }
 
-const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step, nextStep, paymentMethod }) => {
+const Factor: React.FC<FactorProps> = ({
+  foods,
+  refetch,
+  setIsModalOpen,
+  step,
+  nextStep,
+  paymentMethod,
+  couponResult,
+}) => {
   const [shippingAmount, setShippingAmount] = useState(10000);
   const { sum: total, discount } = calculateTotalCart(foods as ICart["foods"], shippingAmount);
+  const [totalWithCoupon, setTotalWithCoupon] = useState(0);
+  const [couponDiscount, setCouponDiscount] = useState(0);
+
+  useEffect(() => {
+    if (couponResult.type === "fixedProduct") {
+      setTotalWithCoupon(total - couponResult.amount);
+    } else if (couponResult.type === "percent") {
+      setTotalWithCoupon(total - (total * couponResult.amount) / 100);
+    }
+  }, [couponResult]);
+
+  useEffect(() => {
+    totalWithCoupon > 0 && setCouponDiscount(total - totalWithCoupon);
+  }, [totalWithCoupon]);
 
   const renderStep = () => {
     switch (step) {
@@ -59,13 +82,23 @@ const Factor: React.FC<FactorProps> = ({ foods, refetch, setIsModalOpen, step, n
       {renderStep()}
       <FactorItem text="تخفیف محصولات" value={discount.toLocaleString()} />
       <hr className="dark:border-slate-700" />
+      {couponDiscount > 0 && (
+        <>
+          <FactorItem text="تخفیف کوپن" value={couponDiscount.toLocaleString()} />
+          <hr className="dark:border-slate-700" />
+        </>
+      )}
       <FactorItem
         text="هزینه ارسال"
         value={shippingAmount.toLocaleString()}
         message="هزینه ارسال در ادامه بر اساس آدرس، زمان و نحوه ارسال انتخابی شما محاسبه و به این مبلغ اضافه خواهد شد."
       />
       <hr className="dark:border-slate-700" />
-      <FactorItem text="مبلغ قابل پرداخت" value={total.toLocaleString()} total={true} />
+      <FactorItem
+        text="مبلغ قابل پرداخت"
+        value={totalWithCoupon === 0 ? total.toLocaleString() : totalWithCoupon.toLocaleString()}
+        total={true}
+      />
       <button className="btn btn-success rounded py-1.5 text-white" onClick={step > 2 ? paymentHandler : nextStep}>
         {step === 1 && (
           <span className="flex items-center gap-2">

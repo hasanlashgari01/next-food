@@ -29,6 +29,8 @@ const editAddress = ({ id, data }: Update<any>) => api.put(`${userRoute}address/
 
 const removeAddress = (id: string) => api.patch(`${userRoute}address/${id}`).then(({ data }) => data);
 
+const getCoupon = (code: string) => api(`/api/coupon/code/${code}`).then(({ data }) => data);
+
 export {
   addAddress,
   decrementFood,
@@ -40,4 +42,5 @@ export {
   incrementFood,
   removeAddress,
   removeFood,
+  getCoupon,
 };

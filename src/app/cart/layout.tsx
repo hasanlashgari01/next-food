@@ -1,6 +1,7 @@
 import { iranYekan } from "@/config/font";
 import { Metadata } from "next";
 import { Providers } from "../providers";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "فروشگاه | سبد خرید",
@@ -12,6 +13,7 @@ const PanelUserLayout = ({ children }: Readonly<{ children: React.ReactNode }>) 
       <body className={iranYekan.className} suppressHydrationWarning={true}>
         <div>
           <Providers>{children}</Providers>
+          <Toaster />
         </div>
       </body>
     </html>

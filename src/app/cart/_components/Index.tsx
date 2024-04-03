@@ -17,6 +17,7 @@ const Index = () => {
   const { mutateAsync } = useEmptyCart();
   const [step, setStep] = useState<number>(1);
   const [coupon, setCoupon] = useState<string>("");
+  const [couponResult, setCouponResult] = useState({ amount: 0, type: "" });
   const [paymentMethod, setPaymentMethod] = useState<TPayment>("ONLINE");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -52,7 +53,14 @@ const Index = () => {
             <div className="col-span-1 lg:col-span-2">
               {step === 1 && <CartList isLoading={isLoading} data={data} refetch={refetch} />}
               {step === 2 && <CompletionForm />}
-              {step === 3 && <Payment coupon={coupon} setCoupon={setCoupon} setPaymentMethod={setPaymentMethod} />}
+              {step === 3 && (
+                <Payment
+                  coupon={coupon}
+                  setCoupon={setCoupon}
+                  setPaymentMethod={setPaymentMethod}
+                  setCouponResult={setCouponResult}
+                />
+              )}
             </div>
             <Factor
               step={step}
@@ -61,6 +69,7 @@ const Index = () => {
               refetch={refetch}
               setIsModalOpen={setIsModalOpen}
               paymentMethod={paymentMethod}
+              couponResult={couponResult}
             />
           </div>
         ) : (
