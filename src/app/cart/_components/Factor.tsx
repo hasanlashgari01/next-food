@@ -5,6 +5,8 @@ import { HiChevronLeft, HiOutlineCheckCircle, HiOutlineTrash, HiOutlineWallet } 
 import FactorItem from "./FactorItem";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { TPayment } from "@/common/interface/order";
+import { useCreateOrder } from "@/hooks/useCart";
+import toast from "react-hot-toast";
 
 interface FactorProps {
   foods: ICartItem[] | [];
@@ -14,6 +16,8 @@ interface FactorProps {
   nextStep: () => void;
   paymentMethod: TPayment;
   couponResult: { amount: number; type: string };
+  order: any;
+  setOrder: Dispatch<SetStateAction<any>>;
 }
 
 const Factor: React.FC<FactorProps> = ({
@@ -24,7 +28,10 @@ const Factor: React.FC<FactorProps> = ({
   nextStep,
   paymentMethod,
   couponResult,
+  order,
+  setOrder,
 }) => {
+  const { mutateAsync } = useCreateOrder();
   const [shippingAmount, setShippingAmount] = useState(10000);
   const { sum: total, discount } = calculateTotalCart(foods as ICart["foods"], shippingAmount);
   const [totalWithCoupon, setTotalWithCoupon] = useState(0);
@@ -67,8 +74,17 @@ const Factor: React.FC<FactorProps> = ({
     }
   };
 
-  const paymentHandler = () => {
+  const paymentHandler = async () => {
     console.log(paymentMethod, total, discount);
+    const orderData = { ...order, paymentMethod, total, discount };
+
+    try {
+      const { message } = await mutateAsync(orderData);
+      toast.success(message);
+      refetch();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   return (

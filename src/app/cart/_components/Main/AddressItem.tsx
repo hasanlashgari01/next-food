@@ -1,17 +1,18 @@
 import { IAddress } from "@/common/interface/cart-page";
 import { useEditAddress, useGetAddressById, useRemoveAddress } from "@/hooks/useCart";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { HiOutlineTrash } from "react-icons/hi2";
 import CompletionAddressModal from "./CompletionAddressModal";
-import { getAddress } from "@/services/cartService";
 
 interface IProps extends IAddress {
   refetch: () => void;
+  order: any;
+  setOrder: Dispatch<SetStateAction<any>>;
 }
 
-const AddressItem: React.FC<IProps> = ({ _id, detail, title, mobile, refetch }) => {
+const AddressItem: React.FC<IProps> = ({ _id, detail, title, mobile, refetch, order, setOrder }) => {
   const { isLoading, data } = useGetAddressById(_id);
   const { mutateAsync: mutateEdit } = useEditAddress();
   const { mutateAsync: mutateRemove } = useRemoveAddress();
@@ -50,7 +51,10 @@ const AddressItem: React.FC<IProps> = ({ _id, detail, title, mobile, refetch }) 
   };
 
   return (
-    <div className="box col-span-2 bg-neutral-100 p-4 transition-colors duration-300 hover:bg-slate-200 xl:col-span-1 dark:bg-slate-800">
+    <div
+      className="box col-span-2 bg-neutral-100 p-4 transition-colors duration-300 hover:bg-slate-200 xl:col-span-1 dark:bg-slate-800"
+      onClick={() => setOrder({ ...order, address: detail, mobile })}
+    >
       <div className="flex justify-between gap-2">
         <h4 className="h-[72px] w-56 text-xs/6 sm:w-64 lg:h-24 lg:text-base/8">{detail}</h4>
         <div className="flex shrink-0 gap-3 child:h-fit">

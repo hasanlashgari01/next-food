@@ -13,9 +13,18 @@ interface IPaymentProps {
   setCoupon: Dispatch<SetStateAction<string>>;
   setPaymentMethod: Dispatch<SetStateAction<TPayment>>;
   setCouponResult: Dispatch<SetStateAction<{ amount: number; type: string }>>;
+  order: any;
+  setOrder: Dispatch<SetStateAction<any>>;
 }
 
-const Payment: React.FC<IPaymentProps> = ({ setCouponResult, coupon, setCoupon, setPaymentMethod }) => {
+const Payment: React.FC<IPaymentProps> = ({
+  setCouponResult,
+  coupon,
+  setCoupon,
+  setPaymentMethod,
+  order,
+  setOrder,
+}) => {
   const [payment, setPayment] = useState<IPayment>({
     value: "ONLINE",
     label: "پرداخت اینترنتی",
@@ -23,6 +32,7 @@ const Payment: React.FC<IPaymentProps> = ({ setCouponResult, coupon, setCoupon, 
 
   useEffect(() => {
     setPaymentMethod(payment.value);
+    setOrder({ ...order, payment: payment.value });
   }, [payment]);
 
   const couponHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -30,7 +40,6 @@ const Payment: React.FC<IPaymentProps> = ({ setCouponResult, coupon, setCoupon, 
 
     await getCoupon(coupon)
       .then(res => {
-        console.log(res);
         setCouponResult({ amount: res.amount, type: res.type });
         toast.success("کد تخفیف با موفقیت اعمال شد");
       })

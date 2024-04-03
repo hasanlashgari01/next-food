@@ -1,5 +1,6 @@
 import {
   addAddress,
+  createOrder,
   decrementFood,
   editAddress,
   emptyCart,
@@ -32,6 +33,8 @@ const useEditAddress = () => useMutation({ mutationFn: editAddress });
 
 const useRemoveAddress = () => useMutation({ mutationFn: removeAddress });
 
+const useCreateOrder = () => useMutation({ mutationFn: createOrder });
+
 export {
   useAddAddress,
   useDecrementFood,
@@ -43,4 +46,5 @@ export {
   useIncrementFood,
   useRemoveAddress,
   useRemoveFoodFromCart,
+  useCreateOrder,
 };

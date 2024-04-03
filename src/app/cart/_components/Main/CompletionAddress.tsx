@@ -1,5 +1,5 @@
 import { useAddAddress, useGetAddress } from "@/hooks/useCart";
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { HiOutlinePlusCircle } from "react-icons/hi2";
@@ -7,7 +7,12 @@ import EmptyPage from "../EmptyPage";
 import AddressItem from "./AddressItem";
 import CompletionAddressModal from "./CompletionAddressModal";
 
-const CompletionAddress = () => {
+interface IProps {
+  order: any;
+  setOrder: Dispatch<SetStateAction<any>>;
+}
+
+const CompletionAddress: React.FC<IProps> = ({ order, setOrder }) => {
   const { isLoading, data, refetch } = useGetAddress();
   const { mutateAsync: mutateAsyncAddAddress } = useAddAddress();
   const [addressInfo, setAddressInfo] = useState({ title: "", detail: "", mobile: "" });
@@ -44,7 +49,9 @@ const CompletionAddress = () => {
       <div className="min-h-fit lg:min-h-52">
         <div className="grid grid-cols-2 gap-4">
           {!isLoading && data?.address && data.address.length > 0 ? (
-            data.address.map(address => <AddressItem key={address._id} {...address} refetch={refetch} />)
+            data.address.map(address => (
+              <AddressItem key={address._id} {...address} refetch={refetch} order={order} setOrder={setOrder} />
+            ))
           ) : (
             <div className="col-span-2 h-52 child:border-none">
               <EmptyPage message="شما در حال حاضر هیچ آدرسی ثبت نکرده‌اید!" />

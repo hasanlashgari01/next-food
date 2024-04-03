@@ -20,6 +20,7 @@ const Index = () => {
   const [couponResult, setCouponResult] = useState({ amount: 0, type: "" });
   const [paymentMethod, setPaymentMethod] = useState<TPayment>("ONLINE");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [order, setOrder] = useState({ address: "", mobile: "", delivery: "DELIVERY", payment: "ONLINE" });
 
   const previousStep = () => setStep(step - 1);
 
@@ -52,9 +53,11 @@ const Index = () => {
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             <div className="col-span-1 lg:col-span-2">
               {step === 1 && <CartList isLoading={isLoading} data={data} refetch={refetch} />}
-              {step === 2 && <CompletionForm />}
+              {step === 2 && <CompletionForm order={order} setOrder={setOrder} />}
               {step === 3 && (
                 <Payment
+                  order={order}
+                  setOrder={setOrder}
                   coupon={coupon}
                   setCoupon={setCoupon}
                   setPaymentMethod={setPaymentMethod}
@@ -63,6 +66,8 @@ const Index = () => {
               )}
             </div>
             <Factor
+              order={order}
+              setOrder={setOrder}
               step={step}
               nextStep={nextStep}
               foods={data?.foods}

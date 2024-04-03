@@ -1,7 +1,7 @@
 import { ICart } from "@/common/interface/cart";
 import { IAddress, IDataAddress } from "@/common/interface/cart-page";
 import { api } from "@/config/axiosConfig";
-import { userRoute } from "./routeService";
+import { orders, userRoute } from "./routeService";
 
 interface Update<T> {
   id: string;
@@ -31,6 +31,8 @@ const removeAddress = (id: string) => api.patch(`${userRoute}address/${id}`).the
 
 const getCoupon = (code: string) => api(`/api/coupon/code/${code}`).then(({ data }) => data);
 
+const createOrder = (data: any) => api.post(orders, data).then(({ data }) => data);
+
 export {
   addAddress,
   decrementFood,
@@ -43,4 +45,5 @@ export {
   removeAddress,
   removeFood,
   getCoupon,
+  createOrder,
 };
