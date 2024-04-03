@@ -5,9 +5,22 @@ import CartItemDiscount from "../CartItemDiscount";
 import { IData } from "@/common/interface/getData";
 import { ICartItem } from "@/common/interface/cart";
 import { calcFoodDiscount } from "@/utils/func";
+import { useRemoveFoodFromCart } from "@/hooks/useCart";
+import toast from "react-hot-toast";
 
 const CartItem: React.FC<IData<ICartItem>> = ({ isLoading, data, refetch }) => {
   const { _id, kindId, quantity } = data;
+  const { mutateAsync } = useRemoveFoodFromCart();
+
+  const removeFoodFromCart = async () => {
+    try {
+      const { message } = await mutateAsync(_id);
+      toast.success(message);
+      refetch();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-5 rounded-lg border-neutral-300 px-6 py-3 xs:flex-row sm:items-center sm:border md:py-6 dark:border-slate-700 dark:bg-slate-900">
@@ -27,7 +40,10 @@ const CartItem: React.FC<IData<ICartItem>> = ({ isLoading, data, refetch }) => {
             <h3 className="line-clamp-1 flex-1 text-base font-semibold leading-8 md:text-lg lg:text-xl dark:text-white">
               {kindId?.title}
             </h3>
-            <button className="shrink-0 rounded-md p-1 transition-colors duration-300 disabled:cursor-not-allowed disabled:bg-opacity-65 lg:rounded-xl">
+            <button
+              className="shrink-0 rounded-md p-1 transition-colors duration-300 disabled:cursor-not-allowed disabled:bg-opacity-65 lg:rounded-xl"
+              onClick={removeFoodFromCart}
+            >
               <HiOutlineTrash className="dark:text-white" size={20} />
             </button>
           </div>

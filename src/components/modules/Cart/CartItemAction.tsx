@@ -1,4 +1,4 @@
-import { useAddToCart, useRemoveFromCart } from "@/hooks/useCart";
+import { useDecrementFood, useIncrementFood } from "@/hooks/useCart";
 import toast from "react-hot-toast";
 import { HiMinus, HiOutlineShoppingBag, HiPlus } from "react-icons/hi2";
 
@@ -9,8 +9,8 @@ interface ICartItemActionProps {
 }
 
 const CartItemAction: React.FC<ICartItemActionProps> = ({ foodId, quantity = 0, refetch }) => {
-  const { mutateAsync: mutateAsyncIncrement } = useAddToCart();
-  const { mutateAsync: mutateAsyncDecrement } = useRemoveFromCart();
+  const { mutateAsync: mutateAsyncIncrement } = useIncrementFood();
+  const { mutateAsync: mutateAsyncDecrement } = useDecrementFood();
 
   const incrementCart = async () => {
     try {

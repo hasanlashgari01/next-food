@@ -1,12 +1,14 @@
-import { addToCart, emptyCart, getCart, removeFromCart } from "@/services/cartService";
+import { decrementFood, emptyCart, getCart, incrementFood, removeFood } from "@/services/cartService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetCart = () => useQuery({ queryKey: ["user-cart"], queryFn: getCart });
 
+const useRemoveFoodFromCart = () => useMutation({ mutationFn: removeFood });
+
 const useEmptyCart = () => useMutation({ mutationFn: emptyCart });
 
-const useAddToCart = () => useMutation({ mutationFn: addToCart });
+const useIncrementFood = () => useMutation({ mutationFn: incrementFood });
 
-const useRemoveFromCart = () => useMutation({ mutationFn: removeFromCart });
+const useDecrementFood = () => useMutation({ mutationFn: decrementFood });
 
-export { useAddToCart, useEmptyCart, useGetCart, useRemoveFromCart };
+export { useDecrementFood, useEmptyCart, useGetCart, useIncrementFood, useRemoveFoodFromCart };
