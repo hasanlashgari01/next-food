@@ -20,3 +20,20 @@ export interface IPayment {
   value: TPaymentValue;
   label: TPaymentLabel;
 }
+
+export interface IAddress {
+  _id: string;
+  province: string;
+  city: string;
+  district: string;
+  detail: string;
+  coordinate: string;
+  mobile: string;
+  title: string;
+}
+
+export interface IDataAddress {
+  _id: string;
+  userId: string;
+  address: IAddress[] | undefined;
+}
