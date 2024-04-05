@@ -26,7 +26,7 @@ export const middleware = async (req: NextRequest) => {
 
   if (pathname.startsWith("/user") || pathname.startsWith("/cart")) {
     if (!user) return NextResponse.redirect(new URL("/auth/login", req.url));
-  } else if (pathname.startsWith("/restaurant")) {
+  } else if (pathname.startsWith("/p-restaurant")) {
     if (user) return NextResponse.redirect(new URL("/user", req.url));
   } else if (pathname.startsWith("/admin")) {
     if (!user) return NextResponse.redirect(new URL("/", req.url));
@@ -35,5 +35,5 @@ export const middleware = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: ["/admin/:path*", "/user/:path*", "/restaurant/:path*", "/cart/:path*"],
+  matcher: ["/admin/:path*", "/user/:path*", "/p-restaurant/:path*", "/cart/:path*"],
 };
