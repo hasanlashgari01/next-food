@@ -2,9 +2,10 @@
 
 import Table from "@/components/modules/Table/Table";
 import { useGetUser } from "@/hooks/useAuth";
-import { useGetMenuList } from "@/hooks/useRestaurant";
+import { useDeleteMenu, useGetMenuList } from "@/hooks/useRestaurant";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import { HiMiniPencilSquare, HiOutlineTrash } from "react-icons/hi2";
 
 const columnHelper = createColumnHelper();
@@ -13,6 +14,7 @@ const MenuTable = () => {
   const { data: user } = useGetUser();
   const restaurant: string | undefined = user?.restaurants.at(0);
   const { isLoading, data, refetch } = useGetMenuList(restaurant || "");
+  const { mutateAsync } = useDeleteMenu();
 
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("slug", {
@@ -42,7 +44,7 @@ const MenuTable = () => {
             >
               <HiMiniPencilSquare />
             </Link>
-            <span className="table-btn bg-red-200 dark:bg-red-700">
+            <span className="table-btn bg-red-200 dark:bg-red-700" onClick={() => deleteMenu(info.getValue())}>
               <HiOutlineTrash />
             </span>
           </div>
@@ -50,6 +52,16 @@ const MenuTable = () => {
       ),
     }),
   ];
+
+  const deleteMenu = async (id: string) => {
+    try {
+      const { message } = await mutateAsync(id);
+      toast.success(message);
+      refetch();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
 
   return (
     <div className="mt-5">

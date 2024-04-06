@@ -13,4 +13,6 @@ const createMenu = (data: IMenuData) => api.post(menuRoute, data).then(({ data }
 
 const updateMenu = ({ id, data }: Update<IMenuData>) => api.patch(`${menuRoute}${id}`, data).then(({ data }) => data);
 
-export { getMenus, createMenu, updateMenu };
+const deleteMenu = (id: string) => api.delete(`${menuRoute}${id}`).then(({ data }) => data);
+
+export { getMenus, createMenu, updateMenu, deleteMenu };
