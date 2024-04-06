@@ -5,6 +5,8 @@ const adminSearch = "/search/";
 const adminCoupon = "/api/coupon/";
 const adminProvince = "/api/province/";
 
+const restaurantRoute = "/api/restaurant/";
+
 const userRoute = "/api/user/";
 const orders = "/api/order/";
 
@@ -23,4 +25,5 @@ export {
   fileRoute,
   orders,
   adminFood,
+  restaurantRoute,
 };
