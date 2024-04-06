@@ -5,6 +5,7 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineHeart,
   HiOutlineHome,
+  HiOutlineListBullet,
   HiOutlineMapPin,
   HiOutlineQueueList,
   HiOutlineReceiptPercent,
@@ -12,6 +13,7 @@ import {
   HiOutlineUserCircle,
 } from "react-icons/hi2";
 import { IoFastFoodOutline } from "react-icons/io5";
+import { MdOutlineFoodBank } from "react-icons/md";
 
 export interface INavLinks {
   name: string;
@@ -43,4 +45,14 @@ const userPanelLinks: INavLinks[] = [
   { name: "اطلاعات حساب کاربری", path: "personal-info", icon: HiOutlineUserCircle },
 ];
 
-export { adminPanelLinks, userPanelLinks };
+const restaurantPanelLinks: INavLinks[] = [
+  { name: "صفحه اصلی", path: "home", icon: HiOutlineHome },
+  { name: "منو ها", path: "menus", icon: HiOutlineListBullet },
+  { name: "غذا ها", path: "foods", icon: MdOutlineFoodBank },
+  { name: "سفارش ها", path: "orders", icon: HiOutlineQueueList },
+  { name: "دیدگاه ها", path: "comments", icon: HiOutlineChatBubbleLeftEllipsis },
+  { name: "تخفیف ها", path: "offs", icon: HiOutlineReceiptPercent },
+  { name: "تنظیمات رستوران", path: "settings", icon: HiOutlineCog6Tooth },
+];
+
+export { adminPanelLinks, restaurantPanelLinks, userPanelLinks };

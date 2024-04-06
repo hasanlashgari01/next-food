@@ -10,7 +10,7 @@ import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
 interface SideBarProps {
-  mainRoute: "admin" | "user" | "seller";
+  mainRoute: "admin" | "user" | "p-restaurant";
   links: INavLinks[];
   isSidebarOpen: boolean;
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
