@@ -3,19 +3,21 @@
 import { IMenuData } from "@/common/interface/restaurant";
 import InputText from "@/components/modules/Input/InputText";
 import { useGetUser } from "@/hooks/useAuth";
-import { useCreateMenu } from "@/hooks/useRestaurant";
+import { useCreateMenu, useUpdateMenu } from "@/hooks/useRestaurant";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 
 interface FormProps extends IMenuData {
   isEdit?: boolean;
+  id?: string;
 }
 
-const Form: React.FC<FormProps> = ({ title, slug, isEdit = false }) => {
+const Form: React.FC<FormProps> = ({ title, slug, isEdit = false, id }) => {
   const { data: user } = useGetUser();
   const restaurant: string | undefined = user?.restaurants.at(0);
   const { mutateAsync: mutateAsyncCreate } = useCreateMenu();
+  const { mutateAsync: mutateAsyncUpdate } = useUpdateMenu();
   const {
     register,
     handleSubmit,
@@ -38,7 +40,10 @@ const Form: React.FC<FormProps> = ({ title, slug, isEdit = false }) => {
   const onSubmit: SubmitHandler<IMenuData> = async data => {
     try {
       let msg = "";
-      if (isEdit) {
+      if (isEdit && id) {
+        console.log(data);
+        const { message } = await mutateAsyncUpdate({ data, id });
+        msg = message;
       } else {
         const { message } = await mutateAsyncCreate(data);
         msg = message;
