@@ -11,9 +11,9 @@ import { calculateTotalCart } from "@/utils/func";
 const Cart = () => {
   const { isLoading, data, refetch } = useGetCart();
   const [isOpen, setIsOpen] = useState(false);
-  const foods = data?.foods;
+  const foods = isLoading ? [] : data?.foods;
 
-  const total = calculateTotalCart(foods as ICart["foods"]);
+  const total = calculateTotalCart(foods as ICart["foods"], 0);
 
   return (
     <div className="relative">
@@ -35,7 +35,7 @@ const Cart = () => {
       ></div>
       {isOpen && (
         <div className="absolute left-0 top-full z-20 mt-5 flex w-fit -translate-x-16 flex-col overflow-hidden rounded-xl bg-slate-100 shadow-lg transition-all duration-300 ease-linear sm:-translate-x-8 dark:bg-slate-800 dark:shadow-none">
-          <CartHeader count={foods?.length} total={total} />
+          <CartHeader count={foods?.length} total={Number(total)} />
 
           <hr className="dark:border-slate-700" />
 
@@ -43,7 +43,7 @@ const Cart = () => {
 
           <hr className="dark:border-slate-700" />
 
-          <CartFooter count={foods?.length} total={total} refetch={refetch} />
+          <CartFooter count={foods?.length} total={Number(total)} refetch={refetch} />
         </div>
       )}
     </div>

@@ -60,8 +60,8 @@ const Factor: React.FC<FactorProps> = ({
                 {foods?.map(food => (
                   <li key={food._id} className="flex items-center justify-between">
                     <div className="flex flex-col child:leading-7">
-                      <span>{food.kindId?.title}</span>
-                      <span>{food.kindId?.price.toLocaleString()}</span>
+                      <span>{food.food?.title}</span>
+                      <span>{food.food?.price.toLocaleString()}</span>
                     </div>
                     <CartItemAction foodId={food._id} quantity={food.quantity} refetch={refetch} />
                   </li>
@@ -75,7 +75,6 @@ const Factor: React.FC<FactorProps> = ({
   };
 
   const paymentHandler = async () => {
-    console.log(paymentMethod, total, discount);
     const orderData = { ...order, paymentMethod, total, discount };
 
     try {

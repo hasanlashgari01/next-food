@@ -9,7 +9,7 @@ interface Props {
 }
 
 const CartItem: React.FC<Props> = ({ food, refetch }) => {
-  const total = Number(food?.kindId?.price) * Number(food?.quantity);
+  const total = Number(food?.food?.price) * Number(food?.quantity);
 
   return (
     <li className="flex flex-1 gap-4 border-b px-6 py-2 text-xs transition-colors last:border-none sm:text-sm md:text-base dark:border-slate-700">
@@ -17,12 +17,11 @@ const CartItem: React.FC<Props> = ({ food, refetch }) => {
         src="/auth-food.jpg"
         width={1000}
         height={1000}
-        alt={food?.kindId?.title as string}
-        loading="lazy"
+        alt={food?.food?.title as string}
         className="h-20 w-20 shrink-0 rounded-lg sm:h-28 sm:w-28"
       />
       <div className="flex flex-1 flex-col justify-between">
-        <CartItemDetail title={food?.kindId?.title as string} total={total} />
+        <CartItemDetail title={food?.food?.title as string} total={total} />
         <CartItemAction foodId={food._id} quantity={food.quantity} refetch={refetch} />
       </div>
     </li>

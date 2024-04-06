@@ -9,7 +9,7 @@ import { useRemoveFoodFromCart } from "@/hooks/useCart";
 import toast from "react-hot-toast";
 
 const CartItem: React.FC<IData<ICartItem>> = ({ isLoading, data, refetch }) => {
-  const { _id, kindId, quantity } = data;
+  const { _id, food, quantity } = data;
   const { mutateAsync } = useRemoveFoodFromCart();
 
   const removeFoodFromCart = async () => {
@@ -38,7 +38,7 @@ const CartItem: React.FC<IData<ICartItem>> = ({ isLoading, data, refetch }) => {
         <div>
           <div className="flex items-center justify-between">
             <h3 className="line-clamp-1 flex-1 text-base font-semibold leading-8 md:text-lg lg:text-xl dark:text-white">
-              {kindId?.title}
+              {food?.title}
             </h3>
             <button
               className="shrink-0 rounded-md p-1 transition-colors duration-300 disabled:cursor-not-allowed disabled:bg-opacity-65 lg:rounded-xl"
@@ -57,11 +57,14 @@ const CartItem: React.FC<IData<ICartItem>> = ({ isLoading, data, refetch }) => {
         <div className="flex min-h-[68px] items-end justify-between dark:text-white">
           <CartItemAction quantity={quantity} foodId={_id} refetch={refetch} />
           <div className="mb-1 mt-4">
-            {kindId?.discount.percent !== 0 && (
-              <CartItemDiscount amount={kindId?.price} percent={kindId?.discount.percent} />
+            {food?.discount && food?.discount.percent != 0 && (
+              <CartItemDiscount amount={food?.price} percent={food?.discount?.percent} />
             )}
-            <span className="mt-1 inline-block text-neutral-900 max-md:mt-1 dark:text-white">
-              {kindId?.discount.percent ? calcFoodDiscount(kindId.price, kindId.discount.percent) : kindId?.price} تومان
+            <span className="mt-1 inline-flex gap-0.5 text-neutral-900 max-md:mt-1 dark:text-white">
+              {food?.discount && food?.discount?.percent
+                ? calcFoodDiscount(food.price, food?.discount?.percent ? food?.discount?.percent : 0)
+                : food?.price}
+              <span>تومان</span>
             </span>
           </div>
         </div>

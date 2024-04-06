@@ -6,6 +6,7 @@ import { TabPanel, Tabs } from "react-tabs";
 import FoodLikes from "./Likes";
 import { useGetUser } from "@/hooks/useAuth";
 import Bookmarks from "./Bookmarks";
+import { IUser } from "@/common/interface/user";
 
 const Index = () => {
   const { isLoading, data, refetch } = useGetUser();
@@ -23,10 +24,10 @@ const Index = () => {
 
         <div className="col-span-12 xl:col-span-8">
           <TabPanel>
-            <FoodLikes isLoading={isLoading} data={data} refetch={refetch} />
+            <FoodLikes isLoading={isLoading} data={data as IUser} refetch={refetch} />
           </TabPanel>
           <TabPanel>
-            <Bookmarks isLoading={isLoading} data={data} refetch={refetch} />
+            <Bookmarks isLoading={isLoading} data={data as IUser} refetch={refetch} />
           </TabPanel>
         </div>
       </div>

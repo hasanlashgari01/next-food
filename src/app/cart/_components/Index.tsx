@@ -32,6 +32,7 @@ const Index = () => {
   const emptyCartHandler = async () => {
     try {
       const { message } = await mutateAsync();
+      setIsModalOpen(false);
       toast.success(message);
       refetch();
     } catch (error: any) {
