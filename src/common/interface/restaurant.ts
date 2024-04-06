@@ -1,3 +1,5 @@
+import { IFood } from "./food";
+
 export interface IRestaurant {
   _id: string;
   name: string;
@@ -20,4 +22,21 @@ export interface IRestaurant {
   slug: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface IMenu {
+  _id: string;
+  title: string;
+  image: string;
+  slug: string;
+  restaurantId: string | null;
+  foods: IFood[] | [];
+}
+
+export interface IKindFood {
+  _id: string;
+  title: string;
+  price: number;
+  weight: number;
+  discount: number;
 }

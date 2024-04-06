@@ -19,8 +19,12 @@ export interface IKindFood extends IFoodDefault {
 }
 
 export interface IFood extends IFoodDefault {
-  image: string;
+  description?: string | null;
+  rate?: number;
+  price?: string;
+  weight?: number;
+  image: string | null;
   category: string;
-  kind: IKindFood[];
-  kindId: IKindFood | undefined;
+  menuId?: string | null;
+  discount?: IDiscount;
 }

@@ -8,7 +8,7 @@ interface Update<T> {
   data: T;
 }
 
-const getCart = (): Promise<ICart> => api(`${userRoute}cart`).then(({ data }) => data.cart);
+const getCart = (): Promise<ICart> => api(`${userRoute}cart`).then(({ data }) => data);
 
 const removeFood = (foodId: string) => api.put(`${userRoute}cart/${foodId}`).then(({ data }) => data);
 

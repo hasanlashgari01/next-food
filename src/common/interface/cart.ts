@@ -1,8 +1,8 @@
-import { IKindFood } from "./food";
+import { IFood } from "./food";
 
 export interface ICartItem {
   _id: string;
-  kindId: IKindFood | undefined;
+  food: IFood | undefined;
   quantity?: number;
   coupon: string | null;
 }
