@@ -10,7 +10,7 @@ import { HiMiniPencilSquare, HiOutlineTrash } from "react-icons/hi2";
 const columnHelper = createColumnHelper();
 
 const MenuTable = () => {
-  const { isLoading: userLoading, data: user } = useGetUser();
+  const { data: user } = useGetUser();
   const restaurant: string | undefined = user?.restaurants.at(0);
   const { isLoading, data, refetch } = useGetMenuList(restaurant || "");
 

@@ -1,6 +1,8 @@
-import { getMenus } from "@/services/restaurantService";
-import { useQuery } from "@tanstack/react-query";
+import { createMenu, getMenus } from "@/services/restaurantService";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetMenuList = (id: string) => useQuery({ queryKey: ["p-restaurant-menus", id], queryFn: () => getMenus(id) });
 
-export { useGetMenuList };
+const useCreateMenu = () => useMutation({ mutationFn: createMenu });
+
+export { useGetMenuList, useCreateMenu };

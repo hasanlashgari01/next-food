@@ -24,12 +24,15 @@ export interface IRestaurant {
   updatedAt: Date;
 }
 
-export interface IMenu {
+export interface IMenuData {
+  title?: string;
+  slug?: string;
+  restaurantId?: string | null;
+}
+
+export interface IMenu extends IMenuData {
   _id: string;
-  title: string;
   image: string;
-  slug: string;
-  restaurantId: string | null;
   foods: IFood[] | [];
 }
 
