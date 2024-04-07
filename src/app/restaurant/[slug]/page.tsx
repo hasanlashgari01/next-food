@@ -48,7 +48,7 @@ const page = async ({ params: { slug } }: { params: { slug: string } }) => {
               <nav className="select-none">
                 <ul className="hideScrollbar flex items-center justify-between gap-4 overflow-x-scroll">
                   {menu.map(item => (
-                    <MenuItem key={item._id} id={item._id} title={item.title} />
+                    <MenuItem key={item._id} id={item._id} title={item.title as string} />
                   ))}
                 </ul>
               </nav>
@@ -59,7 +59,7 @@ const page = async ({ params: { slug } }: { params: { slug: string } }) => {
               <ul id="menu" className="space-y-10">
                 {menu.map(item => (
                   <li key={item._id} id={item._id}>
-                    <AsideTop title={item.title} />
+                    <AsideTop title={item.title as string} />
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 lg:gap-6">
                       {item.foods.map(food => (
                         <Food key={food._id} {...food} />

@@ -3,7 +3,7 @@ import { IFood } from "@/common/interface/food";
 import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
 
-const Food: React.FC<IFood> = ({ _id, image, title, description }) => {
+const Food: React.FC<IFood> = ({ _id, image, title, description, price }) => {
   return (
     <div key={_id} className="flex flex-col rounded border p-4 dark:border-slate-700">
       <div className="flex flex-col gap-2 overflow-hidden lg:gap-6 lg:rounded-lg">
@@ -18,9 +18,12 @@ const Food: React.FC<IFood> = ({ _id, image, title, description }) => {
           />
         </div>
         <div className="mt-2.5 flex flex-col">
-          <div className="flex max-w-56 flex-col">
-            <h3>{title}</h3>
-            <p className="mt-2 line-clamp-3 text-xs dark:text-slate-400">{description}</p>
+          <div className="flex flex-col">
+            <div className="flex items-center justify-between">
+              <h3 className="max-w-56">{title}</h3>
+              <h3>{(price as string).toLocaleString()} تومان</h3>
+            </div>
+            <p className="mt-2 line-clamp-3 max-w-56 text-xs dark:text-slate-400">{description}</p>
           </div>
           <div className="mt-4">
             <Button foodId={_id} />

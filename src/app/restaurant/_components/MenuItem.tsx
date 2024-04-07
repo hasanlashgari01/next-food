@@ -1,15 +1,11 @@
 "use client";
 
-import { useRef } from "react";
-
 interface MenuItemProps {
   id: string;
   title: string;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({ id, title }) => {
-  const itemRef = useRef<HTMLLIElement>(null);
-
   const centerElem = () => {
     const container = document.querySelector(".hideScrollbar") as HTMLElement;
     const menu = document.getElementById("menu") as HTMLElement;
