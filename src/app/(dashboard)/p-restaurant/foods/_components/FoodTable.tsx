@@ -2,7 +2,7 @@
 
 import Table from "@/components/modules/Table/Table";
 import { useGetUser } from "@/hooks/useAuth";
-import { useDeleteMenu, useGetMenuList } from "@/hooks/useRestaurant";
+import { useDeleteMenu, useGetFoodList, useGetMenuList } from "@/hooks/useRestaurant";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -10,26 +10,35 @@ import { HiMiniPencilSquare, HiOutlineTrash } from "react-icons/hi2";
 
 const columnHelper = createColumnHelper();
 
-const MenuTable = () => {
+const FoodTable = () => {
   const { data: user } = useGetUser();
   const restaurant: string | undefined = user?.restaurants.at(0);
-  const { isLoading, data, refetch } = useGetMenuList(restaurant || "");
+  const { isLoading, data, refetch } = useGetFoodList(restaurant || "");
+  console.log("🚀 ~ FoodTable ~ data:", data?.foods[10]);
   const { mutateAsync } = useDeleteMenu();
 
   const columns: ColumnDef<unknown, never>[] = [
-    columnHelper.accessor("slug", {
-      header: () => <span>شناسه</span>,
+    columnHelper.accessor("title", {
+      header: () => <span>عنوان</span>,
       cell: info => (
-        <div className="w-20 overflow-hidden">
+        <div className="overflow-hidden whitespace-nowrap max-md:w-20">
           <span>{info.getValue()}</span>
         </div>
       ),
     }),
-    columnHelper.accessor("title", {
-      header: () => <span>عنوان</span>,
+    columnHelper.accessor("price", {
+      header: () => <span>قیمت</span>,
       cell: info => (
         <div className="w-20 overflow-hidden">
-          <span>{info.getValue()}</span>
+          <span>{info.getValue() ? info.getValue() : "-----------"}</span>
+        </div>
+      ),
+    }),
+    columnHelper.accessor("weight", {
+      header: () => <span>وزن</span>,
+      cell: info => (
+        <div className="w-20 overflow-hidden">
+          <span>{info.getValue() ? info.getValue() : "-----------"}</span>
         </div>
       ),
     }),
@@ -67,14 +76,14 @@ const MenuTable = () => {
     <div className="mt-5">
       {!isLoading && data && (
         <Table
-          count={data?.count || data.menus?.length}
-          data={data?.menus ? data.menus : []}
+          count={data?.count || data.foods?.length}
+          data={data?.foods ? data.foods : []}
           columns={columns}
-          notFoundMsg="منو"
+          notFoundMsg="غذا"
         />
       )}
     </div>
   );
 };
 
-export default MenuTable;
+export default FoodTable;

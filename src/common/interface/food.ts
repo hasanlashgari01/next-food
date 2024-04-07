@@ -4,10 +4,14 @@ interface IFoodDefault {
 }
 
 export interface IDiscount {
-  percent: number;
-  startDate: Date;
+  percent: number | null;
+  startDate: {
+    Day: number | undefined;
+    Month: number | undefined;
+    Year: number | undefined;
+  };
   endDate: Date;
-  amount: number;
+  amount: number | null;
 }
 
 export interface IKindFood extends IFoodDefault {
@@ -27,4 +31,14 @@ export interface IFood extends IFoodDefault {
   category: string;
   menuId?: string | null;
   discount?: IDiscount;
+}
+
+export interface IFoodData extends IDiscount {
+  title: string;
+  image: string | null;
+  description: string;
+  rate: number | null;
+  price: number | null;
+  weight: number | null;
+  menuId: string;
 }

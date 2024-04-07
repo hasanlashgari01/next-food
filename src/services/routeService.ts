@@ -7,6 +7,7 @@ const adminProvince = "/api/province/";
 
 const restaurantRoute = "/api/restaurant/";
 const menuRoute = "/api/menu/";
+const foodRoute = "/api/food/";
 
 const userRoute = "/api/user/";
 const orders = "/api/order/";
@@ -28,4 +29,5 @@ export {
   adminFood,
   restaurantRoute,
   menuRoute,
+  foodRoute,
 };
