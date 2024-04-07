@@ -21,4 +21,6 @@ const getFoods = (id: string): Promise<{ count: number; foods: IFoodData[] }> =>
 
 const createFood = (data: IFoodData) => apiUpload.post(foodRoute, data).then(({ data }) => data);
 
-export { createFood, createMenu, deleteMenu, getFoods, getMenus, updateMenu };
+const deleteFood = (id: string) => api.delete(`${foodRoute}${id}`).then(({ data }) => data);
+
+export { createFood, createMenu, deleteMenu, getFoods, getMenus, updateMenu, deleteFood };

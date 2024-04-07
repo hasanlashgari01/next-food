@@ -1,4 +1,12 @@
-import { createFood, createMenu, deleteMenu, getFoods, getMenus, updateMenu } from "@/services/restaurantService";
+import {
+  createFood,
+  createMenu,
+  deleteFood,
+  deleteMenu,
+  getFoods,
+  getMenus,
+  updateMenu,
+} from "@/services/restaurantService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetMenuList = (id: string) => useQuery({ queryKey: ["p-restaurant-menus", id], queryFn: () => getMenus(id) });
@@ -13,4 +21,6 @@ const useGetFoodList = (id: string) => useQuery({ queryKey: ["p-restaurant-foods
 
 const useCreateFood = () => useMutation({ mutationFn: createFood });
 
-export { useGetMenuList, useCreateMenu, useUpdateMenu, useDeleteMenu, useGetFoodList, useCreateFood };
+const useDeleteFood = () => useMutation({ mutationFn: deleteFood });
+
+export { useGetMenuList, useCreateMenu, useUpdateMenu, useDeleteMenu, useGetFoodList, useCreateFood, useDeleteFood };

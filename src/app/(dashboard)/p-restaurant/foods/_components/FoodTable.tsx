@@ -2,8 +2,10 @@
 
 import Table from "@/components/modules/Table/Table";
 import { useGetUser } from "@/hooks/useAuth";
-import { useDeleteMenu, useGetFoodList, useGetMenuList } from "@/hooks/useRestaurant";
+import { useDeleteFood, useDeleteMenu, useGetFoodList } from "@/hooks/useRestaurant";
+import { fileRoute } from "@/services/routeService";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { HiMiniPencilSquare, HiOutlineTrash } from "react-icons/hi2";
@@ -14,10 +16,28 @@ const FoodTable = () => {
   const { data: user } = useGetUser();
   const restaurant: string | undefined = user?.restaurants.at(0);
   const { isLoading, data, refetch } = useGetFoodList(restaurant || "");
-  console.log("🚀 ~ FoodTable ~ data:", data?.foods[10]);
-  const { mutateAsync } = useDeleteMenu();
+  const { mutateAsync } = useDeleteFood();
 
   const columns: ColumnDef<unknown, never>[] = [
+    columnHelper.accessor("image", {
+      header: () => <span>عکس</span>,
+      cell: info => (
+        <div className="h-10 w-10 overflow-hidden whitespace-nowrap">
+          {info.getValue() ? (
+            <Image
+              src={info.getValue() ? `${fileRoute}food/${info.getValue()}` : "/Auth.png"}
+              alt="پروفایل"
+              width={100}
+              height={100}
+              loading="lazy"
+              className="size-full rounded-full object-cover object-top transition-transform duration-500 hover:scale-110"
+            />
+          ) : (
+            <span>-----------</span>
+          )}
+        </div>
+      ),
+    }),
     columnHelper.accessor("title", {
       header: () => <span>عنوان</span>,
       cell: info => (
@@ -28,11 +48,14 @@ const FoodTable = () => {
     }),
     columnHelper.accessor("price", {
       header: () => <span>قیمت</span>,
-      cell: info => (
-        <div className="w-20 overflow-hidden">
-          <span>{info.getValue() ? info.getValue() : "-----------"}</span>
-        </div>
-      ),
+      cell: info => {
+        const price = info.getValue() as string;
+        return (
+          <div className="overflow-hidden max-md:w-20">
+            <span>{price ? `${price.toLocaleString()} تومان` : "-----------"}</span>
+          </div>
+        );
+      },
     }),
     columnHelper.accessor("weight", {
       header: () => <span>وزن</span>,
@@ -48,12 +71,12 @@ const FoodTable = () => {
         <div className="w-20 overflow-hidden">
           <div className="flex min-w-20 flex-wrap gap-1.5">
             <Link
-              href={`/p-restaurant/menus/${info.getValue()}/edit`}
+              href={`/p-restaurant/foods/${info.getValue()}/edit`}
               className="table-btn bg-amber-200 dark:bg-amber-700"
             >
               <HiMiniPencilSquare />
             </Link>
-            <span className="table-btn bg-red-200 dark:bg-red-700" onClick={() => deleteMenu(info.getValue())}>
+            <span className="table-btn bg-red-200 dark:bg-red-700" onClick={() => deleteFood(info.getValue())}>
               <HiOutlineTrash />
             </span>
           </div>
@@ -62,7 +85,7 @@ const FoodTable = () => {
     }),
   ];
 
-  const deleteMenu = async (id: string) => {
+  const deleteFood = async (id: string) => {
     try {
       const { message } = await mutateAsync(id);
       toast.success(message);
