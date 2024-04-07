@@ -14,7 +14,7 @@ const orders = "/api/order/";
 
 const category = "/category/";
 
-const fileRoute = "http://localhost:5000/files/public/";
+const fileRoute = `${process.env.NEXT_PUBLIC_API}/files/public/`;
 
 export {
   adminUser,

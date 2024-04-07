@@ -22,7 +22,7 @@ const Form: React.FC<FormProps> = ({ title, slug, isEdit = false, id }) => {
     register,
     handleSubmit,
     getValues,
-    formState: { touchedFields, errors, isValid },
+    formState: { touchedFields, errors },
   } = useForm<IMenuData>({
     mode: "onChange",
     defaultValues: {
@@ -31,8 +31,8 @@ const Form: React.FC<FormProps> = ({ title, slug, isEdit = false, id }) => {
       restaurantId: "",
     },
     values: {
-      title: title || "",
-      slug: slug || "",
+      title,
+      slug,
       restaurantId: restaurant || "",
     },
   });
@@ -41,7 +41,6 @@ const Form: React.FC<FormProps> = ({ title, slug, isEdit = false, id }) => {
     try {
       let msg = "";
       if (isEdit && id) {
-        console.log(data);
         const { message } = await mutateAsyncUpdate({ data, id });
         msg = message;
       } else {

@@ -3,20 +3,26 @@
 import { IFoodData } from "@/common/interface/food";
 import ImageUpload from "@/components/modules/Input/ImageUpload";
 import InputText from "@/components/modules/Input/InputText";
-import { useGetUser } from "@/hooks/useAuth";
-import { useCreateFood } from "@/hooks/useRestaurant";
+import { useCreateFood, useUpdateFood } from "@/hooks/useRestaurant";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { twMerge } from "tailwind-merge";
 
-const Form = () => {
+interface FormProps {
+  data?: IFoodData;
+  isEdit?: boolean;
+  id?: string;
+}
+
+const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
   const { mutateAsync: mutateAsyncCreate } = useCreateFood();
+  const { mutateAsync: mutateAsyncUpdate } = useUpdateFood();
   const {
     register,
     handleSubmit,
     getValues,
     setValue,
-    formState: { touchedFields, errors, isValid },
+    formState: { touchedFields, errors },
   } = useForm<IFoodData>({
     mode: "onChange",
     defaultValues: {
@@ -29,14 +35,21 @@ const Form = () => {
       percent: null,
       image: "",
     },
+    values: data,
   });
 
   const onSubmit: SubmitHandler<IFoodData> = async data => {
     try {
-      setValue("image", "");
-      console.log(data);
-      const { message } = await mutateAsyncCreate(data);
-      toast.success(message);
+      let msg = "";
+      if (isEdit && id) {
+        const { message } = await mutateAsyncUpdate({ data, id });
+        msg = message;
+      } else {
+        setValue("image", "");
+        const { message } = await mutateAsyncCreate(data);
+        msg = message;
+      }
+      toast.success(msg);
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
