@@ -9,9 +9,7 @@ interface IButtonProps {
 
 const Button: React.FC<IButtonProps> = ({ foodId }) => {
   const incrementCart = async () => {
-    console.log("🚀 ~ foodId:", foodId);
     const res = await incrementFood(foodId);
-    console.log(res);
   };
 
   return (

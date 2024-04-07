@@ -6,7 +6,6 @@ interface Props {
 }
 
 const Box: React.FC<Props> = ({ count, data, message, children }) => {
-  console.log("🚀 ~ count:", count);
   return (
     <div className="group flex gap-3 rounded-xl bg-white p-5 font-Dana dark:bg-slate-800">
       <div className="flex w-1/5 justify-center self-center text-white child:rounded-full child:p-1 child:text-5xl child:transition-colors child:duration-300">

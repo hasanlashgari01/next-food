@@ -104,7 +104,7 @@ const Form: React.FC<FormProps> = ({ title, slug, isEdit = false, id }) => {
         </InputText>
       </div>
       <button type="submit" className="btn btn-primary mt-8">
-        ایجاد منو
+        ثبت
       </button>
     </form>
   );

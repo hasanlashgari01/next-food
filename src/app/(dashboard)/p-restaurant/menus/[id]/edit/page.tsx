@@ -7,6 +7,8 @@ interface Props {
   };
 }
 
+export const dynamic = "force-dynamic";
+
 const page: React.FC<Props> = async ({ params: { id } }) => {
   const { title, slug } = await getMenuById(id);
 

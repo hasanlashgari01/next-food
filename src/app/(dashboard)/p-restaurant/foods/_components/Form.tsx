@@ -41,11 +41,12 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
   const onSubmit: SubmitHandler<IFoodData> = async data => {
     try {
       let msg = "";
+      setValue("image", "");
+
       if (isEdit && id) {
         const { message } = await mutateAsyncUpdate({ data, id });
         msg = message;
       } else {
-        setValue("image", "");
         const { message } = await mutateAsyncCreate(data);
         msg = message;
       }
@@ -191,7 +192,7 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
         </div>
       </div>
       <button type="submit" className="btn btn-primary mt-8">
-        ایجاد غذا
+        ثبت
       </button>
     </form>
   );
