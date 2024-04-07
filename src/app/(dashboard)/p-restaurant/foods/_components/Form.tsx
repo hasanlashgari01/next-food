@@ -1,11 +1,15 @@
 "use client";
 
 import { IFoodData } from "@/common/interface/food";
+import { IMenu } from "@/common/interface/restaurant";
 import ImageUpload from "@/components/modules/Input/ImageUpload";
 import InputText from "@/components/modules/Input/InputText";
-import { useCreateFood, useUpdateFood } from "@/hooks/useRestaurant";
+import { useGetUser } from "@/hooks/useAuth";
+import { useCreateFood, useGetMenuList, useUpdateFood } from "@/hooks/useRestaurant";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import Select from "react-select";
 import { twMerge } from "tailwind-merge";
 
 interface FormProps {
@@ -15,6 +19,9 @@ interface FormProps {
 }
 
 const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
+  const { data: user } = useGetUser();
+  const restaurant: string | undefined = user?.restaurants.at(0);
+  const { isLoading: isLoadingMenu, data: menuList } = useGetMenuList(restaurant || "");
   const { mutateAsync: mutateAsyncCreate } = useCreateFood();
   const { mutateAsync: mutateAsyncUpdate } = useUpdateFood();
   const {
@@ -29,7 +36,7 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
       title: "",
       description: "",
       price: null,
-      menuId: "65d11bc9216d141768efc396",
+      menuId: "",
       weight: null,
       amount: null,
       percent: null,
@@ -37,6 +44,11 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
     },
     values: data,
   });
+  const [menuId, setMenuId] = useState<IMenu>();
+
+  useEffect(() => {
+    setMenuId(menuList?.menus.find(menu => menu._id === getValues("menuId")));
+  }, [isLoadingMenu]);
 
   const onSubmit: SubmitHandler<IFoodData> = async data => {
     try {
@@ -126,6 +138,21 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
               })}
             />
           </InputText>
+          {isEdit && menuId && (
+            <div className="flex flex-1 items-center child:flex-1">
+              <Select
+                className="text-base md:w-64 dark:text-black"
+                classNamePrefix="react-select"
+                placeholder="منو مورد نظر خود را انتخاب کنید"
+                defaultValue={{ value: menuId?._id, label: menuId?.title }}
+                onChange={e => setValue("menuId", e?.value as string)}
+                options={menuList?.menus.map(menu => ({
+                  value: menu._id as string,
+                  label: menu.title as string,
+                }))}
+              />
+            </div>
+          )}
           <InputText
             id="percent"
             type="text"

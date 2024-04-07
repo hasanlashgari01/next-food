@@ -1,5 +1,5 @@
 import { IFoodData } from "@/common/interface/food";
-import { IMenuData } from "@/common/interface/restaurant";
+import { IMenu, IMenuData } from "@/common/interface/restaurant";
 import { api, apiUpload } from "@/config/axiosConfig";
 import { foodRoute, menuRoute, restaurantRoute } from "./routeService";
 
@@ -8,7 +8,8 @@ interface Update<T> {
   data: T;
 }
 
-const getMenus = (id: string) => api(`${restaurantRoute}/${id}/menu`).then(({ data }) => data);
+const getMenus = (id: string): Promise<{ count: number; menus: IMenu[] }> =>
+  api(`${restaurantRoute}/${id}/menu`).then(({ data }) => data);
 
 const createMenu = (data: IMenuData) => api.post(menuRoute, data).then(({ data }) => data);
 

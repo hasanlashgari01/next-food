@@ -1,4 +1,4 @@
-import { fileRoute, foodRoute } from "@/services/routeService";
+import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
 import { useState } from "react";
 import { HiTrash } from "react-icons/hi2";
@@ -35,7 +35,7 @@ const ImageUpload: React.FC<IImageUpload> = ({ isLoading, formImage, setValue })
         className="size-32 cursor-pointer rounded-full border border-slate-100 p-2 dark:border-slate-700"
       >
         <Image
-          src={image ? image : formImage ? `${foodRoute}user/${formImage}` : "/Auth.png"}
+          src={!isLoading && image ? image : formImage ? `${fileRoute}food/${formImage}` : "/Auth.png"}
           alt="پروفایل"
           width={100}
           height={100}
