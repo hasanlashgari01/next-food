@@ -1,8 +1,12 @@
 import { IComment, ICommentsData } from "@/common/interface/comment";
 import { ICommentsOption, ISelectOption } from "@/common/interface/optionSelect";
 import { IUser } from "@/common/interface/user";
+import CommentAction from "@/components/modules/Table/Comment/CommentAction";
+import CommentBody from "@/components/modules/Table/Comment/CommentBody";
+import CommentRate from "@/components/modules/Table/Comment/CommentRate";
 import Table from "@/components/modules/Table/Table";
 import TableStatus from "@/components/modules/Table/TableStatus";
+import UserInfo from "@/components/modules/Table/UserInfo";
 import {
   useBanOrUnbanFoodComment,
   useBanOrUnbanRestaurantComment,
@@ -38,15 +42,12 @@ const CommentTable: React.FC<ITableProps> = ({
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("body", {
       header: () => <span>متن نظر</span>,
-      cell: info => <div className="line-clamp-1 min-w-32 max-w-20">{info.getValue()}</div>,
+      cell: info => <CommentBody body={info.getValue()} />,
     }),
     columnHelper.accessor("authorId", {
       header: () => <span>کاربر</span>,
       cell: ({ getValue }: { getValue: () => IUser }) => (
-        <div className="flex w-fit min-w-32 flex-col gap-1">
-          <span>{getValue()?.fullName}</span>
-          <span>{getValue()?.mobile.replace(/(\d{4})(\d{3})(\d{4})/, "$1-$2-$3")}</span>
-        </div>
+        <UserInfo fullName={getValue().fullName || ""} mobile={getValue().mobile} />
       ),
     }),
     columnHelper.accessor(isRestaurant ? "restaurantId" : "foodId", {
@@ -68,7 +69,7 @@ const CommentTable: React.FC<ITableProps> = ({
     }),
     columnHelper.accessor("rate", {
       header: () => <span className="w-fit">امتیاز</span>,
-      cell: info => <span className="w-96">{info.getValue() ? info.getValue() : 0}</span>,
+      cell: info => <CommentRate rate={info.getValue()} />,
     }),
     columnHelper.accessor("actions", {
       header: () => <span></span>,
@@ -76,23 +77,12 @@ const CommentTable: React.FC<ITableProps> = ({
         let { _id: commentId, isAccepted } = info.row.original as IComment;
 
         return (
-          <div className="flex w-fit min-w-20 items-center gap-2 lg:gap-5">
-            <span
-              className={twMerge(
-                "table-btn",
-                `${!isAccepted ? "bg-green-300 dark:bg-green-500" : "bg-amber-300 dark:bg-amber-700"}`,
-              )}
-              onClick={() => banHandler(commentId)}
-            >
-              {!isAccepted ? <HiShieldCheck /> : <HiShieldExclamation />}
-            </span>
-            <span
-              className="table-btn bg-red-300 dark:bg-red-500"
-              onClick={() => banUserAndRejectCommentHandler(commentId)}
-            >
-              <HiNoSymbol />
-            </span>
-          </div>
+          <CommentAction
+            isAccepted={isAccepted}
+            commentId={commentId}
+            banHandler={banHandler}
+            banUserAndRejectCommentHandler={banUserAndRejectCommentHandler}
+          />
         );
       },
     }),

@@ -5,7 +5,7 @@ import { IOrder, IUserOrder } from "@/common/interface/order";
 import OrderFoods from "@/components/modules/Table/Order/OrderFoods";
 import OrderId from "@/components/modules/Table/Order/OrderId";
 import OrderPaymentStatus from "@/components/modules/Table/Order/OrderPaymentStatus";
-import OrderUserInfo from "@/components/modules/Table/Order/OrderUserInfo";
+import OrderUserInfo from "@/components/modules/Table/UserInfo";
 import Table from "@/components/modules/Table/Table";
 import { toPersianDate } from "@/utils/func";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
