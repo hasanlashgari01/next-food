@@ -8,6 +8,7 @@ import {
   getComments,
   getFoods,
   getMenus,
+  getOffs,
   getOrderById,
   getOrders,
   removeOffSelectedFood,
@@ -43,26 +44,26 @@ const useGetCommentList = (id: string) =>
 
 const useBanOrUnbanComment = () => useMutation({ mutationFn: banOrUnbanComment });
 
-const useGetOffList = (id: string) => useQuery({ queryKey: ["p-restaurant-comments"], queryFn: () => getComments(id) });
+const useGetOffList = (id: string) => useQuery({ queryKey: ["p-restaurant-offs"], queryFn: () => getOffs(id) });
 
 const useAddOffSelectedFood = () => useMutation({ mutationFn: addOffSelectedFood });
 
 const useRemoveOffSelectedFood = () => useMutation({ mutationFn: removeOffSelectedFood });
 
 export {
-  useGetMenuList,
-  useCreateMenu,
-  useUpdateMenu,
-  useDeleteMenu,
-  useGetFoodList,
-  useCreateFood,
-  useDeleteFood,
-  useUpdateFood,
-  useGetOrderList,
-  useGetOrderById,
-  useGetCommentList,
-  useBanOrUnbanComment,
-  useGetOffList,
   useAddOffSelectedFood,
+  useBanOrUnbanComment,
+  useCreateFood,
+  useCreateMenu,
+  useDeleteFood,
+  useDeleteMenu,
+  useGetCommentList,
+  useGetFoodList,
+  useGetMenuList,
+  useGetOffList,
+  useGetOrderById,
+  useGetOrderList,
   useRemoveOffSelectedFood,
+  useUpdateFood,
+  useUpdateMenu,
 };
