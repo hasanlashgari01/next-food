@@ -58,11 +58,11 @@ const CartItem: React.FC<IData<ICartItem>> = ({ isLoading, data, refetch }) => {
           <CartItemAction quantity={quantity} foodId={_id} refetch={refetch} />
           <div className="mb-1 mt-4">
             {food?.discount && food?.discount.percent != 0 && (
-              <CartItemDiscount amount={food?.price} percent={food?.discount?.percent} />
+              <CartItemDiscount amount={food?.price} percent={food?.discount?.percent ? food?.discount?.percent : 0} />
             )}
             <span className="mt-1 inline-flex gap-0.5 text-neutral-900 max-md:mt-1 dark:text-white">
               {food?.discount && food?.discount?.percent
-                ? calcFoodDiscount(food.price, food?.discount?.percent ? food?.discount?.percent : 0)
+                ? calcFoodDiscount(food.price ? food.price : 0, food?.discount?.percent ? food?.discount?.percent : 0)
                 : food?.price}
               <span>تومان</span>
             </span>

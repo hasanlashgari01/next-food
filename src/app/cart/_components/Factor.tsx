@@ -57,13 +57,13 @@ const Factor: React.FC<FactorProps> = ({
             <hr className="dark:border-slate-700" />
             {foods && foods?.length > 0 && (
               <ul className="child:factor-item my-3 max-h-64 flex-1 overflow-y-auto">
-                {foods?.map(food => (
-                  <li key={food._id} className="flex items-center justify-between">
+                {foods?.map(({ _id, quantity, food }: ICartItem) => (
+                  <li key={_id} className="flex items-center justify-between">
                     <div className="flex flex-col child:leading-7">
-                      <span>{food.food?.title}</span>
-                      <span>{food.food?.price.toLocaleString()}</span>
+                      <span>{food?.title}</span>
+                      <span>{food?.price ? food?.price.toLocaleString() : 0}</span>
                     </div>
-                    <CartItemAction foodId={food._id} quantity={food.quantity} refetch={refetch} />
+                    <CartItemAction foodId={_id} quantity={quantity} refetch={refetch} />
                   </li>
                 ))}
               </ul>

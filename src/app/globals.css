@@ -88,6 +88,10 @@
     @apply min-w-full rounded-[10px] border-2 bg-slate-50 py-4 pl-6 pr-14 text-sm/6 text-primary-500 outline-none transition-all duration-200 ease-linear dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100;
   }
 
+  .input__block {
+    @apply child:block !important;
+  }
+
   .search-btn {
     @apply flex aspect-square w-fit shrink-0 items-center justify-center rounded-md bg-sky-200 text-black transition-colors disabled:cursor-not-allowed disabled:bg-sky-200/50 dark:bg-sky-700 dark:text-white dark:disabled:bg-sky-700/50;
   }

@@ -9,11 +9,11 @@ const FoodLikes: React.FC<IData<IUser>> = ({ isLoading, data, refetch }) => {
     <div className="mt-6 grid place-items-center gap-x-4 gap-y-12 xs:grid-cols-2">
       {!isLoading &&
         data?.likedFoods.map((item, index) => (
-          <FoodWishlist key={index} status="like" image={item.image} title={item.title} id={item._id} />
+          <FoodWishlist key={index} status="like" image={item.image as string} title={item.title} id={item._id} />
         ))}
       {!isLoading &&
         data?.likedRestaurants.map((item, index) => (
-          <RestaurantWishlist key={index} status="like" image={item.logo} name={item.name} id={item._id} />
+          <RestaurantWishlist key={index} status="like" image={item.logo as string} name={item.name} id={item._id} />
         ))}
       <NotFound data={data?.likedFoods && data?.likedRestaurants} isLoading={isLoading} />
     </div>

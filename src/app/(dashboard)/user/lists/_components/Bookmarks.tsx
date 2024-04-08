@@ -9,11 +9,17 @@ const Bookmarks: React.FC<IData<IUser>> = ({ isLoading, data, refetch }) => {
     <div className="mt-6 grid place-items-center gap-x-4 gap-y-12 xs:grid-cols-2">
       {!isLoading &&
         data?.bookmarkedFoods.map((item, index) => (
-          <FoodWishlist key={index} status="bookmark" image={item.image} title={item.title} id={item._id} />
+          <FoodWishlist key={index} status="bookmark" image={item.image as string} title={item.title} id={item._id} />
         ))}
       {!isLoading &&
         data?.bookmarkedRestaurants.map((item, index) => (
-          <RestaurantWishlist key={index} status="bookmark" image={item.logo} name={item.name} id={item._id} />
+          <RestaurantWishlist
+            key={index}
+            status="bookmark"
+            image={item.logo as string}
+            name={item.name}
+            id={item._id}
+          />
         ))}
       <NotFound data={data?.bookmarkedFoods && data?.bookmarkedRestaurants} isLoading={isLoading} />
     </div>

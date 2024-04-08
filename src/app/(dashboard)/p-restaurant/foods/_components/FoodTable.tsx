@@ -1,8 +1,10 @@
 "use client";
 
+import { IFood, IDiscount } from "@/common/interface/food";
+import { IMenuData } from "@/common/interface/restaurant";
 import Table from "@/components/modules/Table/Table";
 import { useGetUser } from "@/hooks/useAuth";
-import { useDeleteFood, useDeleteMenu, useGetFoodList } from "@/hooks/useRestaurant";
+import { useDeleteFood, useGetFoodList } from "@/hooks/useRestaurant";
 import { fileRoute } from "@/services/routeService";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Image from "next/image";
@@ -57,11 +59,41 @@ const FoodTable = () => {
         );
       },
     }),
-    columnHelper.accessor("weight", {
-      header: () => <span>وزن</span>,
-      cell: info => (
+    columnHelper.accessor("menuId", {
+      header: () => <span>منو</span>,
+      cell: ({ getValue }: { getValue: () => IMenuData }) => (
         <div className="w-20 overflow-hidden">
-          <span>{info.getValue() ? info.getValue() : "-----------"}</span>
+          <span>{getValue()?.title ? getValue().title : "-----------"}</span>
+        </div>
+      ),
+    }),
+    columnHelper.accessor("discount", {
+      header: () => <span>درصد</span>,
+      cell: ({ getValue }: { getValue: () => { percent: IDiscount["percent"] } }) => (
+        <div className="w-20 overflow-hidden">
+          <span>{getValue()?.percent !== null || undefined ? getValue()?.percent : "-----------"}</span>
+        </div>
+      ),
+    }),
+    columnHelper.accessor("discount", {
+      header: () => <span>شروع</span>,
+      cell: ({ getValue }: { getValue: () => { startDate: IDiscount["startDate"] } }) => (
+        <div className="w-20 overflow-hidden">
+          <span>
+            {getValue()?.startDate
+              ? new Date(getValue()?.startDate as Date)?.toLocaleDateString("fa-IR")
+              : "-----------"}
+          </span>
+        </div>
+      ),
+    }),
+    columnHelper.accessor("discount", {
+      header: () => <span>اتمام</span>,
+      cell: ({ getValue }: { getValue: () => { endDate: IDiscount["endDate"] } }) => (
+        <div className="w-20 overflow-hidden">
+          <span>
+            {getValue()?.endDate ? new Date(getValue().endDate as Date)?.toLocaleDateString("fa-IR") : "-----------"}
+          </span>
         </div>
       ),
     }),

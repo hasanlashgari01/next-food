@@ -1,3 +1,6 @@
+import { DateObject } from "react-multi-date-picker";
+import { IMenu } from "./restaurant";
+
 interface IFoodDefault {
   _id: string;
   title: string;
@@ -5,12 +8,8 @@ interface IFoodDefault {
 
 export interface IDiscount {
   percent: number | null;
-  startDate: {
-    Day: number | undefined;
-    Month: number | undefined;
-    Year: number | undefined;
-  };
-  endDate: Date;
+  startDate: DateObject | DateObject[] | null | Date | string;
+  endDate: DateObject | DateObject[] | null | Date | string;
   amount: number | null;
 }
 
@@ -40,5 +39,6 @@ export interface IFoodData extends IDiscount {
   rate: number | null;
   price: number | null;
   weight: number | null;
-  menuId: string;
+  menuId: IMenu | null | {} | string;
+  discount?: IDiscount;
 }

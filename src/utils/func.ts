@@ -32,8 +32,8 @@ const calculateTotalCart = (foods: ICart["foods"], shippingAmount: number) => {
   let discount = 0;
   if (foods) {
     foods.forEach((food: ICartItem) => {
-      if (food.food?.discount && food.food?.discount?.percent > 0) {
-        let discountPrice = calcFoodDiscount(food.food?.price, food.food?.discount.percent);
+      if (food.food?.discount && food.food?.discount?.percent !== null && food.food?.discount?.percent > 0) {
+        let discountPrice = calcFoodDiscount(Number(food.food?.price), food.food?.discount.percent);
         sum += calcFoodPriceWithQuantity(discountPrice, food.quantity || 1);
         total += calcFoodPriceWithQuantity(food.food?.price || 0, food.quantity || 1);
       } else {

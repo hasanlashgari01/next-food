@@ -14,7 +14,7 @@ const WishlistFood = () => {
         <div className="mt-6 grid place-items-center gap-x-4 gap-y-12 xs:grid-cols-2">
           {!isLoading &&
             data?.likedFoods.map((item, index) => (
-              <FoodWishlist key={index} status="like" image={item.image} title={item.title} id={item._id} />
+              <FoodWishlist key={index} status="like" image={item.image as string} title={item.title} id={item._id} />
             ))}
           <NotFound data={data?.likedFoods} isLoading={isLoading} />
         </div>
@@ -24,7 +24,13 @@ const WishlistFood = () => {
         <div className="mt-6 grid place-items-center gap-x-4 gap-y-12 xs:grid-cols-2">
           {!isLoading &&
             data?.bookmarkedFoods.map((item, index) => (
-              <FoodWishlist key={index} status="bookmark" image={item.image} title={item.title} id={item._id} />
+              <FoodWishlist
+                key={index}
+                status="bookmark"
+                image={item.image as string}
+                title={item.title}
+                id={item._id}
+              />
             ))}
           <NotFound data={data?.bookmarkedFoods} isLoading={isLoading} />
         </div>
