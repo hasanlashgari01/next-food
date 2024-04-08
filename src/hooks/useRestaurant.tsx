@@ -5,6 +5,7 @@ import {
   deleteMenu,
   getFoods,
   getMenus,
+  getOrderById,
   getOrders,
   updateFood,
   updateMenu,
@@ -28,7 +29,10 @@ const useUpdateFood = () => useMutation({ mutationFn: updateFood });
 const useDeleteFood = () => useMutation({ mutationFn: deleteFood });
 
 const useGetOrderList = (id: string) =>
-  useQuery({ queryKey: ["p-restaurant-foods", id], queryFn: () => getOrders(id) });
+  useQuery({ queryKey: ["p-restaurant-orders", id], queryFn: () => getOrders(id) });
+
+const useGetOrderById = (id: string, orderId: string) =>
+  useQuery({ queryKey: ["p-restaurant-foods", id, "order", orderId], queryFn: () => getOrderById(id, orderId) });
 
 export {
   useGetMenuList,
@@ -40,4 +44,5 @@ export {
   useDeleteFood,
   useUpdateFood,
   useGetOrderList,
+  useGetOrderById,
 };

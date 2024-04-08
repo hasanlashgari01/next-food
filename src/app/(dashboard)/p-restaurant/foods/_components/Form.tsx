@@ -69,7 +69,6 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
         startDate: (data.startDate as DateObject).toDate(),
         endDate: (data.endDate as DateObject).toDate(),
       };
-      console.log("🚀 ~ data:", data);
 
       if (isEdit && id) {
         const { message } = await mutateAsyncUpdate({ data, id });

@@ -31,4 +31,18 @@ const deleteFood = (id: string) => api.delete(`${foodRoute}${id}`).then(({ data 
 const getOrders = (id: string): Promise<{ count: number; orders: IOrder[] }> =>
   api(`${orders}/restaurant/${id}`).then(({ data }) => data);
 
-export { createFood, createMenu, deleteFood, deleteMenu, getFoods, getMenus, updateFood, updateMenu, getOrders };
+const getOrderById = (id: string, orderId: string): Promise<IOrder> =>
+  api(`${orders}restaurant/${id}/order/${orderId}`).then(({ data }) => data);
+
+export {
+  createFood,
+  createMenu,
+  deleteFood,
+  deleteMenu,
+  getFoods,
+  getMenus,
+  updateFood,
+  updateMenu,
+  getOrders,
+  getOrderById,
+};
