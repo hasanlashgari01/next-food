@@ -126,7 +126,7 @@ const CommentTable: React.FC<ITableProps> = ({
 
   return (
     <div>
-      <Table columns={columns} count={data?.count} data={data?.comments || []} notFoundMsg={"هیچ نظری یافت نشد"} />
+      <Table columns={columns} count={data?.count} data={data?.comments || []} notFoundMsg="نظری" />
     </div>
   );
 };

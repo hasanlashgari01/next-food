@@ -1,8 +1,10 @@
 import {
+  banOrUnbanComment,
   createFood,
   createMenu,
   deleteFood,
   deleteMenu,
+  getComments,
   getFoods,
   getMenus,
   getOrderById,
@@ -32,7 +34,12 @@ const useGetOrderList = (id: string) =>
   useQuery({ queryKey: ["p-restaurant-orders", id], queryFn: () => getOrders(id) });
 
 const useGetOrderById = (id: string, orderId: string) =>
-  useQuery({ queryKey: ["p-restaurant-foods", id, "order", orderId], queryFn: () => getOrderById(id, orderId) });
+  useQuery({ queryKey: ["p-restaurant-order", id, "order", orderId], queryFn: () => getOrderById(id, orderId) });
+
+const useGetCommentList = (id: string) =>
+  useQuery({ queryKey: ["p-restaurant-comments"], queryFn: () => getComments(id) });
+
+const useBanOrUnbanComment = () => useMutation({ mutationFn: banOrUnbanComment });
 
 export {
   useGetMenuList,
@@ -45,4 +52,6 @@ export {
   useUpdateFood,
   useGetOrderList,
   useGetOrderById,
+  useGetCommentList,
+  useBanOrUnbanComment,
 };

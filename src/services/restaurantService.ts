@@ -3,6 +3,7 @@ import { IMenu, IMenuData } from "@/common/interface/restaurant";
 import { api, apiUpload } from "@/config/axiosConfig";
 import { foodRoute, menuRoute, orders, restaurantRoute } from "./routeService";
 import { IOrder } from "@/common/interface/order";
+import { IComment } from "@/common/interface/comment";
 
 interface Update<T> {
   id: string;
@@ -34,6 +35,11 @@ const getOrders = (id: string): Promise<{ count: number; orders: IOrder[] }> =>
 const getOrderById = (id: string, orderId: string): Promise<IOrder> =>
   api(`${orders}restaurant/${id}/order/${orderId}`).then(({ data }) => data);
 
+const getComments = (id: string): Promise<{ count: number; comments: IComment[] }> =>
+  api(`${restaurantRoute}${id}/comment`).then(({ data }) => data);
+
+const banOrUnbanComment = (id: string) => api.patch(`${restaurantRoute}comment${id}/status`).then(({ data }) => data);
+
 export {
   createFood,
   createMenu,
@@ -45,4 +51,6 @@ export {
   updateMenu,
   getOrders,
   getOrderById,
+  getComments,
+  banOrUnbanComment,
 };
