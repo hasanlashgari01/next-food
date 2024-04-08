@@ -1,4 +1,4 @@
-import { IFoodData } from "@/common/interface/food";
+import { IDiscount, IFood, IFoodData } from "@/common/interface/food";
 import { IMenu, IMenuData } from "@/common/interface/restaurant";
 import { api, apiUpload } from "@/config/axiosConfig";
 import { foodRoute, menuRoute, orders, restaurantRoute } from "./routeService";
@@ -8,6 +8,10 @@ import { IComment } from "@/common/interface/comment";
 interface Update<T> {
   id: string;
   data: T;
+}
+
+interface IOffData {
+  foodsId: string[];
 }
 
 const getMenus = (id: string): Promise<{ count: number; menus: IMenu[] }> =>
@@ -40,6 +44,15 @@ const getComments = (id: string): Promise<{ count: number; comments: IComment[] 
 
 const banOrUnbanComment = (id: string) => api.patch(`${restaurantRoute}comment${id}/status`).then(({ data }) => data);
 
+const getOffs = (id: string): Promise<{ count: number; foods: IFood[] }> =>
+  api(`${restaurantRoute}${id}/food/discount`).then(({ data }) => data);
+
+const addOffSelectedFood = ({ id, data }: Update<IOffData & IDiscount>) =>
+  api(`${restaurantRoute}${id}/food/discount`, { data }).then(({ data }) => data);
+
+const removeOffSelectedFood = ({ id, data }: Update<IOffData>) =>
+  api.delete(`${restaurantRoute}${id}/food/discount`, { data }).then(({ data }) => data);
+
 export {
   createFood,
   createMenu,
@@ -53,4 +66,7 @@ export {
   getOrderById,
   getComments,
   banOrUnbanComment,
+  getOffs,
+  addOffSelectedFood,
+  removeOffSelectedFood,
 };

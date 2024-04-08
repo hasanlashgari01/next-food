@@ -41,4 +41,5 @@ export interface IFoodData extends IDiscount {
   weight: number | null;
   menuId: IMenu | null | {} | string;
   discount?: IDiscount;
+  restaurantId?: string;
 }

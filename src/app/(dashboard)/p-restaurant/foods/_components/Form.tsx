@@ -47,6 +47,7 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
       image: "",
       startDate: new Date(),
       endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
+      restaurantId: restaurant,
     },
     values: data && { ...data, startDate: new Date(), endDate: new Date(new Date().setDate(new Date().getDate() + 1)) },
   });

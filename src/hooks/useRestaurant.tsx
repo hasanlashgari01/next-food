@@ -1,4 +1,5 @@
 import {
+  addOffSelectedFood,
   banOrUnbanComment,
   createFood,
   createMenu,
@@ -9,6 +10,7 @@ import {
   getMenus,
   getOrderById,
   getOrders,
+  removeOffSelectedFood,
   updateFood,
   updateMenu,
 } from "@/services/restaurantService";
@@ -41,6 +43,12 @@ const useGetCommentList = (id: string) =>
 
 const useBanOrUnbanComment = () => useMutation({ mutationFn: banOrUnbanComment });
 
+const useGetOffList = (id: string) => useQuery({ queryKey: ["p-restaurant-comments"], queryFn: () => getComments(id) });
+
+const useAddOffSelectedFood = () => useMutation({ mutationFn: addOffSelectedFood });
+
+const useRemoveOffSelectedFood = () => useMutation({ mutationFn: removeOffSelectedFood });
+
 export {
   useGetMenuList,
   useCreateMenu,
@@ -54,4 +62,7 @@ export {
   useGetOrderById,
   useGetCommentList,
   useBanOrUnbanComment,
+  useGetOffList,
+  useAddOffSelectedFood,
+  useRemoveOffSelectedFood,
 };
