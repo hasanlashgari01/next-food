@@ -1,33 +1,27 @@
+"use client";
+
 import { IDiscountProps } from "@/common/interface/discount";
 import Modal from "@/components/modules/Modal/Modal";
 import Table from "@/components/modules/Table/Table";
-import { useRemoveDiscount, useRemoveSelectedDiscount } from "@/hooks/useAdmin";
+import { useGetDiscountList, useRemoveDiscount, useRemoveSelectedDiscount } from "@/hooks/useAdmin";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
-import DeleteSelectedBox from "../../_components/DeleteSelectedBox";
-
-interface TableProps {
-  data: {
-    count: number;
-    coupons: IDiscountProps[];
-  };
-  refetch: () => void;
-}
+import SelectedBox from "../../../../../components/modules/Table/SelectedBox";
 
 const columnHelper = createColumnHelper();
 
-const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetch }) => {
+const DiscountsTable = () => {
+  const { isLoading, data, refetch } = useGetDiscountList();
   const { mutateAsync } = useRemoveDiscount();
   const { mutateAsync: mutateAsyncRemoveSelected } = useRemoveSelectedDiscount();
-  const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
-  const [isShowDeleteAllModal, setIsShowDeleteAllModal] = useState(false);
-  const [discountId, setDiscountId] = useState("");
-  const [discountIds, setDiscountIds] = useState<string[]>([]);
-
+  const [selectId, setSelectId] = useState<string>("");
+  const [idList, setIdList] = useState<string[]>([]);
+  const [isShowDeleteModal, setIsShowDeleteModal] = useState<boolean>(false);
+  const [isShowDeleteAllModal, setIsShowDeleteAllModal] = useState<boolean>(false);
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("checkbox", {
       header: () => "",
@@ -40,7 +34,7 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
             name=""
             id=""
             value={info.getValue()}
-            checked={discountIds.includes(discountId as string)}
+            checked={idList.includes(discountId as string)}
             onChange={e => checkboxHandler(e, discountId as string)}
           />
         );
@@ -96,26 +90,15 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
   ];
 
   const showDeleteModal = (id: string) => {
-    setDiscountId(id);
+    setSelectId(id);
     setIsShowDeleteModal(true);
   };
 
   const checkboxHandler = (e: React.ChangeEvent<HTMLInputElement>, id: string) => {
     if (e.target.checked) {
-      setDiscountIds(prevState => [...prevState, id]);
+      setIdList(prevState => [...prevState, id]);
     } else {
-      setDiscountIds(prevState => prevState.filter(discountId => discountId !== id));
-    }
-  };
-
-  const deleteHandler = async (id: string) => {
-    try {
-      const { message } = await mutateAsync(id);
-      toast.success(message);
-      setIsShowDeleteModal(false);
-      refetch();
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      setIdList(prevState => prevState.filter(selectedIds => selectedIds !== id));
     }
   };
 
@@ -130,28 +113,43 @@ const DiscountsTable: React.FC<TableProps> = ({ data: { count, coupons }, refetc
     }
   };
 
+  const deleteHandler = async (id: string) => {
+    try {
+      const { message } = await mutateAsync(id);
+      setIsShowDeleteModal(false);
+      toast.success(message);
+      refetch();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   return (
     <>
-      <DeleteSelectedBox
-        isShow={isShowDeleteAllModal}
-        setIsShow={setIsShowDeleteAllModal}
-        deleteAllHandler={() => deleteAllDiscountHandler(discountIds)}
-        selectedIds={discountIds}
-        setSelectedIds={setDiscountIds}
-        message="کد تخفیف"
-        data={coupons}
-      />
-      <Table count={count} data={coupons ? coupons : []} columns={columns} notFoundMsg="کد تخفیف" />
-      <Modal
-        isShow={isShowDeleteModal}
-        setIsShow={setIsShowDeleteModal}
-        title="از حذف کد تخفیف اطمینان دارید؟"
-        confirmText="حذف"
-        cancelText="لغو"
-        confirmStyle="btn-danger"
-        cancelStyle="btn-default"
-        confirmAction={() => deleteHandler(discountId)}
-      />
+      {!isLoading && (
+        <>
+          <SelectedBox
+            isShow={isShowDeleteAllModal}
+            setIsShow={setIsShowDeleteAllModal}
+            deleteAllHandler={() => deleteAllDiscountHandler(idList)}
+            selectedIds={idList}
+            setSelectedIds={setIdList}
+            message="کد تخفیف"
+            data={data?.coupons || []}
+          />
+          <Table count={data?.count} data={data?.coupons || []} columns={columns} notFoundMsg="کد تخفیف" />
+          <Modal
+            isShow={isShowDeleteModal}
+            setIsShow={setIsShowDeleteModal}
+            title="از حذف کد تخفیف اطمینان دارید؟"
+            confirmText="حذف"
+            cancelText="لغو"
+            confirmStyle="btn-danger"
+            cancelStyle="btn-default"
+            confirmAction={() => deleteHandler(selectId)}
+          />
+        </>
+      )}
     </>
   );
 };

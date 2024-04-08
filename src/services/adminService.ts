@@ -63,7 +63,8 @@ const updateCategory = ({ id, data }: Update<Category>) => api.put(`${category}$
 
 // * Discount
 
-const getDiscounts = () => api(`${adminCoupon}`).then(({ data }) => data);
+const getDiscounts = (): Promise<{ count: number; coupons: IDiscount[] }> =>
+  api(`${adminCoupon}`).then(({ data }) => data);
 
 const addDiscount = (data: IDiscount) => api.post(`${adminCoupon}`, data).then(({ data }) => data);
 

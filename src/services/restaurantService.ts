@@ -5,12 +5,12 @@ import { foodRoute, menuRoute, orders, restaurantRoute } from "./routeService";
 import { IOrder } from "@/common/interface/order";
 import { IComment } from "@/common/interface/comment";
 
-interface Update<T> {
+export interface Update<T> {
   id: string;
   data: T;
 }
 
-interface IOffData {
+export interface IOffData {
   foodsId: string[];
 }
 
@@ -48,7 +48,7 @@ const getOffs = (id: string): Promise<{ count: number; foods: IFood[] }> =>
   api(`${restaurantRoute}${id}/food/discount`).then(({ data }) => data);
 
 const addOffSelectedFood = ({ id, data }: Update<IOffData & IDiscount>) =>
-  api(`${restaurantRoute}${id}/food/discount`, { data }).then(({ data }) => data);
+  api.put(`${restaurantRoute}${id}/food/discount`, { data }).then(({ data }) => data);
 
 const removeOffSelectedFood = ({ id, data }: Update<IOffData>) =>
   api.delete(`${restaurantRoute}${id}/food/discount`, { data }).then(({ data }) => data);

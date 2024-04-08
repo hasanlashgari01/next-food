@@ -43,7 +43,7 @@ const CompletionAddressModal: React.FC<IProps> = ({ data, setData, isShow, setIs
   const checkedHandler = () => setIsChecked(!isChecked);
 
   return (
-    <ModalForm isShow={isShow} setIsShow={setIsShow} submitHandler={submitHandler}>
+    <ModalForm title="ثبت آدرس" isShow={isShow} setIsShow={setIsShow} submitHandler={submitHandler}>
       <input
         type="text"
         placeholder="عنوان آدرس"

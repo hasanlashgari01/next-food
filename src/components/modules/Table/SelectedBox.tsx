@@ -1,7 +1,8 @@
 import Modal from "@/components/modules/Modal/Modal";
 import React from "react";
-import { HiCheckCircle, HiTrash } from "react-icons/hi2";
+import { HiCheckCircle, HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
 import { MdRadioButtonUnchecked } from "react-icons/md";
+import ModalForm from "../Modal/ModalForm";
 
 interface SelectedBoxProps {
   isShow: boolean;
@@ -10,10 +11,10 @@ interface SelectedBoxProps {
   setSelectedIds: React.Dispatch<React.SetStateAction<string[]>>;
   data: any[];
   message: string;
-  deleteAllHandler: () => void;
+  deleteAllHandler?: () => void;
 }
 
-const DeleteSelectedBox: React.FC<SelectedBoxProps> = ({
+const SelectedBox: React.FC<SelectedBoxProps> = ({
   isShow,
   setIsShow,
   data,
@@ -44,9 +45,9 @@ const DeleteSelectedBox: React.FC<SelectedBoxProps> = ({
         cancelText="لغو"
         confirmStyle="btn-danger"
         cancelStyle="btn-default"
-        confirmAction={() => deleteAllHandler()}
+        confirmAction={deleteAllHandler}
       />
     </div>
   );
 };
-export default DeleteSelectedBox;
+export default SelectedBox;

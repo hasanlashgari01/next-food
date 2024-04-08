@@ -31,7 +31,7 @@ const Modal: React.FC<ModalProps> = ({
   const hideModal = () => setIsShow(false);
 
   return (
-    <div className="fixed">
+    <div className="fixed z-10">
       <div
         className={twMerge(
           "fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity dark:bg-slate-950/70",

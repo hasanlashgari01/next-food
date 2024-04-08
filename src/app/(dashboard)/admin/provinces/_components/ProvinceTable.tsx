@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
-import DeleteSelectedBox from "../../_components/DeleteSelectedBox";
+import SelectedBox from "../../../../../components/modules/Table/SelectedBox";
 
 interface TableProps {
   data: {
@@ -105,7 +105,7 @@ const ProvinceTable: React.FC<TableProps> = ({ data: { count, provinces }, refet
 
   return (
     <>
-      <DeleteSelectedBox
+      <SelectedBox
         isShow={isShowDeleteAllModal}
         setIsShow={setIsShowDeleteAllModal}
         deleteAllHandler={() => deleteAllDiscountHandler(provinceIds)}
