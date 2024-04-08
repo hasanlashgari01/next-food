@@ -5,6 +5,7 @@ import {
   deleteMenu,
   getFoods,
   getMenus,
+  getOrders,
   updateFood,
   updateMenu,
 } from "@/services/restaurantService";
@@ -26,6 +27,9 @@ const useUpdateFood = () => useMutation({ mutationFn: updateFood });
 
 const useDeleteFood = () => useMutation({ mutationFn: deleteFood });
 
+const useGetOrderList = (id: string) =>
+  useQuery({ queryKey: ["p-restaurant-foods", id], queryFn: () => getOrders(id) });
+
 export {
   useGetMenuList,
   useCreateMenu,
@@ -35,4 +39,5 @@ export {
   useCreateFood,
   useDeleteFood,
   useUpdateFood,
+  useGetOrderList,
 };

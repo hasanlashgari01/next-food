@@ -1,7 +1,8 @@
 import { IFoodData } from "@/common/interface/food";
 import { IMenu, IMenuData } from "@/common/interface/restaurant";
 import { api, apiUpload } from "@/config/axiosConfig";
-import { foodRoute, menuRoute, restaurantRoute } from "./routeService";
+import { foodRoute, menuRoute, orders, restaurantRoute } from "./routeService";
+import { IOrder } from "@/common/interface/order";
 
 interface Update<T> {
   id: string;
@@ -27,4 +28,7 @@ const updateFood = ({ id, data }: Update<IFoodData>) =>
 
 const deleteFood = (id: string) => api.delete(`${foodRoute}${id}`).then(({ data }) => data);
 
-export { createFood, createMenu, deleteFood, deleteMenu, getFoods, getMenus, updateFood, updateMenu };
+const getOrders = (id: string): Promise<{ count: number; orders: IOrder[] }> =>
+  api(`${orders}/restaurant/${id}`).then(({ data }) => data);
+
+export { createFood, createMenu, deleteFood, deleteMenu, getFoods, getMenus, updateFood, updateMenu, getOrders };
