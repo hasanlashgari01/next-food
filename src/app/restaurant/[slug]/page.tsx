@@ -1,5 +1,6 @@
 import { IMenu, IRestaurant } from "@/common/interface/restaurant";
 import Food from "@/components/modules/Food/Food";
+import { getRestaurant } from "@/server-actions/restaurantAction";
 import AsideTop from "../_components/AsideTop";
 import Info from "../_components/Info";
 import MenuItem from "../_components/MenuItem";
@@ -10,20 +11,22 @@ interface IData {
   restaurant: IRestaurant;
 }
 
-export const dynamic = "force-dynamic";
-
-async function getData({ slug }: { slug: string }) {
-  const res = await fetch(`http://localhost:5000/api/restaurant/slug/${slug}`);
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
+interface IProps {
+  params: { slug: string };
 }
 
-const page = async ({ params: { slug } }: { params: { slug: string } }) => {
-  const { restaurant, menu }: IData = await getData({ slug });
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params: { slug } }: IProps) {
+  const { restaurant }: IData = await getRestaurant({ slug });
+
+  return {
+    title: restaurant.name,
+  };
+}
+
+const page: React.FC<IProps> = async ({ params: { slug } }) => {
+  const { restaurant, menu }: IData = await getRestaurant({ slug });
 
   return (
     <div className="min-h-dvh py-8 dark:bg-slate-900">
