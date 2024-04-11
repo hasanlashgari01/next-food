@@ -61,3 +61,8 @@ export const paymentMethodValues: IRadioValues<TPaymentLabel, TPaymentValue>[] =
     icon: HiOutlineBanknotes,
   },
 ];
+
+export const sendOutsideCityValues = [
+  { id: 1, text: "بله", value: "true", field: "send_outside_city" },
+  { id: 2, text: "خیر", value: "false", field: "send_outside_city" },
+];

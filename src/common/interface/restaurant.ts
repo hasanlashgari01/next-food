@@ -1,18 +1,21 @@
 import { IFood } from "./food";
 
-export interface IRestaurant {
-  _id: string;
+interface IRestaurantData {
   name: string;
-  author: string;
-  category: string[];
+  logo: string;
   cover: string;
+  categories: string[];
+}
+
+export interface IRestaurant extends IRestaurantData {
+  _id: string;
+  author: string;
   details: {
     average_delivery_time: number;
     send_outside_city: boolean;
   };
   email: string;
   isValid: boolean;
-  logo: string;
   phone: string;
   province: {
     name: string;
@@ -22,6 +25,14 @@ export interface IRestaurant {
   slug: string;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface IRestaurantUpdateData extends IRestaurantData {
+  provinceName: string;
+  order_start: number | null;
+  order_end: number | null;
+  average_delivery_time: number | null;
+  send_outside_city: boolean;
 }
 
 export interface IMenuData {

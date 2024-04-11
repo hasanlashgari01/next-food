@@ -59,6 +59,10 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
     }
   }, [isLoadingMenu]);
 
+  useEffect(() => {
+    console.log(getValues());
+  });
+
   const onSubmit: SubmitHandler<IFoodData> = async data => {
     try {
       let msg = "";
@@ -86,7 +90,11 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
 
   return (
     <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
-      <ImageUpload formImage={getValues("image") as string} setValue={setValue} />
+      <ImageUpload
+        imageValue={getValues("image")}
+        setImageValue={file => setValue("image", file.name as string)}
+        title="غذا"
+      />
       <div className="space-y-5">
         <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
           <div className="col-span-1 space-y-4">
@@ -155,14 +163,14 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
                 })}
               />
             </InputText>
-            {isEdit && !isLoadingMenu && menu && (
+            {!isLoadingMenu && (
               <InputText id="weight" type="text" label="منو" {...register("menuId")}>
                 <div className="flex w-full flex-1 items-center child:flex-1">
                   <Select
                     className="text-base md:w-64 dark:text-black"
                     classNamePrefix="react-select"
                     placeholder="منو مورد نظر خود را انتخاب کنید"
-                    defaultValue={{ value: menu?._id, label: menu?.title }}
+                    defaultValue={menu ? { value: menu?._id, label: menu?.title } : null}
                     onChange={e => setValue("menuId", e?.value as IMenu["_id"])}
                     options={menuList?.menus.map(menu => ({
                       value: menu?._id as IMenu["_id"],
@@ -210,10 +218,10 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
                 {...register("amount", { pattern: { value: /^[0-9]+$/, message: "فقط ارقام مجاز هست" } })}
               />
             </InputText>
-            <div className="flex gap-2.5">
+            <div className="flex flex-col gap-2.5 md:flex-row lg:flex-col xl:flex-row">
               <InputText id="startDate" type="text" label="تاریخ شروع تخفیف" {...register("startDate")}>
                 <DatePicker
-                  inputClass="form__input pr-6 max-w-inherit"
+                  inputClass="form__input pr-6 child:w-full max-w-inherit"
                   value={getValues("startDate")}
                   format="YYYY/MM/DD"
                   calendar={persian}
@@ -243,7 +251,7 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
           </div>
         </div>
 
-        <div className="lg:w-1/2 lg:pl-2.5">
+        <div className="lg:w-3/3 lg:pl-2.5 xl:w-1/2">
           <InputText
             id="description"
             type="text"

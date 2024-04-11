@@ -229,4 +229,40 @@
   .factor-item {
     @apply flex-1 p-2 odd:bg-neutral-100 even:bg-neutral-200 dark:text-slate-100 dark:odd:bg-slate-700 dark:even:bg-slate-600;
   }
+
+  .input__image-bg-cover {
+    @apply w-full overflow-hidden rounded-3xl brightness-90;
+
+    & > img {
+      @apply h-64 lg:h-80;
+    }
+  }
+
+  .input__image-logo {
+    @apply size-full rounded-full border border-slate-100 bg-slate-100 p-1 shadow-lg lg:p-2 dark:border-slate-700 dark:bg-slate-700 dark:shadow-none;
+
+    & > img {
+      @apply h-full rounded-[inherit] object-top transition-transform duration-500;
+    }
+  }
+
+  .input__image-action {
+    @apply absolute flex w-auto flex-col gap-2 font-Dana text-white transition-[border-radius] duration-300 ease-in-out;
+
+    &.cover {
+      @apply left-5 top-5 items-end child:[direction:ltr];
+    }
+
+    &.logo {
+      @apply bottom-2 right-32 items-start lg:right-40;
+    }
+  }
+
+  .input__image-button {
+    @apply flex h-10 w-10 cursor-pointer items-center gap-3 overflow-hidden rounded-full px-3 shadow-xl transition-all delay-200 duration-200 ease-linear hover:w-full;
+  }
+
+  .input__image-text {
+    @apply inline-block w-fit overflow-hidden text-ellipsis mt-0.5 whitespace-nowrap text-right text-xs;
+  }
 }

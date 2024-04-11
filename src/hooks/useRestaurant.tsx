@@ -11,9 +11,14 @@ import {
   getOffs,
   getOrderById,
   getOrders,
+  getRestaurant,
+  removeCover,
+  removeLogo,
   removeOffSelectedFood,
   updateFood,
   updateMenu,
+  uploadCover,
+  uploadLogo,
 } from "@/services/restaurantService";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -50,6 +55,16 @@ const useAddOffSelectedFood = () => useMutation({ mutationFn: addOffSelectedFood
 
 const useRemoveOffSelectedFood = () => useMutation({ mutationFn: removeOffSelectedFood });
 
+const useGetRestaurant = (id: string) => useQuery({ queryKey: ["p-restaurant", id], queryFn: () => getRestaurant(id) });
+
+const useUploadLogo = () => useMutation({ mutationFn: uploadLogo });
+
+const useRemoveLogo = (id: string) => useMutation({ mutationFn: () => removeLogo(id) });
+
+const useUploadCover = () => useMutation({ mutationFn: uploadCover });
+
+const useRemoveCover = (id: string) => useMutation({ mutationFn: () => removeCover(id) });
+
 export {
   useAddOffSelectedFood,
   useBanOrUnbanComment,
@@ -64,6 +79,11 @@ export {
   useGetOrderById,
   useGetOrderList,
   useRemoveOffSelectedFood,
+  useGetRestaurant,
   useUpdateFood,
   useUpdateMenu,
+  useUploadLogo,
+  useRemoveLogo,
+  useUploadCover,
+  useRemoveCover,
 };

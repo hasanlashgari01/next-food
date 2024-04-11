@@ -16,3 +16,13 @@ export interface TextProps extends InputProps {
 export interface PasswordProps extends InputProps {
   onType: (type: "password" | "text") => void;
 }
+
+export interface IInputImage {
+  id?: string;
+  fieldName?: string;
+  title?: string;
+  alt?: string;
+  acceptTypes?: string;
+  imageValue?: string | null;
+  size?: number;
+}

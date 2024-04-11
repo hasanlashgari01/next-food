@@ -1,57 +1,68 @@
-import { fileRoute } from "@/services/routeService";
+import { DefaultImage } from "@/common/enum/default.enum";
+import { IInputImage } from "@/common/interface/input";
+import { imageValidate } from "@/utils/func";
 import Image from "next/image";
 import { useState } from "react";
-import { HiTrash } from "react-icons/hi2";
+import toast from "react-hot-toast";
+import { HiArrowUpTray } from "react-icons/hi2";
+import { twMerge } from "tailwind-merge";
 
-interface IImageUpload {
-  isLoading?: boolean;
-  formImage: string;
-  setValue: any;
+interface IImageUploadProps extends IInputImage {
+  setImageValue: (file: File) => void;
+  isLogo?: boolean;
 }
 
-const ImageUpload: React.FC<IImageUpload> = ({ isLoading, formImage, setValue }) => {
-  const [image, setImage] = useState<string | null>(null);
+const ImageUpload: React.FC<IImageUploadProps> = ({
+  fieldName = "image",
+  title = "پروفایل",
+  alt = "پروفایل",
+  acceptTypes = "image/png, image/webp, image/jpeg, image/jpg",
+  imageValue = "",
+  size = 1,
+  isLogo = false,
+  setImageValue,
+}) => {
+  const [image, setImage] = useState<string | null>(imageValue);
+  const sourceImage = image ? image : DefaultImage.Logo;
 
-  const imageUploadHandler = (selectorFiles: FileList) => {
-    const file = selectorFiles.item(0);
+  const imageUploadHandler = async (file: FileList) => {
+    const selectFile = file.item(0);
+    if (selectFile) {
+      const { message } = imageValidate(selectFile, size);
 
-    setValue("image", file as any);
-    setImage(URL.createObjectURL(file as any));
+      if (message === "") {
+        setImage(URL.createObjectURL(selectFile as any));
+        setImageValue(selectFile as File);
+      } else {
+        toast.error(message);
+      }
+    }
   };
 
-  const removeImageHandler = async () => setImage(null);
-
   return (
-    <div className="relative flex flex-col gap-2">
+    <div className={twMerge("relative flex size-36 flex-col gap-2", isLogo ? "lg:w-64" : "lg:size-48")}>
       <input
         type="file"
-        id="avatar"
-        accept="image/png, image/webp, image/jpeg, image/jpg"
+        id={fieldName}
+        accept={acceptTypes}
         className="hidden pr-6"
-        onChange={e => imageUploadHandler(e.target.files as FileList)}
+        onChange={e => imageUploadHandler(e?.target?.files as FileList)}
       />
-      <label
-        htmlFor="avatar"
-        className="size-32 cursor-pointer rounded-full border border-slate-100 p-2 dark:border-slate-700"
-      >
-        <Image
-          src={!isLoading && image ? image : formImage ? `${fileRoute}food/${formImage}` : "/Auth.png"}
-          alt="پروفایل"
-          width={100}
-          height={100}
-          loading="lazy"
-          className="size-full rounded-full object-cover object-top transition-transform duration-500 hover:scale-110"
-        />
-      </label>
-      {image !== null && (
-        <span
-          className="group absolute bottom-0 right-0 cursor-pointer rounded-full bg-red-600 p-2 text-white max-sm:bottom-2 max-sm:right-2 sm:p-3"
-          onClick={removeImageHandler}
-        >
-          <HiTrash className="transition-transform duration-300 group-hover:scale-125" />
-        </span>
-      )}
+
+      <div className={twMerge("input__image-logo max-h-full", !isLogo && "rounded-xl")}>
+        <Image src={sourceImage} alt={alt} width={100} height={100} priority className="w-full object-cover" />
+      </div>
+
+      <div className="input__image-action logo group">
+        <label htmlFor={fieldName}>
+          <div className="input__image-button bg-cyan-600">
+            <HiArrowUpTray className="shrink-0 text-lg" />
+            <p className="input__image-text">آپلود کاور {title}</p>
+          </div>
+        </label>
+      </div>
     </div>
   );
 };
+
 export default ImageUpload;

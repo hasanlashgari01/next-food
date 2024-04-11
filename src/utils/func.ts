@@ -59,4 +59,17 @@ const calcFoodDiscount = (price: string | number, percent: number) => {
   return 0;
 };
 
-export { fixNumbers, recursivePath, toPersianDate, calculateTotalCart, calcFoodDiscount };
+const imageValidate = (file: File, size: number = 1): { message: string } => {
+  const validFileTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+  if (!validFileTypes.includes(file.type)) {
+    return { message: "فرمت عکس معتبر نمی باشد" };
+  }
+
+  if (file.size > size * 1024 * 1024) {
+    return { message: `حجم عکس باید کمتر از ${size} مگابایت باشد` };
+  }
+
+  return { message: "" };
+};
+
+export { fixNumbers, recursivePath, toPersianDate, calculateTotalCart, calcFoodDiscount, imageValidate };
