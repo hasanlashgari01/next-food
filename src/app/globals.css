@@ -152,6 +152,10 @@
     @apply absolute -right-3.5 top-1/2  size-1.5 -translate-y-1/2 rounded-full bg-sky-500 transition-opacity duration-1000 content-[''] before:size-5 before:rounded-full before:bg-sky-500 sm:right-0 dark:bg-sky-600 before:dark:bg-sky-600;
   }
 
+  .wishlist {
+    @apply mt-3 grid place-items-center gap-x-4 gap-y-3 xs:grid-cols-2 md:grid-cols-3 lg:gap-y-12;
+  }
+
   .food-wishlist-btn {
     @apply flex size-8 cursor-pointer items-center justify-center rounded-full bg-current drop-shadow-2xl transition-colors duration-500 lg:size-10 dark:drop-shadow-none;
   }
@@ -263,6 +267,6 @@
   }
 
   .input__image-text {
-    @apply inline-block w-fit overflow-hidden text-ellipsis mt-0.5 whitespace-nowrap text-right text-xs;
+    @apply mt-0.5 inline-block w-fit overflow-hidden text-ellipsis whitespace-nowrap text-right text-xs;
   }
 }

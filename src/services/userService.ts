@@ -1,3 +1,4 @@
+import { IWhishlist } from "@/common/interface/user";
 import { api } from "@/config/axiosConfig";
 import { orders, userRoute } from "./routeService";
 
@@ -32,13 +33,16 @@ const getOffers = () => api(`${userRoute}offers`).then(({ data }) => data);
 
 const getDashboard = (): Promise<IDashboard> => api(`${userRoute}home`).then(({ data }) => data);
 
+const getWhishlist = (): Promise<IWhishlist> => api(`${userRoute}whishlist`).then(({ data }) => data);
+
 export {
   bookmarkFood,
   bookmarkRestaurant,
   getComments,
-  getOffers,
   getDashboard,
+  getOffers,
   getOrders,
+  getWhishlist,
   likeFood,
   likeRestaurant,
   unBookmarkFood,

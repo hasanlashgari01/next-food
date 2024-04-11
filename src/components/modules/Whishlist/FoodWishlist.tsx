@@ -1,11 +1,11 @@
 "use client";
 
+import { useToggleBookmark, useToggleLike } from "@/hooks/useFood";
 import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import Bookmark from "../Action/Bookmark";
 import Like from "../Action/Like";
-import { useUnBookmarkFood, useUnLikeFood } from "@/hooks/useUser";
-import toast from "react-hot-toast";
 
 interface IFoodProps {
   status: "like" | "bookmark";
@@ -16,14 +16,14 @@ interface IFoodProps {
 }
 
 const FoodWishlist: React.FC<IFoodProps> = ({ status, image = "/auth-food.jpg", id, title, refetch }) => {
-  const { mutateAsync: unLikeMutateAsync } = useUnLikeFood();
-  const { mutateAsync: unBookmarkMutateAsync } = useUnBookmarkFood();
+  const { mutateAsync: mutateAsyncToggleLike } = useToggleLike();
+  const { mutateAsync: mutateAsyncToggleBookmark } = useToggleBookmark();
 
   const getImage = image === "/auth-food.jpg" ? "/auth-food.jpg" : `${fileRoute}food/${image}`;
 
   const unLikeHandler = async (id: string) => {
     try {
-      const { message } = await unLikeMutateAsync(id);
+      const { message } = await mutateAsyncToggleLike(id);
       toast.success(message);
       refetch && refetch();
     } catch (error: any) {
@@ -33,7 +33,7 @@ const FoodWishlist: React.FC<IFoodProps> = ({ status, image = "/auth-food.jpg", 
 
   const unBookmarkHandler = async (id: string) => {
     try {
-      const { message } = await unBookmarkMutateAsync(id);
+      const { message } = await mutateAsyncToggleBookmark(id);
       toast.success(message);
       refetch && refetch();
     } catch (error: any) {

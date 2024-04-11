@@ -15,6 +15,8 @@ import {
   removeCover,
   removeLogo,
   removeOffSelectedFood,
+  toggleBookmark,
+  toggleLike,
   updateFood,
   updateMenu,
   uploadCover,
@@ -65,6 +67,10 @@ const useUploadCover = () => useMutation({ mutationFn: uploadCover });
 
 const useRemoveCover = (id: string) => useMutation({ mutationFn: () => removeCover(id) });
 
+const useToggleLike = () => useMutation({ mutationFn: (id: string) => toggleLike(id) });
+
+const useToggleBookmark = () => useMutation({ mutationFn: (id: string) => toggleBookmark(id) });
+
 export {
   useAddOffSelectedFood,
   useBanOrUnbanComment,
@@ -86,4 +92,6 @@ export {
   useRemoveLogo,
   useUploadCover,
   useRemoveCover,
+  useToggleLike,
+  useToggleBookmark,
 };

@@ -27,6 +27,7 @@ export async function generateMetadata({ params: { slug } }: IProps) {
 
 const page: React.FC<IProps> = async ({ params: { slug } }) => {
   const { restaurant, menu }: IData = await getRestaurant({ slug });
+  console.log("🚀 ~ constpage:React.FC<IProps>= ~ restaurant:", restaurant);
 
   return (
     <div className="min-h-dvh py-8 dark:bg-slate-900">

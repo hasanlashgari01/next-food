@@ -4,24 +4,36 @@ import Bookmark from "../Action/Bookmark";
 import { fileRoute } from "@/services/routeService";
 import { useUnBookmarkRestaurant, useUnLikeRestaurant } from "@/hooks/useUser";
 import toast from "react-hot-toast";
+import { useToggleBookmark, useToggleLike } from "@/hooks/useRestaurant";
+import Link from "next/link";
 
 interface IRestaurantProps {
+  defaultImage?: string;
   status: "like" | "bookmark";
   image: string;
   id?: string;
   name: string | undefined;
-  refetch?: () => void;
+  slug: string | undefined;
+  refetch?: () => void | undefined;
 }
 
-const RestaurantWishlist: React.FC<IRestaurantProps> = ({ status, image = "/auth-food.jpg", id, name, refetch }) => {
-  const { mutateAsync: unLikeMutateAsync } = useUnLikeRestaurant();
-  const { mutateAsync: unBookmarkMutateAsync } = useUnBookmarkRestaurant();
+const RestaurantWishlist: React.FC<IRestaurantProps> = ({
+  status,
+  image,
+  defaultImage = "/Auth.png",
+  id,
+  name,
+  slug,
+  refetch,
+}) => {
+  const { mutateAsync: mutateAsyncToggleLike } = useToggleLike();
+  const { mutateAsync: mutateAsyncToggleBookmark } = useToggleBookmark();
 
-  const getImage = image === "/auth-food.jpg" ? "/auth-food.jpg" : `${fileRoute}restaurant/${image}`;
+  const getImage = image ? `${fileRoute}restaurant/${image}` : defaultImage;
 
-  const unLikeHandler = async (id: string) => {
+  const toggleLike = async (id: string) => {
     try {
-      const { message } = await unLikeMutateAsync(id);
+      const { message } = await mutateAsyncToggleLike(id);
       toast.success(message);
       refetch && refetch();
     } catch (error: any) {
@@ -29,9 +41,9 @@ const RestaurantWishlist: React.FC<IRestaurantProps> = ({ status, image = "/auth
     }
   };
 
-  const unBookmarkHandler = async (id: string) => {
+  const toggleBookmark = async (id: string) => {
     try {
-      const { message } = await unBookmarkMutateAsync(id);
+      const { message } = await mutateAsyncToggleBookmark(id);
       toast.success(message);
       refetch && refetch();
     } catch (error: any) {
@@ -52,11 +64,16 @@ const RestaurantWishlist: React.FC<IRestaurantProps> = ({ status, image = "/auth
             className="size-full object-cover"
           />
         </div>
-        <h3 className="mt-4 line-clamp-2 min-h-10 text-sm/5 sm:text-base/6 xl:max-h-16 xl:text-lg/8">{name}</h3>
+        <Link
+          href={`/restaurant/${slug}`}
+          className="mt-4 line-clamp-2 min-h-10 text-sm/5 sm:text-base/6 xl:max-h-16 xl:text-lg/8"
+        >
+          {name}
+        </Link>
       </div>
       <div
         className="absolute left-5 top-5 flex flex-col gap-2"
-        onClick={status === "like" ? () => unLikeHandler(id || "") : () => unBookmarkHandler(id || "")}
+        onClick={status === "like" ? () => toggleLike(id as string) : () => toggleBookmark(id as string)}
       >
         {status === "like" ? <Like /> : <Bookmark />}
       </div>

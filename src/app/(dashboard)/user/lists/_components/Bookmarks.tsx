@@ -1,27 +1,47 @@
 import { IData } from "@/common/interface/getData";
-import { IUser } from "@/common/interface/user";
+import { IWhishlist } from "@/common/interface/user";
 import FoodWishlist from "@/components/modules/Whishlist/FoodWishlist";
 import NotFound from "@/components/modules/Whishlist/NotFound";
 import RestaurantWishlist from "@/components/modules/Whishlist/RestaurantWishlist";
 
-const Bookmarks: React.FC<IData<IUser>> = ({ isLoading, data, refetch }) => {
+const Bookmarks: React.FC<IData<IWhishlist>> = ({ isLoading, data, refetch }) => {
   return (
-    <div className="mt-6 grid place-items-center gap-x-4 gap-y-12 xs:grid-cols-2">
-      {!isLoading &&
-        data?.bookmarkedFoods.map((item, index) => (
-          <FoodWishlist key={index} status="bookmark" image={item.image as string} title={item.title} id={item._id} />
-        ))}
-      {!isLoading &&
-        data?.bookmarkedRestaurants.map((item, index) => (
-          <RestaurantWishlist
-            key={index}
-            status="bookmark"
-            image={item.logo as string}
-            name={item.name}
-            id={item._id}
-          />
-        ))}
-      <NotFound data={data?.bookmarkedFoods && data?.bookmarkedRestaurants} isLoading={isLoading} />
+    <div className="grid gap-y-6 xs:grid-cols-2 md:grid-cols-3 lg:gap-y-12">
+      <div className="col-span-full">
+        <h1 className="font-Dana text-xl">غذا ها</h1>
+        <div className="wishlist">
+          {!isLoading &&
+            data?.foodBookmarks.map(({ foodId }, index) => (
+              <FoodWishlist
+                key={index}
+                status="bookmark"
+                image={foodId.image as string}
+                title={foodId.title}
+                id={foodId._id}
+                refetch={refetch}
+              />
+            ))}
+        </div>
+        <NotFound data={data?.foodBookmarks} isLoading={isLoading} />
+      </div>
+      <div className="col-span-full">
+        <h1 className="font-Dana text-xl">رستوران ها</h1>
+        <div className="wishlist">
+          {!isLoading &&
+            data?.restaurantBookmarks.map(({ restaurantId }, index) => (
+              <RestaurantWishlist
+                key={index}
+                status="bookmark"
+                image={restaurantId.logo as string}
+                name={restaurantId.name}
+                id={restaurantId._id}
+                slug={restaurantId.slug}
+                refetch={refetch}
+              />
+            ))}
+        </div>
+        <NotFound data={data?.restaurantBookmarks} isLoading={isLoading} />
+      </div>
     </div>
   );
 };

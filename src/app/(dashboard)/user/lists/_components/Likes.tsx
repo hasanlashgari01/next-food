@@ -1,23 +1,49 @@
 import { IData } from "@/common/interface/getData";
-import { IUser } from "@/common/interface/user";
+import { IWhishlist } from "@/common/interface/user";
 import FoodWishlist from "@/components/modules/Whishlist/FoodWishlist";
 import NotFound from "@/components/modules/Whishlist/NotFound";
 import RestaurantWishlist from "@/components/modules/Whishlist/RestaurantWishlist";
 
-const FoodLikes: React.FC<IData<IUser>> = ({ isLoading, data, refetch }) => {
+const Likes: React.FC<IData<IWhishlist>> = ({ isLoading, data, refetch }) => {
   return (
-    <div className="mt-6 grid place-items-center gap-x-4 gap-y-12 xs:grid-cols-2">
-      {!isLoading &&
-        data?.likedFoods.map((item, index) => (
-          <FoodWishlist key={index} status="like" image={item.image as string} title={item.title} id={item._id} />
-        ))}
-      {!isLoading &&
-        data?.likedRestaurants.map((item, index) => (
-          <RestaurantWishlist key={index} status="like" image={item.logo as string} name={item.name} id={item._id} />
-        ))}
-      <NotFound data={data?.likedFoods && data?.likedRestaurants} isLoading={isLoading} />
+    <div className="grid gap-y-6 xs:grid-cols-2 md:grid-cols-3 lg:gap-y-12">
+      <div className="col-span-full">
+        <h1 className="font-Dana text-xl">غذا ها</h1>
+        <div className="wishlist">
+          {!isLoading &&
+            data?.foodLikes.map(({ foodId }, index) => (
+              <FoodWishlist
+                key={index}
+                status="like"
+                image={foodId.image as string}
+                title={foodId.title}
+                id={foodId._id}
+                refetch={refetch}
+              />
+            ))}
+        </div>
+        <NotFound data={data?.foodLikes} isLoading={isLoading} />
+      </div>
+      <div className="col-span-full">
+        <h1 className="font-Dana text-xl">رستوران ها</h1>
+        <div className="wishlist">
+          {!isLoading &&
+            data?.restaurantLikes.map(({ restaurantId }, index) => (
+              <RestaurantWishlist
+                key={index}
+                status="like"
+                image={restaurantId.logo as string}
+                name={restaurantId.name}
+                id={restaurantId._id}
+                slug={restaurantId.slug}
+                refetch={refetch}
+              />
+            ))}
+        </div>
+        <NotFound data={data?.restaurantLikes} isLoading={isLoading} />
+      </div>
     </div>
   );
 };
 
-export default FoodLikes;
+export default Likes;

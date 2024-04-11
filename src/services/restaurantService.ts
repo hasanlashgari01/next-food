@@ -65,6 +65,10 @@ const uploadCover = ({ id, data }: { id: string; data: File }) =>
 
 const removeCover = (id: string) => api.delete(`${restaurantRoute}${id}/cover`).then(({ data }) => data);
 
+const toggleLike = (id: string) => api.patch(`${restaurantRoute}${id}/like`).then(({ data }) => data);
+
+const toggleBookmark = (id: string) => api.patch(`${restaurantRoute}${id}/bookmark`).then(({ data }) => data);
+
 export {
   createFood,
   createMenu,
@@ -86,4 +90,6 @@ export {
   removeLogo,
   uploadCover,
   removeCover,
+  toggleLike,
+  toggleBookmark,
 };

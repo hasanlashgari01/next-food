@@ -1,15 +1,16 @@
 "use client";
 
+import { IWhishlist } from "@/common/interface/user";
+import { useGetWhishlist } from "@/hooks/useUser";
 import { useState } from "react";
-import ListTabs from "./ListTabs";
 import { TabPanel, Tabs } from "react-tabs";
-import FoodLikes from "./Likes";
-import { useGetUser } from "@/hooks/useAuth";
 import Bookmarks from "./Bookmarks";
-import { IUser } from "@/common/interface/user";
+import Likes from "./Likes";
+import ListTabs from "./ListTabs";
 
 const Index = () => {
-  const { isLoading, data, refetch } = useGetUser();
+  const { isLoading, data, refetch } = useGetWhishlist();
+  console.log("🚀 ~ Index ~ data:", data);
   const [tabIndex, setTabIndex] = useState(0);
 
   return (
@@ -24,10 +25,10 @@ const Index = () => {
 
         <div className="col-span-12 xl:col-span-8">
           <TabPanel>
-            <FoodLikes isLoading={isLoading} data={data as IUser} refetch={refetch} />
+            <Likes isLoading={isLoading} data={data as IWhishlist} refetch={refetch} />
           </TabPanel>
           <TabPanel>
-            <Bookmarks isLoading={isLoading} data={data as IUser} refetch={refetch} />
+            <Bookmarks isLoading={isLoading} data={data as IWhishlist} refetch={refetch} />
           </TabPanel>
         </div>
       </div>

@@ -6,6 +6,7 @@ import {
   getDashboard,
   getOffers,
   getOrders,
+  getWhishlist,
   likeFood,
   likeRestaurant,
   unBookmarkFood,
@@ -38,6 +39,8 @@ const useGetOfferList = () => useQuery({ queryKey: ["user-offers"], queryFn: get
 
 const useGetDashboard = () => useQuery({ queryKey: ["user-dashboard"], queryFn: getDashboard });
 
+const useGetWhishlist = () => useQuery({ queryKey: ["user-whishlist"], queryFn: getWhishlist });
+
 export {
   useLikeFood,
   useUnLikeFood,
@@ -51,4 +54,5 @@ export {
   useGetCommentList,
   useGetOfferList,
   useGetDashboard,
+  useGetWhishlist,
 };

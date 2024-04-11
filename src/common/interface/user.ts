@@ -35,3 +35,29 @@ export interface IUser {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IRestaurantWishlist {
+  _id: string;
+  restaurantId: {
+    _id: string;
+    name: string;
+    slug: string;
+    logo: string | null;
+  };
+}
+
+export interface IFoodWishlist {
+  _id: string;
+  foodId: {
+    _id: string;
+    title: string;
+    image: string | null;
+  };
+}
+
+export interface IWhishlist {
+  restaurantLikes: IRestaurantWishlist[];
+  restaurantBookmarks: IRestaurantWishlist[];
+  foodLikes: IFoodWishlist[];
+  foodBookmarks: IFoodWishlist[];
+}
