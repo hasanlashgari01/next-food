@@ -10,6 +10,7 @@ export const getRestaurant = async ({ slug }: { slug: string }) => {
   const res = await fetch(`${API}${restaurantRoute}slug/${slug}`, {
     credentials: "same-origin",
     headers: { Cookie: strCookies },
+    cache: "no-store",
   });
   if (!res.ok) throw new Error("Failed to fetch data");
   return res.json();

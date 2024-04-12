@@ -8,7 +8,6 @@ const AsideTop: React.FC<AsideTopProps> = ({ title, children }) => {
     <>
       <div className="flex items-center justify-between">
         <h3 className="text-xl">
-          <span className="animate-pulse"></span>
           <span className="dark:text-slate-300">{title}</span>
         </h3>
         <div>{children}</div>

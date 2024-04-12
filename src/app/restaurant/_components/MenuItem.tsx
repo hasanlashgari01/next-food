@@ -11,17 +11,23 @@ const MenuItem: React.FC<MenuItemProps> = ({ id, title }) => {
     const menu = document.getElementById("menu") as HTMLElement;
     const elem = document.getElementById(id) as HTMLElement;
 
-    container.scrollTo({ left: elem.offsetLeft - container.offsetLeft, behavior: "smooth" });
+    container.scrollTo({
+      left: elem.offsetLeft - (container.offsetLeft + container.offsetWidth / 2),
+      behavior: "smooth",
+    });
 
+    const laptopSize = window.innerWidth >= 1024;
     Array.from(menu.children).forEach(item => {
       const elem = item as HTMLElement;
-      elem.id === id ? elem.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" }) : null;
+      elem.id === id
+        ? window.scrollTo({ top: laptopSize ? elem.offsetTop - 48 : elem.offsetTop - 150, behavior: "smooth" })
+        : null;
     });
   };
 
   return (
-    <li className="cursor-pointer text-center dark:text-white" id={id} onClick={centerElem}>
-      <div className="whitespace-nowrap">{title}</div>
+    <li className="min-w-[75px] cursor-pointer text-center dark:text-white" id={id} onClick={centerElem}>
+      <span className="whitespace-nowrap">{title}</span>
     </li>
   );
 };
