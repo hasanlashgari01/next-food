@@ -158,14 +158,18 @@
 
   .food-wishlist-btn {
     @apply flex size-8 cursor-pointer items-center justify-center rounded-full bg-current drop-shadow-2xl transition-colors duration-500 lg:size-10 dark:drop-shadow-none;
+
+    & > svg {
+      @apply transition-all duration-500;
+    }
   }
 
   .food-wishlist-btn.like {
-    @apply bg-red-50 hover:bg-red-200 dark:bg-slate-800 hover:dark:bg-slate-700;
+    @apply bg-red-50 hover:bg-red-200 dark:bg-slate-700 hover:dark:bg-slate-600;
   }
 
   .food-wishlist-btn.bookmark {
-    @apply bg-cyan-50 hover:bg-cyan-200 dark:bg-slate-800 dark:hover:bg-slate-700;
+    @apply bg-cyan-50 hover:bg-cyan-200 dark:bg-slate-700 dark:hover:bg-slate-600;
   }
 
   .like {

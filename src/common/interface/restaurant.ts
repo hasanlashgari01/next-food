@@ -23,6 +23,8 @@ export interface IRestaurant extends IRestaurantData {
   };
   score: string;
   slug: string;
+  isLiked?: boolean;
+  isBookmarked?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

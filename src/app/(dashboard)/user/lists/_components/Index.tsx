@@ -10,7 +10,6 @@ import ListTabs from "./ListTabs";
 
 const Index = () => {
   const { isLoading, data, refetch } = useGetWhishlist();
-  console.log("🚀 ~ Index ~ data:", data);
   const [tabIndex, setTabIndex] = useState(0);
 
   return (

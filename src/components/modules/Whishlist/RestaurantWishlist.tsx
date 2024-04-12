@@ -75,7 +75,7 @@ const RestaurantWishlist: React.FC<IRestaurantProps> = ({
         className="absolute left-5 top-5 flex flex-col gap-2"
         onClick={status === "like" ? () => toggleLike(id as string) : () => toggleBookmark(id as string)}
       >
-        {status === "like" ? <Like /> : <Bookmark />}
+        {status === "like" ? <Like isLiked={true} /> : <Bookmark isBookmarked={true} />}
       </div>
     </div>
   );
