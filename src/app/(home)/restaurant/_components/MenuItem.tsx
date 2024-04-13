@@ -20,14 +20,14 @@ const MenuItem: React.FC<MenuItemProps> = ({ id, title }) => {
     Array.from(menu.children).forEach(item => {
       const elem = item as HTMLElement;
       elem.id === id
-        ? window.scrollTo({ top: laptopSize ? elem.offsetTop - 48 : elem.offsetTop - 150, behavior: "smooth" })
+        ? window.scrollTo({ top: laptopSize ? elem.offsetTop - 120 : elem.offsetTop - 160, behavior: "smooth" })
         : null;
     });
   };
 
   return (
     <li className="min-w-[75px] cursor-pointer text-center dark:text-white" id={id} onClick={centerElem}>
-      <span className="whitespace-nowrap">{title}</span>
+      <span className="whitespace-nowrap max-md:text-sm">{title}</span>
     </li>
   );
 };

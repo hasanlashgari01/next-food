@@ -1,12 +1,12 @@
 import { ICart, ICartItem } from "@/common/interface/cart";
+import { TPayment } from "@/common/interface/order";
 import CartItemAction from "@/components/modules/Cart/CartItemAction";
-import { calcFoodDiscount, calculateTotalCart } from "@/utils/func";
+import { useCreateOrder } from "@/hooks/useCart";
+import { calculateTotalCart } from "@/utils/func";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { HiChevronLeft, HiOutlineCheckCircle, HiOutlineTrash, HiOutlineWallet } from "react-icons/hi2";
 import FactorItem from "./FactorItem";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { TPayment } from "@/common/interface/order";
-import { useCreateOrder } from "@/hooks/useCart";
-import toast from "react-hot-toast";
 
 interface FactorProps {
   foods: ICartItem[] | [];

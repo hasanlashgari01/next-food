@@ -1,13 +1,14 @@
 interface AsideTopProps {
   title: string;
+  isShow?: boolean;
   children?: React.ReactNode;
 }
 
-const AsideTop: React.FC<AsideTopProps> = ({ title, children }) => {
+const AsideTop: React.FC<AsideTopProps> = ({ title, isShow = true, children }) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h3 className="text-xl">
+        <h3 className="md:text-xl">
           <span className="dark:text-slate-300">{title}</span>
         </h3>
         <div>{children}</div>

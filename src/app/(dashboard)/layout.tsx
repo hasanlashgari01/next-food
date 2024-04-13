@@ -1,12 +1,5 @@
 import { iranYekan } from "@/config/font";
-import type { Metadata } from "next";
 import { twMerge } from "tailwind-merge";
-import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "صفحه اصلی | فروشگاه",
-  description: "صفحه اصلی فروشگاه",
-};
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

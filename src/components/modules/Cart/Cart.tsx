@@ -7,13 +7,14 @@ import CartHeader from "./CartHeader";
 import CartList from "./CartList";
 import { ICart } from "@/common/interface/cart";
 import { calculateTotalCart } from "@/utils/func";
+import CountBadge from "./CountBadge";
 
 const Cart = () => {
   const { isLoading, data, refetch } = useGetCart();
   const [isOpen, setIsOpen] = useState(false);
   const foods = isLoading ? [] : data?.foods;
 
-  const total = calculateTotalCart(foods as ICart["foods"], 0);
+  const { sum: total } = calculateTotalCart(foods as ICart["foods"], 0);
 
   return (
     <div className="relative">
@@ -25,12 +26,10 @@ const Cart = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <HiOutlineShoppingCart className="size-6 lg:size-7 dark:text-white" />
+        {!isLoading && <CountBadge count={foods?.length} />}
       </div>
       <div
-        className={twMerge(
-          "fixed inset-0 bg-slate-900/60 transition-all duration-200 ease-linear dark:bg-slate-950/70",
-          `${isOpen ? "visible z-10 opacity-100" : "invisible opacity-0"}`,
-        )}
+        className={twMerge("wrapper", `${isOpen ? "visible z-10 opacity-100" : "invisible opacity-0"}`)}
         onClick={() => setIsOpen(false)}
       ></div>
       {isOpen && (

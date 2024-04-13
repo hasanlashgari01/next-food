@@ -39,7 +39,7 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
         <div className="container">
           <section className="grid grid-cols-3 gap-4 child:space-y-4">
             {/* Aside */}
-            <aside className="child:restaurant__card sticky -top-40 bottom-8 col-span-3 h-fit font-Dana lg:top-8 lg:col-span-1 max-lg:child:dark:bg-slate-950">
+            <aside className="child:restaurant__card sticky -top-28 bottom-8 col-span-3 h-fit font-Dana lg:top-24 lg:col-span-1 max-lg:child:dark:bg-slate-950">
               {/* Information */}
               <div>
                 <AsideTop title="مشخصات">
@@ -60,8 +60,7 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                 </div>
               </div>
               {/* Menus */}
-              <div className="top-8 shadow-lg max-lg:sticky">
-                <AsideTop title="منو" />
+              <div className="top-80 shadow-lg max-lg:sticky" id="menus">
                 <nav className="select-none">
                   <ul className="hideScrollbar flex items-center justify-between gap-4 overflow-x-scroll">
                     {menus.length > 0 ? (

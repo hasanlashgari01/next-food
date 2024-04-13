@@ -1,4 +1,4 @@
-import Button from "@/app/restaurant/_components/Button";
+import Button from "@/app/(home)/restaurant/_components/Button";
 import { IFood } from "@/common/interface/food";
 import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
