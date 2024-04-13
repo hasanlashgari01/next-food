@@ -2,9 +2,11 @@
 
 import { toggleLike } from "@/services/restaurantService";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
+import LoginModal from "../Modal/LoginModal";
 
 interface ILike {
   id?: string;
@@ -12,8 +14,9 @@ interface ILike {
   isLiked?: boolean;
 }
 
-const Like: React.FC<ILike> = ({ id, status, isLiked = false }) => {
+const Like: React.FC<ILike> = ({ id, status, isLiked = true }) => {
   const router = useRouter();
+  const [isShow, setIsShow] = useState(false);
 
   const toggleLikeRestaurant = async (id: string) => {
     try {
@@ -21,7 +24,7 @@ const Like: React.FC<ILike> = ({ id, status, isLiked = false }) => {
       toast.success(message);
       router.refresh();
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      error?.response?.status == 401 && setIsShow(true);
     }
   };
 
@@ -30,12 +33,17 @@ const Like: React.FC<ILike> = ({ id, status, isLiked = false }) => {
   };
 
   return (
-    <span
-      className="food-wishlist-btn like"
-      onClick={status === "restaurant" ? () => toggleLikeRestaurant(id as string) : () => toggleBookmark(id as string)}
-    >
-      <HiOutlineHeart className={twMerge("stroke-red-500 ", isLiked && "like")} />
-    </span>
+    <>
+      <span
+        className="food-wishlist-btn like"
+        onClick={
+          status === "restaurant" ? () => toggleLikeRestaurant(id as string) : () => toggleBookmark(id as string)
+        }
+      >
+        <HiOutlineHeart className={twMerge("stroke-red-500 ", isLiked && "like")} />
+      </span>
+      <LoginModal isShow={isShow} setIsShow={setIsShow} />
+    </>
   );
 };
 

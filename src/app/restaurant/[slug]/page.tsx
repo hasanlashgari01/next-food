@@ -1,13 +1,14 @@
 import { IMenu, IRestaurant } from "@/common/interface/restaurant";
+import Bookmark from "@/components/modules/Action/Bookmark";
+import Like from "@/components/modules/Action/Like";
 import Food from "@/components/modules/Food/Food";
 import { getRestaurant } from "@/server-actions/restaurantAction";
+import { redirect } from "next/navigation";
+import { Toaster } from "react-hot-toast";
 import AsideTop from "../_components/AsideTop";
 import Info from "../_components/Info";
 import MenuItem from "../_components/MenuItem";
 import ModalMoreInfo from "../_components/ModalMoreInfo";
-import Like from "@/components/modules/Action/Like";
-import Bookmark from "@/components/modules/Action/Bookmark";
-import { Toaster } from "react-hot-toast";
 
 interface IData {
   menus: IMenu[];
@@ -30,13 +31,16 @@ export async function generateMetadata({ params: { slug } }: IProps) {
 
 const page: React.FC<IProps> = async ({ params: { slug } }) => {
   const { restaurant, menus }: IData = await getRestaurant({ slug });
+  if (!restaurant) redirect("/not-found");
 
   return (
     <>
       <div className="min-h-dvh py-8 dark:bg-slate-900">
         <div className="container">
           <section className="grid grid-cols-3 gap-4 child:space-y-4">
+            {/* Aside */}
             <aside className="child:restaurant__card sticky -top-40 bottom-8 col-span-3 h-fit font-Dana lg:top-8 lg:col-span-1 max-lg:child:dark:bg-slate-950">
+              {/* Information */}
               <div>
                 <AsideTop title="مشخصات">
                   <div className="flex gap-2">
@@ -55,6 +59,7 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                   <ModalMoreInfo {...restaurant} />
                 </div>
               </div>
+              {/* Menus */}
               <div className="top-8 shadow-lg max-lg:sticky">
                 <AsideTop title="منو" />
                 <nav className="select-none">
@@ -68,6 +73,7 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                 </nav>
               </div>
             </aside>
+            {/* Main */}
             <main className="child:restaurant__card col-span-3 lg:col-span-2">
               <div>
                 <ul id="menu" className="space-y-10">

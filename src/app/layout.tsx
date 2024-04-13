@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { iranYekan } from "@/config/font";
+import LoginModal from "@/components/modules/Modal/LoginModal";
 
 export const metadata: Metadata = {
   title: "Create Next App",

@@ -1,8 +1,7 @@
 import Modal from "@/components/modules/Modal/Modal";
 import React from "react";
-import { HiCheckCircle, HiMiniPencilSquare, HiTrash } from "react-icons/hi2";
+import { HiCheckCircle, HiTrash } from "react-icons/hi2";
 import { MdRadioButtonUnchecked } from "react-icons/md";
-import ModalForm from "../Modal/ModalForm";
 
 interface SelectedBoxProps {
   isShow: boolean;
