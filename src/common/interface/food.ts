@@ -24,7 +24,7 @@ export interface IKindFood extends IFoodDefault {
 export interface IFood extends IFoodDefault {
   description?: string | null;
   rate?: number;
-  price?: string;
+  price?: number;
   weight?: number;
   image: string | null;
   category: string;

@@ -25,7 +25,7 @@ export async function generateMetadata({ params: { slug } }: IProps) {
   const { restaurant }: IData = await getRestaurant({ slug });
 
   return {
-    title: restaurant.name,
+    title: restaurant?.name,
   };
 }
 
@@ -50,10 +50,10 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                 </AsideTop>
                 <div className="flex items-start justify-between gap-4 lg:flex-col">
                   <Info
-                    logo={restaurant.logo}
-                    cover={restaurant.cover}
-                    name={restaurant.name}
-                    score={restaurant.score}
+                    logo={restaurant?.logo}
+                    cover={restaurant?.cover}
+                    name={restaurant?.name}
+                    score={restaurant?.score}
                     count={1}
                   />
                   <ModalMoreInfo {...restaurant} />
@@ -64,7 +64,12 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                 <nav className="select-none">
                   <ul className="hideScrollbar flex items-center justify-between gap-4 overflow-x-scroll">
                     {menus.length > 0 ? (
-                      menus.map(item => <MenuItem key={item._id} id={item._id} title={item.title as string} />)
+                      menus.map(
+                        item =>
+                          item.foods.length > 0 && (
+                            <MenuItem key={item._id} id={item._id} title={item.title as string} />
+                          ),
+                      )
                     ) : (
                       <span className="mx-auto">منو وجود ندارد</span>
                     )}
@@ -77,16 +82,19 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
               <div>
                 <ul id="menu" className="space-y-10">
                   {menus.length > 0 ? (
-                    menus.map(item => (
-                      <li key={item._id} id={item._id}>
-                        <AsideTop title={item.title as string} />
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 lg:gap-6">
-                          {item.foods.map(food => (
-                            <Food key={food._id} {...food} />
-                          ))}
-                        </div>
-                      </li>
-                    ))
+                    menus.map(
+                      item =>
+                        item.foods.length > 0 && (
+                          <li key={item._id} id={item._id}>
+                            <AsideTop title={item.title as string} />
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 lg:gap-6">
+                              {item.foods.map(food => (
+                                <Food key={food._id} {...food} />
+                              ))}
+                            </div>
+                          </li>
+                        ),
+                    )
                   ) : (
                     <div className="p-10 text-center">
                       <span>منو وجود ندارد</span>

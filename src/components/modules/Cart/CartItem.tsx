@@ -2,6 +2,7 @@ import { ICartItem } from "@/common/interface/cart";
 import Image from "next/image";
 import CartItemAction from "./CartItemAction";
 import CartItemDetail from "./CartItemDetail";
+import { fileRoute } from "@/services/routeService";
 
 interface Props {
   food: ICartItem;
@@ -14,7 +15,7 @@ const CartItem: React.FC<Props> = ({ food, refetch }) => {
   return (
     <li className="flex flex-1 gap-4 border-b px-6 py-2 text-xs transition-colors last:border-none sm:text-sm md:text-base dark:border-slate-700">
       <Image
-        src="/auth-food.jpg"
+        src={food.food?.image ? `${fileRoute}food/${food.food?.image}` : "/Auth.png"}
         width={1000}
         height={1000}
         alt={food?.food?.title as string}
