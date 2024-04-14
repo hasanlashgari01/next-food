@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   bookmarkFood,
   bookmarkRestaurant,
+  cancelOrder,
   getComments,
   getDashboard,
   getOffers,
@@ -9,6 +10,7 @@ import {
   getWhishlist,
   likeFood,
   likeRestaurant,
+  payOrder,
   unBookmarkFood,
   unBookmarkRestaurant,
   unLikeFood,
@@ -41,6 +43,10 @@ const useGetDashboard = () => useQuery({ queryKey: ["user-dashboard"], queryFn: 
 
 const useGetWhishlist = () => useQuery({ queryKey: ["user-whishlist"], queryFn: getWhishlist });
 
+const usePayOrder = () => useMutation({ mutationFn: payOrder });
+
+const useCancelOrder = () => useMutation({ mutationFn: cancelOrder });
+
 export {
   useLikeFood,
   useUnLikeFood,
@@ -55,4 +61,6 @@ export {
   useGetOfferList,
   useGetDashboard,
   useGetWhishlist,
+  usePayOrder,
+  useCancelOrder,
 };

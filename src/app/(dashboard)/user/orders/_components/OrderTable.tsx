@@ -22,7 +22,7 @@ const OrderTable: React.FC<TableProps> = ({ data: { count, orders }, refetch }) 
       header: () => <span>شناسه</span>,
       cell: info => (
         <div className="line-clamp-1 w-20 overflow-hidden">
-          <Link href={`/admin/orders/${info.getValue()}`}>{info.getValue()}</Link>
+          <Link href={`/order/${info.getValue()}`}>{info.getValue()}</Link>
         </div>
       ),
     }),
@@ -58,6 +58,7 @@ const OrderTable: React.FC<TableProps> = ({ data: { count, orders }, refetch }) 
     columnHelper.accessor("paymentStatus", {
       header: () => <span>وضعیت پرداخت</span>,
       cell: ({ getValue }: { getValue: () => TPaymentStatus }) => {
+        console.log("🚀 ~ getValue:", getValue());
         return (
           <div className="min-w-28">
             <span

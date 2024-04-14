@@ -36,6 +36,7 @@ const Factor: React.FC<FactorProps> = ({
   const { sum: total, discount } = calculateTotalCart(foods as ICart["foods"], shippingAmount);
   const [totalWithCoupon, setTotalWithCoupon] = useState(0);
   const [couponDiscount, setCouponDiscount] = useState(0);
+  const foodsIds = foods.map(food => food._id);
 
   useEffect(() => {
     if (couponResult.type === "fixedProduct") {
@@ -75,7 +76,7 @@ const Factor: React.FC<FactorProps> = ({
   };
 
   const paymentHandler = async () => {
-    const orderData = { ...order, paymentMethod, total, discount };
+    const orderData = { ...order, foods: [...foodsIds], paymentMethod, total, discount };
 
     try {
       const { message } = await mutateAsync(orderData);

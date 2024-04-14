@@ -29,4 +29,5 @@ export interface IOrder {
   province: string;
   status: TStatus;
   total: number;
+  isExpired: boolean;
 }

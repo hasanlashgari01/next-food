@@ -14,9 +14,9 @@ const OrderDetails: React.FC<IData<IOrder>> = ({ isLoading, data }) => {
 
   return (
     <div>
-      <h2 className="my-2 text-2xl">صفحه جزئیات سفارش</h2>
+      <h2 className="mt-5 text-center text-2xl">صفحه جزئیات سفارش</h2>
       {!isLoading && (
-        <ul className="mt-2 grid grid-cols-1 border font-IranYekan sm:mx-auto sm:w-4/5 xl:mt-10 xl:grid-cols-2 xl:gap-10 dark:border-slate-800">
+        <ul className="mt-5 grid grid-cols-1 border font-IranYekan sm:mx-auto sm:w-4/5 xl:mt-10 xl:grid-cols-2 xl:gap-10 dark:border-slate-800">
           <div className="order-list">
             <OrderDetailsItem itemText="شماره سفارش" itemValue={_id} />
             <OrderDetailsItem itemText="نام مشتری" itemValue={user?.fullName} />

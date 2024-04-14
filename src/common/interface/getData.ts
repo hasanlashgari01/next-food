@@ -1,5 +1,5 @@
 export interface IData<T> {
-  isLoading: boolean;
+  isLoading?: boolean;
   data: T;
   refetch?: () => void;
   mutateAsync?: (data: any) => Promise<any>;

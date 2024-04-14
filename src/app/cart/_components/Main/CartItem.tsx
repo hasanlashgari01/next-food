@@ -30,7 +30,6 @@ const CartItem: React.FC<IData<ICartItem>> = ({ isLoading, data, refetch }) => {
       <div className="flex basis-32 max-xs:flex-1 max-xs:justify-center xl:basis-44">
         <Image
           src={food?.image ? `${fileRoute}food/${food.image}` : "/Auth.png"}
-          // src="/auth-food.jpg"
           width={1000}
           height={1000}
           alt="auth-food"

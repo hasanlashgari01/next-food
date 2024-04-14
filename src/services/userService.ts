@@ -35,6 +35,10 @@ const getDashboard = (): Promise<IDashboard> => api(`${userRoute}home`).then(({ 
 
 const getWhishlist = (): Promise<IWhishlist> => api(`${userRoute}whishlist`).then(({ data }) => data);
 
+const payOrder = (id: string) => api.put(`${orders}/${id}`).then(({ data }) => data);
+
+const cancelOrder = (id: string) => api.patch(`${orders}/${id}`).then(({ data }) => data);
+
 export {
   bookmarkFood,
   bookmarkRestaurant,
@@ -49,4 +53,6 @@ export {
   unBookmarkRestaurant,
   unLikeFood,
   unLikeRestaurant,
+  payOrder,
+  cancelOrder,
 };
