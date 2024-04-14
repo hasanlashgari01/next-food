@@ -9,13 +9,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { HiTrash } from "react-icons/hi2";
 import InputRadioGroup from "../Input/InputRadioGroup";
-
-interface Props {
-  isLoading: boolean;
-  data: IUser | undefined;
-  refetch: () => void;
-  mutateAsync: (data: any) => Promise<any>;
-}
+import { Props } from "./section";
 
 const AboutSection: React.FC<Props> = ({ isLoading, data, refetch, mutateAsync }) => {
   const { mutateAsync: mutateAsyncRemove } = useRemoveAvatar();

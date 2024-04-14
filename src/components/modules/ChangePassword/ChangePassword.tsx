@@ -63,9 +63,9 @@ const ChangePassword = () => {
             dir="ltr"
             {...register("currentPassword", {
               required: { value: true, message: "رمز عبور اجباری هست" },
-              minLength: { value: 8, message: "رمز عبور بین ۸ الی  ۳۲ کاراکتر باشد" },
+              // minLength: { value: 8, message: "رمز عبور بین ۸ الی  ۳۲ کاراکتر باشد" },
               maxLength: { value: 32, message: "رمز عبور بین ۸ الی ۳۲ کاراکتر باشد" },
-              pattern: { value: PasswordPattern, message: "رمز عبور صحیح نمی باشد" },
+              // pattern: { value: PasswordPattern, message: "رمز عبور صحیح نمی باشد" },
             })}
           />
         </InputPassword>

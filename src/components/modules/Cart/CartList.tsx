@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 
 const CartList: React.FC<IData<ICart>> = ({ isLoading, data, refetch }) => {
   return (
-    <div className="min-h-96 shrink-0 overflow-y-auto scroll-smooth">
+    <div className="h-96 shrink-0 overflow-y-auto scroll-smooth">
       {!isLoading && data && data.foods.length > 0 ? (
         <ul className="flex min-w-72 flex-col py-2 xs:min-w-[27rem]">
           {data.foods?.map(food => <CartItem key={food._id} food={food} refetch={refetch as any} />)}

@@ -18,7 +18,7 @@ const CartTotalPrice: React.FC<ICartTotalPriceProps> = ({ total, isHide = false 
   }, [total]);
 
   return (
-    <span className={twMerge("flex gap-2 text-white", `${isHide ? "max-sm:hidden" : "sm:hidden"}`)}>
+    <span className={twMerge("flex gap-2 dark:text-white", `${isHide ? "max-sm:hidden" : "sm:hidden"}`)}>
       <span className={twMerge("rounded-md px-1 py-0.5", `${color} ${color === "bg-cyan-600" && "animate-pulse"}`)}>
         {total?.toLocaleString()}
       </span>

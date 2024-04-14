@@ -1,16 +1,10 @@
-import { IUser, TTheme } from "@/common/interface/user";
+import { TTheme } from "@/common/interface/user";
 import { themeValues } from "@/constants/radioValues";
 import { ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import InputRadioGroup from "../Input/InputRadioGroup";
-
-interface Props {
-  isLoading: boolean;
-  data: IUser | undefined;
-  refetch: () => void;
-  mutateAsync: (data: any) => Promise<any>;
-}
+import { Props } from "./section";
 
 interface FormProps {
   theme: TTheme;

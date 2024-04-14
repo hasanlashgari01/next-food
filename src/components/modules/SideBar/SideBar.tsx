@@ -2,10 +2,13 @@
 
 import Modal from "@/components/modules/Modal/Modal";
 import { INavLinks } from "@/constants/navLinks";
+import { useLogout } from "@/hooks/useAuth";
 import { recursivePath } from "@/utils/func";
+import { cookies } from "next/headers";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { HiArrowRightOnRectangle } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 
@@ -18,6 +21,8 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ mainRoute, links, isSidebarOpen, setIsSidebarOpen }) => {
   const pathname = usePathname();
+  const router = useRouter();
+  const { mutateAsync } = useLogout();
   const { currentPath, parentPath } = recursivePath(pathname);
   const [isShow, setIsShow] = useState<boolean>(false);
 
@@ -30,8 +35,14 @@ const SideBar: React.FC<SideBarProps> = ({ mainRoute, links, isSidebarOpen, setI
     setIsShow(true);
   };
 
-  const logoutHandler = () => {
-    console.log(1);
+  const logoutHandler = async () => {
+    try {
+      const { message } = await mutateAsync();
+      toast.success(message);
+      router.push("/");
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -85,6 +96,7 @@ const SideBar: React.FC<SideBarProps> = ({ mainRoute, links, isSidebarOpen, setI
         cancelText="انصراف"
         confirmStyle="btn-danger"
         cancelStyle="btn-default"
+        confirmAction={logoutHandler}
       />
     </div>
   );

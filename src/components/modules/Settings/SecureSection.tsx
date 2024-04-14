@@ -3,13 +3,8 @@ import InputText from "@/components/modules/Input/InputText";
 import { EmailPattern, MobilePattern } from "@/constants/regex";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-
-interface Props {
-  isLoading: boolean;
-  data: IUser | undefined;
-  refetch: () => void;
-  mutateAsync: (data: any) => Promise<any>;
-}
+import { Props } from "./section";
+import TopPage from "@/app/(dashboard)/admin/_components/TopPage";
 
 const SecureSection: React.FC<Props> = ({ isLoading, data, refetch, mutateAsync }) => {
   const {
