@@ -26,7 +26,9 @@ const Header = () => {
   const resizeHandler = () => (window.scrollY >= 190 ? setShouldResize(true) : setShouldResize(false));
 
   return (
-    <div className={twMerge("sticky top-0 z-40 bg-slate-50 dark:bg-slate-700", shouldResize ? "py-1.5" : "py-4")}>
+    <div
+      className={twMerge("sticky top-0 z-10 bg-slate-50 shadow-md dark:bg-slate-700", shouldResize ? "py-1.5" : "py-4")}
+    >
       <div className="container">
         <div className="flex items-center justify-between transition-all duration-75 ease-in-out">
           <Link href="/">لوگو</Link>

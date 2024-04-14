@@ -1,9 +1,12 @@
 import Button from "@/app/(home)/restaurant/_components/Button";
+import { IBasketItem } from "@/common/interface/cart";
 import { IFood } from "@/common/interface/food";
 import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
 
-const Food: React.FC<IFood> = ({ _id, image, title, description, price }) => {
+const Food: React.FC<IFood> = food => {
+  const { _id, image, title, description, price, quantity } = food;
+
   return (
     <div key={_id} className="flex flex-col rounded border p-4 dark:border-slate-700">
       <div className="flex flex-col gap-2 overflow-hidden lg:gap-6 lg:rounded-lg">
@@ -26,7 +29,7 @@ const Food: React.FC<IFood> = ({ _id, image, title, description, price }) => {
             <p className="mt-2 line-clamp-3 max-w-56 text-xs dark:text-slate-400">{description}</p>
           </div>
           <div className="mt-4">
-            <Button foodId={_id} />
+            <Button foodId={_id} food={food} />
           </div>
         </div>
       </div>

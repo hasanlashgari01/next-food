@@ -49,7 +49,7 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
       endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
       restaurantId: restaurant,
     },
-    values: data && { ...data, startDate: new Date(), endDate: new Date(new Date().setDate(new Date().getDate() + 1)) },
+    values: data,
   });
 
   useEffect(() => {
@@ -58,10 +58,6 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
       setMenu(selectedMenu);
     }
   }, [isLoadingMenu]);
-
-  useEffect(() => {
-    console.log(getValues());
-  });
 
   const onSubmit: SubmitHandler<IFoodData> = async data => {
     try {

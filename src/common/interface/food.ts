@@ -30,6 +30,7 @@ export interface IFood extends IFoodDefault {
   category: string;
   menuId?: string | null;
   discount?: IDiscount;
+  quantity?: number;
 }
 
 export interface IFoodData extends IDiscount {
