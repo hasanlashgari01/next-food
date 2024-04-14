@@ -1,4 +1,5 @@
 import { IFood } from "./food";
+import { IUser } from "./user";
 
 interface IRestaurantData {
   name: string;
@@ -55,4 +56,21 @@ export interface IKindFood {
   price: number;
   weight: number;
   discount: number;
+}
+
+export interface IComment {
+  _id: string;
+  body: string;
+  authorId: IUser;
+  rate: number;
+  isAccepted: boolean;
+  isAnswer: boolean;
+  restaurantId: string;
+  likes: string[];
+}
+
+export interface IMainComment extends IComment {
+  mainCommentID: string | IComment;
+  createdAt: Date;
+  updatedAt: Date;
 }

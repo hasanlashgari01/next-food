@@ -25,3 +25,9 @@ export const getFoodById = async (id: string) => {
   if (!res.ok) throw new Error("Failed to fetch data");
   return res.json();
 };
+
+export const getComment = async (id: string) => {
+  const res = await fetch(`${API}${restaurantRoute}${id}/comment`);
+  if (!res.ok) throw new Error("Failed to fetch data");
+  return res.json();
+};

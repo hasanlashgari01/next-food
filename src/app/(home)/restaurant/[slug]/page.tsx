@@ -1,14 +1,15 @@
-import { IMenu, IRestaurant } from "@/common/interface/restaurant";
+import { IMainComment, IMenu, IRestaurant } from "@/common/interface/restaurant";
 import Bookmark from "@/components/modules/Action/Bookmark";
 import Like from "@/components/modules/Action/Like";
 import Food from "@/components/modules/Food/Food";
-import { getRestaurant } from "@/server-actions/restaurantAction";
+import { getComment, getRestaurant } from "@/server-actions/restaurantAction";
 import { redirect } from "next/navigation";
 import { Toaster } from "react-hot-toast";
 import AsideTop from "../_components/AsideTop";
 import Info from "../_components/Info";
 import MenuItem from "../_components/MenuItem";
 import ModalMoreInfo from "../_components/ModalMoreInfo";
+import Comment from "../_components/Comment/Comment";
 
 interface IData {
   menus: IMenu[];
@@ -17,6 +18,11 @@ interface IData {
 
 interface IProps {
   params: { slug: string };
+}
+
+interface ICommentData {
+  count: number;
+  comments: IMainComment[];
 }
 
 export const dynamic = "force-dynamic";
@@ -32,6 +38,7 @@ export async function generateMetadata({ params: { slug } }: IProps) {
 const page: React.FC<IProps> = async ({ params: { slug } }) => {
   const { restaurant, menus }: IData = await getRestaurant({ slug });
   if (!restaurant) redirect("/not-found");
+  const { count, comments }: ICommentData = await getComment(restaurant._id);
 
   return (
     <>
@@ -101,6 +108,13 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                     </div>
                   )}
                 </ul>
+              </div>
+              <div className="space-y-4">
+                {count > 0 ? (
+                  comments.map(comment => <Comment key={comment._id} {...comment} />)
+                ) : (
+                  <span className="text-center">نظری برای این رستوران وجود ندارد</span>
+                )}
               </div>
             </main>
           </section>
