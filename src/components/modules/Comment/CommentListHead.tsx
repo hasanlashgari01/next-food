@@ -3,7 +3,7 @@
 import { getUser } from "@/services/authService";
 import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiOutlineChatBubbleBottomCenterText } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 import LoginModal from "../Modal/LoginModal";
@@ -11,6 +11,7 @@ import { ICommentData } from "@/common/interface/restaurant";
 import { useCreateComment } from "@/hooks/useRestaurant";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Star from "./Star";
 
 const CommentListHead: React.FC<{ restaurantId: string; count: number }> = ({ restaurantId, count }) => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const CommentListHead: React.FC<{ restaurantId: string; count: number }> = ({ re
     authorId: "",
     restaurantId: "",
   });
+  const [rate, setRate] = useState(5);
   const [isOpen, setIsOpen] = useState(false);
   const [isShowModal, setIsShowModal] = useState(false);
 
@@ -32,11 +34,11 @@ const CommentListHead: React.FC<{ restaurantId: string; count: number }> = ({ re
     e.preventDefault();
 
     try {
-      const { message } = await mutateAsync(data);
+      const { message } = await mutateAsync({ ...data, rate });
       toast.success(message);
       router.refresh();
       setIsOpen(false);
-      setData({ ...data, body: "" });
+      setData({ ...data, body: "", rate: 5 });
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
@@ -60,7 +62,10 @@ const CommentListHead: React.FC<{ restaurantId: string; count: number }> = ({ re
     }
   };
 
-  const closeCommentBox = () => setIsOpen(false);
+  const closeCommentBox = () => {
+    setIsOpen(false);
+    setRate(5);
+  };
 
   return (
     <div className="p-1 font-Dana">
@@ -84,25 +89,28 @@ const CommentListHead: React.FC<{ restaurantId: string; count: number }> = ({ re
 
       <form
         className={twMerge(
-          "mt-4 space-y-4 overflow-hidden transition-all",
-          isOpen ? "h-fit opacity-100 duration-300 ease-in" : "h-1 opacity-0",
+          "mt-4 space-y-4 transition-all",
+          isOpen ? "h-fit opacity-100 duration-300 ease-in" : "h-0 overflow-hidden opacity-0",
         )}
         onSubmit={submitHandler}
       >
-        <div className="flex shrink-0 items-center gap-2.5 md:gap-4">
-          <div className="comment__profile shrink-0 overflow-hidden rounded-full p-0.5 outline outline-2 outline-amber-600">
-            <Image
-              src={user?.avatarUrl ? `${fileRoute}user/${user?.avatarUrl}` : "/Auth.png"}
-              alt=""
-              width={100}
-              height={100}
-              priority
-              className="h-full rounded-full object-cover"
-            />
+        <div className="flex items-center justify-between pl-2">
+          <div className="flex shrink-0 items-center gap-2.5 md:gap-4">
+            <div className="comment__profile shrink-0 rounded-full p-0.5 outline outline-2 outline-amber-600">
+              <Image
+                src={user?.avatarUrl ? `${fileRoute}user/${user?.avatarUrl}` : "/Auth.png"}
+                alt=""
+                width={100}
+                height={100}
+                priority
+                className="h-full rounded-full object-cover"
+              />
+            </div>
+            <div className="comment__box-rate">
+              <h3 className="leading-5 max-md:text-sm md:leading-6">{user?.fullName}</h3>
+            </div>
           </div>
-          <div className="comment__box-rate">
-            <h3 className="leading-5 max-md:text-sm md:leading-6">{user?.fullName}</h3>
-          </div>
+          <Star rate={rate} onRate={setRate} />
         </div>
         <div className="flex-1 overflow-hidden rounded-lg">
           <textarea
@@ -117,6 +125,7 @@ const CommentListHead: React.FC<{ restaurantId: string; count: number }> = ({ re
         </div>
         <div className="flex flex-1 justify-end gap-4">
           <button
+            type="reset"
             className="rounded-full border border-teal-600 px-8 py-1.5 leading-7 transition-colors duration-200 hover:border-teal-700 hover:bg-teal-700 md:px-12 md:py-2"
             onClick={closeCommentBox}
           >
