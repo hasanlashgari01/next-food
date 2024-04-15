@@ -19,7 +19,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isShow, setIsShow }) => {
         </Link>
         <Link
           href="/auth/register"
-          className="w-40 rounded-lg border border-teal-600 bg-transparent px-6 py-3 text-center hover:bg-teal-600 md:py-4"
+          className="w-40 rounded-lg border border-teal-600 bg-transparent px-6 py-3 text-center transition-colors duration-200 ease-linear hover:bg-teal-600 hover:text-white md:py-4"
         >
           ثبت نام
         </Link>

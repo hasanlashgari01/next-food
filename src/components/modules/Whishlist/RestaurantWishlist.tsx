@@ -1,11 +1,10 @@
-import Image from "next/image";
-import Like from "../Action/Like";
-import Bookmark from "../Action/Bookmark";
-import { fileRoute } from "@/services/routeService";
-import { useUnBookmarkRestaurant, useUnLikeRestaurant } from "@/hooks/useUser";
-import toast from "react-hot-toast";
 import { useToggleBookmark, useToggleLike } from "@/hooks/useRestaurant";
+import { fileRoute } from "@/services/routeService";
+import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import Bookmark from "../Action/Bookmark";
+import Like from "../Action/Like";
 
 interface IRestaurantProps {
   defaultImage?: string;

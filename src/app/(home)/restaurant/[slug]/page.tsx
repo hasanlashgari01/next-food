@@ -46,7 +46,7 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
         <div className="container">
           <section className="grid grid-cols-3 gap-4 child:space-y-4">
             {/* Aside */}
-            <aside className="child:restaurant__card sticky -top-28 bottom-8 col-span-3 h-fit font-Dana lg:top-24 lg:col-span-1 max-lg:child:dark:bg-slate-950">
+            <aside className="child:restaurant__card sticky -top-28 bottom-8 z-0 col-span-3 h-fit font-Dana lg:top-24 lg:col-span-1 max-lg:child:dark:bg-slate-950">
               {/* Information */}
               <div>
                 <AsideTop title="مشخصات">
@@ -94,7 +94,7 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                         item.foods.length > 0 && (
                           <li key={item._id} id={item._id}>
                             <AsideTop title={item.title as string} />
-                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 lg:gap-6">
+                            <div className="grid grid-cols-1 gap-4 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 lg:gap-6 xl:grid-cols-3">
                               {item.foods.map(food => (
                                 <Food key={food._id} {...food} />
                               ))}

@@ -23,7 +23,7 @@ const Comment: React.FC<ICommentProps> = ({ isLiked = false, _id, authorId, rate
           <Like isLiked={isLiked} likeCount={likes} commentId={_id} />
         </div>
         <div className="flex-1">
-          <p className="leading-7 text-slate-100 max-md:text-sm/6">{body}</p>
+          <p className="leading-7 text-slate-500 max-md:text-sm/6 dark:text-slate-100">{body}</p>
         </div>
       </div>
     </div>
