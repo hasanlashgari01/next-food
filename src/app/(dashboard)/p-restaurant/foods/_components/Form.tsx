@@ -43,14 +43,16 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
       menuId: {},
       weight: null,
       amount: null,
-      percent: null,
+      percent: 0,
       image: "",
-      startDate: new Date(),
+      startDate: new Date().toLocaleDateString("fa-IR"),
       endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
       restaurantId: restaurant,
     },
     values: data,
   });
+
+  const showMenu = isEdit ? menu : true;
 
   useEffect(() => {
     if (!isLoadingMenu) {
@@ -67,8 +69,8 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
       delete data.discount;
       data = {
         ...data,
-        startDate: (data.startDate as DateObject).toDate(),
-        endDate: (data.endDate as DateObject).toDate(),
+        startDate: data.startDate as DateObject,
+        endDate: data.endDate as DateObject,
       };
 
       if (isEdit && id) {
@@ -80,6 +82,7 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
       }
       toast.success(msg);
     } catch (error: any) {
+      console.log("🚀 ~ error:", error);
       toast.error(error?.response?.data?.message);
     }
   };
@@ -159,7 +162,7 @@ const Form: React.FC<FormProps> = ({ data, isEdit = false, id }) => {
                 })}
               />
             </InputText>
-            {!isLoadingMenu && (
+            {!isLoadingMenu && showMenu && (
               <InputText id="weight" type="text" label="منو" {...register("menuId")}>
                 <div className="flex w-full flex-1 items-center child:flex-1">
                   <Select

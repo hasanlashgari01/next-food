@@ -11,7 +11,6 @@ export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
         defaultOptions: {
           queries: {
             staleTime: 5 * 1000,
-            retry: false,
             refetchOnWindowFocus: true,
             refetchOnReconnect: true,
           },

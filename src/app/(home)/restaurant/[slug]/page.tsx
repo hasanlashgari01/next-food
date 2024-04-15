@@ -74,7 +74,6 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                     score={isNaN(score) ? 0 : Number(score)}
                     count={comments.length}
                   />
-                  <ModalMoreInfo {...restaurant} />
                 </div>
               </div>
               {/* Menus */}

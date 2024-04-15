@@ -24,8 +24,8 @@ const Info: React.FC<IInfoProps> = ({ logo, cover, name, score, count }) => {
         />
       </div>
       <div className="flex flex-col justify-between py-3.5 md:py-3">
-        <ScoreCount score={score} count={count} />
         <h3 className="whitespace-nowrap font-Dana text-base md:text-lg dark:text-slate-100">{name}</h3>
+        <ScoreCount score={score} count={count} />
       </div>
     </div>
   );
