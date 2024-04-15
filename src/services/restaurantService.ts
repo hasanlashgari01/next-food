@@ -69,6 +69,10 @@ const toggleLike = (id: string) => api.patch(`${restaurantRoute}${id}/like`).the
 
 const toggleBookmark = (id: string) => api.patch(`${restaurantRoute}${id}/bookmark`).then(({ data }) => data);
 
+const toggleLikeFood = (id: string) => api.patch(`${foodRoute}${id}/like`).then(({ data }) => data);
+
+const toggleBookmarkFood = (id: string) => api.patch(`${foodRoute}${id}/bookmark`).then(({ data }) => data);
+
 const toggleLikeComment = (id: string) => api.patch(`${restaurantRoute}${id}/comment`).then(({ data }) => data);
 
 export {
@@ -95,4 +99,6 @@ export {
   toggleLike,
   toggleBookmark,
   toggleLikeComment,
+  toggleLikeFood,
+  toggleBookmarkFood,
 };

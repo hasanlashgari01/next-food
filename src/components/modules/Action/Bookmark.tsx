@@ -1,6 +1,6 @@
 "use client";
 
-import { toggleBookmark as toggleBookmarkRestaurantAction } from "@/services/restaurantService";
+import { toggleBookmarkFood, toggleBookmark as toggleBookmarkRestaurantAction } from "@/services/restaurantService";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -16,34 +16,38 @@ interface IBookmark {
 
 const Bookmark: React.FC<IBookmark> = ({ id, status, isBookmarked = false }) => {
   const router = useRouter();
-  const [isShow, setIsShow] = useState(false);
 
-  const toggleBookmarkRestaurant = async (id: string) => {
+  const toggleBookmarkRestaurantHandler = async (id: string) => {
     try {
       const { message } = await toggleBookmarkRestaurantAction(id);
       toast.success(message);
       router.refresh();
     } catch (error: any) {
-      error?.response?.status == 401 && setIsShow(true);
+      toast(error?.response?.data?.message);
     }
   };
 
-  const toggleBookmark = (id: string) => {
-    console.log(id);
+  const toggleBookmarkFoodHandler = async (id: string) => {
+    try {
+      const { message } = await toggleBookmarkFood(id);
+      toast.success(message);
+      router.refresh();
+    } catch (error: any) {
+      toast(error?.response?.data?.message);
+    }
   };
 
   return (
-    <>
-      <span
-        className="food-wishlist-btn bookmark"
-        onClick={
-          status === "restaurant" ? () => toggleBookmarkRestaurant(id as string) : () => toggleBookmark(id as string)
-        }
-      >
-        <HiOutlineBookmark className={twMerge("stroke-cyan-500", isBookmarked && "bookmark")} />
-      </span>
-      <LoginModal isShow={isShow} setIsShow={setIsShow} />
-    </>
+    <span
+      className="food-wishlist-btn bookmark"
+      onClick={
+        status === "restaurant"
+          ? () => toggleBookmarkRestaurantHandler(id as string)
+          : () => toggleBookmarkFoodHandler(id as string)
+      }
+    >
+      <HiOutlineBookmark className={twMerge("stroke-cyan-500", isBookmarked && "bookmark")} />
+    </span>
   );
 };
 

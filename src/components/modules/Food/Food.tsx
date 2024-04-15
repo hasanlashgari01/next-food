@@ -2,10 +2,12 @@ import Button from "@/app/(home)/restaurant/_components/Button";
 import { IFood } from "@/common/interface/food";
 import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
+import Bookmark from "../Action/Bookmark";
+import Like from "../Action/Like";
 
-const Food: React.FC<IFood> = ({ _id, image, title, price, discount, description }) => {
+const Food: React.FC<IFood> = ({ _id, image, title, price, discount, description, isLiked, isBookmarked }) => {
   return (
-    <div className="flex flex-col rounded border p-4 dark:border-slate-700">
+    <div className="relative flex flex-col rounded border p-4 dark:border-slate-700">
       <div className="flex flex-col gap-2 overflow-hidden lg:gap-6 lg:rounded-lg">
         <div className="mx-auto h-36 w-44 shrink-0 overflow-hidden rounded-lg">
           <Image
@@ -36,6 +38,10 @@ const Food: React.FC<IFood> = ({ _id, image, title, price, discount, description
               <h3 className="text-sm">{price?.toLocaleString()} تومان</h3>
             </div>
           </div>
+        </div>
+        <div className="absolute left-4 top-4 space-y-2">
+          <Like isLiked={isLiked} id={_id} status="food" />
+          <Bookmark isBookmarked={isBookmarked} id={_id} status="food" />
         </div>
       </div>
     </div>

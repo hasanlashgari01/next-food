@@ -31,6 +31,8 @@ export interface IFood extends IFoodDefault {
   menuId?: string | null;
   discount?: IDiscount;
   quantity?: number;
+  isLiked: boolean;
+  isBookmarked: boolean;
 }
 
 export interface IFoodData extends IDiscount {
