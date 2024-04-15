@@ -13,18 +13,12 @@ interface IButtonProps {
 }
 
 const Button: React.FC<IButtonProps> = ({ foodId }) => {
-  const queryClient = useQueryClient();
-  const router = useRouter();
   const { isLoading, data, refetch } = useGetCart();
   const { mutateAsync } = useIncrementFood();
   const { mutateAsync: mutateAsyncDecrement } = useDecrementFood();
   const [isShow, setIsShow] = useState(false);
 
   const existInCart = data?.foods.find(({ food }) => food?._id === foodId);
-
-  useEffect(() => {
-    refetch();
-  }, [data, isLoading]);
 
   const incrementCart = async () => {
     try {

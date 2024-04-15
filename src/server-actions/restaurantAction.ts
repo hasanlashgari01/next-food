@@ -26,8 +26,13 @@ export const getFoodById = async (id: string) => {
   return res.json();
 };
 
-export const getComment = async (id: string) => {
-  const res = await fetch(`${API}${restaurantRoute}${id}/comment`);
+export const getComment = async ({ id }: { id: string }) => {
+  const cookieStore = cookies();
+  const strCookies = cookieToString(cookieStore);
+  const res = await fetch(`${API}${restaurantRoute}${id}/comment`, {
+    credentials: "same-origin",
+    headers: { Cookie: strCookies },
+  });
   if (!res.ok) throw new Error("Failed to fetch data");
   return res.json();
 };

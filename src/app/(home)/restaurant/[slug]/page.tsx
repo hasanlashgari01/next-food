@@ -38,7 +38,7 @@ export async function generateMetadata({ params: { slug } }: IProps) {
 const page: React.FC<IProps> = async ({ params: { slug } }) => {
   const { restaurant, menus }: IData = await getRestaurant({ slug });
   if (!restaurant) redirect("/not-found");
-  const { count, comments }: ICommentData = await getComment(restaurant._id);
+  const { count, comments }: ICommentData = await getComment({ id: restaurant._id });
 
   return (
     <>

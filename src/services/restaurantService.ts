@@ -69,6 +69,8 @@ const toggleLike = (id: string) => api.patch(`${restaurantRoute}${id}/like`).the
 
 const toggleBookmark = (id: string) => api.patch(`${restaurantRoute}${id}/bookmark`).then(({ data }) => data);
 
+const toggleLikeComment = (id: string) => api.patch(`${restaurantRoute}${id}/comment`).then(({ data }) => data);
+
 export {
   createFood,
   createMenu,
@@ -92,4 +94,5 @@ export {
   removeCover,
   toggleLike,
   toggleBookmark,
+  toggleLikeComment,
 };

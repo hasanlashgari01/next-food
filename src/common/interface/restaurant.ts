@@ -66,7 +66,7 @@ export interface IComment {
   isAccepted: boolean;
   isAnswer: boolean;
   restaurantId: string;
-  likes: string[];
+  likes: number;
 }
 
 export interface IMainComment extends IComment {

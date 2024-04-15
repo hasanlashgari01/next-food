@@ -17,6 +17,7 @@ import {
   removeOffSelectedFood,
   toggleBookmark,
   toggleLike,
+  toggleLikeComment,
   updateFood,
   updateMenu,
   uploadCover,
@@ -71,6 +72,8 @@ const useToggleLike = () => useMutation({ mutationFn: (id: string) => toggleLike
 
 const useToggleBookmark = () => useMutation({ mutationFn: (id: string) => toggleBookmark(id) });
 
+const useToggleLikeComment = () => useMutation({ mutationFn: (id: string) => toggleLikeComment(id) });
+
 export {
   useAddOffSelectedFood,
   useBanOrUnbanComment,
@@ -94,4 +97,5 @@ export {
   useRemoveCover,
   useToggleLike,
   useToggleBookmark,
+  useToggleLikeComment,
 };

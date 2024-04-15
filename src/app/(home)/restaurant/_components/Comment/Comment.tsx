@@ -6,7 +6,7 @@ interface ICommentProps extends IMainComment {
   isLiked?: boolean;
 }
 
-const Comment: React.FC<ICommentProps> = ({ isLiked = false, authorId, rate, likes, body, createdAt }) => {
+const Comment: React.FC<ICommentProps> = ({ isLiked = false, _id, authorId, rate, likes, body, createdAt }) => {
   return (
     <div className="space-y-4 rounded-lg p-2 font-Dana dark:bg-slate-700">
       <Head
@@ -20,7 +20,7 @@ const Comment: React.FC<ICommentProps> = ({ isLiked = false, authorId, rate, lik
 
       <div className="flex gap-4 p-2 pt-0">
         <div className="flex shrink-0 basis-12 justify-center pt-1">
-          <Like isLiked={isLiked} likeCount={likes.length} />
+          <Like isLiked={isLiked} likeCount={likes} commentId={_id} />
         </div>
         <div className="flex-1">
           <p className="leading-7 text-slate-100 max-md:text-sm/6">{body}</p>
