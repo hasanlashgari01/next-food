@@ -9,7 +9,7 @@ import AsideTop from "../_components/AsideTop";
 import Info from "../_components/Info";
 import MenuItem from "../_components/MenuItem";
 import ModalMoreInfo from "../_components/ModalMoreInfo";
-import Comment from "../_components/Comment/Comment";
+import Comment from "../../../../components/modules/Comment/Comment";
 
 interface IData {
   menus: IMenu[];
@@ -42,11 +42,11 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
 
   return (
     <>
-      <div className="min-h-dvh py-8 dark:bg-slate-900">
+      <div className="min-h-dvh bg-slate-100 py-8 dark:bg-slate-900">
         <div className="container">
           <section className="grid grid-cols-3 gap-4 child:space-y-4">
             {/* Aside */}
-            <aside className="child:restaurant__card sticky -top-28 bottom-8 z-10 col-span-3 h-fit font-Dana lg:top-24 lg:col-span-1 max-lg:child:dark:bg-slate-950">
+            <aside className="child:restaurant__card sticky -top-28 bottom-8 z-10 col-span-3 h-fit font-Dana lg:top-24 lg:order-1 lg:col-span-1 max-lg:child:dark:bg-slate-950">
               {/* Information */}
               <div>
                 <AsideTop title="مشخصات">
@@ -113,7 +113,7 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                 {count > 0 ? (
                   comments.map(comment => <Comment key={comment._id} {...comment} />)
                 ) : (
-                  <span className="text-center">نظری برای این رستوران وجود ندارد</span>
+                  <span className="text-center">نظری برای این رستوران ثبت نشده است</span>
                 )}
               </div>
             </main>

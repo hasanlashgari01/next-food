@@ -13,7 +13,7 @@ const AsideTop: React.FC<AsideTopProps> = ({ title, isShow = true, children }) =
         </h3>
         <div className="relative">{children}</div>
       </div>
-      <hr className="mb-3 mt-1.5 border-slate-300 lg:mb-6 lg:mt-3 dark:border-slate-700" />
+      <hr className="mb-3 mt-1.5 border-slate-100 lg:mb-6 lg:mt-3 dark:border-slate-700" />
     </>
   );
 };

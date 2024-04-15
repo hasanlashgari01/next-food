@@ -32,16 +32,16 @@ const Like: React.FC<ILikeProps> = ({ isLiked = false, likeCount = 0, commentId 
 
   return (
     <>
-      <div className="flex h-fit w-8 flex-col items-center justify-center gap-1">
+      <div className="comment__box-rate h-fit items-center">
         <span className="cursor-pointer" onClick={toggleLike}>
           <HiOutlineHeart
             className={twMerge(
-              "h-6 w-6 shrink-0 fill-transparent stroke-red-500 transition-colors delay-75 duration-300 ease-linear hover:stroke-red-600",
+              "size-5 shrink-0 fill-transparent stroke-red-500 transition-colors delay-75 duration-300 ease-linear hover:stroke-red-600 md:size-6",
               `${isLiked && "fill-red-500 hover:fill-red-600"}`,
             )}
           />
         </span>
-        <span className="cursor-default text-sm">{likeCount}</span>
+        <span className="cursor-default text-xs md:text-sm">{likeCount}</span>
       </div>
       <LoginModal isShow={isShow} setIsShow={setIsShow} />
     </>
