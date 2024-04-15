@@ -20,7 +20,7 @@ const Comment: React.FC<ICommentProps> = ({ isLiked = false, _id, authorId, rate
 
       <div className="flex gap-2 px-1.5 pb-2 md:gap-4 md:px-2">
         <div className="comment__profile flex shrink-0 justify-center">
-          <Like isLiked={isLiked} likeCount={likes} commentId={_id} />
+          <Like key={_id} isLiked={isLiked} likeCount={likes} commentId={_id} />
         </div>
         <div className="flex-1">
           <p className="text-xs/5 text-slate-500 md:text-sm/6 dark:text-slate-100">{body}</p>

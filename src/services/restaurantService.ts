@@ -1,9 +1,9 @@
+import { IComment } from "@/common/interface/comment";
 import { IDiscount, IFood, IFoodData } from "@/common/interface/food";
-import { IMenu, IMenuData } from "@/common/interface/restaurant";
+import { IOrder } from "@/common/interface/order";
+import { ICommentData, IMenu, IMenuData } from "@/common/interface/restaurant";
 import { api, apiUpload } from "@/config/axiosConfig";
 import { foodRoute, menuRoute, orders, restaurantRoute } from "./routeService";
-import { IOrder } from "@/common/interface/order";
-import { IComment } from "@/common/interface/comment";
 
 export interface IUpdate<T> {
   id: string;
@@ -71,34 +71,37 @@ const toggleBookmark = (id: string) => api.patch(`${restaurantRoute}${id}/bookma
 
 const toggleLikeFood = (id: string) => api.patch(`${foodRoute}${id}/like`).then(({ data }) => data);
 
+const createComment = (data: ICommentData) => api.post(`${restaurantRoute}comment`, data).then(({ data }) => data);
+
 const toggleBookmarkFood = (id: string) => api.patch(`${foodRoute}${id}/bookmark`).then(({ data }) => data);
 
 const toggleLikeComment = (id: string) => api.patch(`${restaurantRoute}${id}/comment`).then(({ data }) => data);
 
 export {
+  addOffSelectedFood,
+  banOrUnbanComment,
+  createComment,
   createFood,
   createMenu,
   deleteFood,
   deleteMenu,
+  getComments,
   getFoods,
   getMenus,
-  updateFood,
-  updateMenu,
-  getOrders,
-  getOrderById,
-  getComments,
-  banOrUnbanComment,
   getOffs,
-  addOffSelectedFood,
-  removeOffSelectedFood,
+  getOrderById,
+  getOrders,
   getRestaurant,
-  uploadLogo,
-  removeLogo,
-  uploadCover,
   removeCover,
-  toggleLike,
+  removeLogo,
+  removeOffSelectedFood,
   toggleBookmark,
+  toggleBookmarkFood,
+  toggleLike,
   toggleLikeComment,
   toggleLikeFood,
-  toggleBookmarkFood,
+  updateFood,
+  updateMenu,
+  uploadCover,
+  uploadLogo,
 };

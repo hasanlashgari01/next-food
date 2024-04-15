@@ -58,14 +58,17 @@ export interface IKindFood {
   discount: number;
 }
 
-export interface IComment {
-  _id: string;
+export interface ICommentData {
   body: string;
-  authorId: IUser;
   rate: number;
+  authorId: string;
+  restaurantId: string;
+}
+
+export interface IComment extends ICommentData {
+  _id: string;
   isAccepted: boolean;
   isAnswer: boolean;
-  restaurantId: string;
   likes: number;
 }
 

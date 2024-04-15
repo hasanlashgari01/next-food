@@ -2,11 +2,9 @@
 
 import { toggleBookmarkFood, toggleBookmark as toggleBookmarkRestaurantAction } from "@/services/restaurantService";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import { HiOutlineBookmark } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
-import LoginModal from "../Modal/LoginModal";
 
 interface IBookmark {
   id?: string;

@@ -1,6 +1,7 @@
 import {
   addOffSelectedFood,
   banOrUnbanComment,
+  createComment,
   createFood,
   createMenu,
   deleteFood,
@@ -70,6 +71,8 @@ const useRemoveCover = (id: string) => useMutation({ mutationFn: () => removeCov
 
 const useToggleLike = () => useMutation({ mutationFn: (id: string) => toggleLike(id) });
 
+const useCreateComment = () => useMutation({ mutationFn: createComment });
+
 const useToggleBookmark = () => useMutation({ mutationFn: (id: string) => toggleBookmark(id) });
 
 const useToggleLikeComment = () => useMutation({ mutationFn: (id: string) => toggleLikeComment(id) });
@@ -77,6 +80,7 @@ const useToggleLikeComment = () => useMutation({ mutationFn: (id: string) => tog
 export {
   useAddOffSelectedFood,
   useBanOrUnbanComment,
+  useCreateComment,
   useCreateFood,
   useCreateMenu,
   useDeleteFood,
@@ -87,15 +91,15 @@ export {
   useGetOffList,
   useGetOrderById,
   useGetOrderList,
-  useRemoveOffSelectedFood,
   useGetRestaurant,
+  useRemoveCover,
+  useRemoveLogo,
+  useRemoveOffSelectedFood,
+  useToggleBookmark,
+  useToggleLike,
+  useToggleLikeComment,
   useUpdateFood,
   useUpdateMenu,
-  useUploadLogo,
-  useRemoveLogo,
   useUploadCover,
-  useRemoveCover,
-  useToggleLike,
-  useToggleBookmark,
-  useToggleLikeComment,
+  useUploadLogo,
 };

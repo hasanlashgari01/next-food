@@ -1,4 +1,5 @@
 import { ICart, ICartItem } from "@/common/interface/cart";
+import { IMainComment } from "@/common/interface/restaurant";
 
 const recursivePath = (pathname: string) => {
   const currentPath = pathname?.split("/")?.slice(-1)?.toString();
@@ -72,4 +73,19 @@ const imageValidate = (file: File, size: number = 1): { message: string } => {
   return { message: "" };
 };
 
-export { fixNumbers, recursivePath, toPersianDate, calculateTotalCart, calcFoodDiscount, imageValidate };
+const calulatedScore = (comments: IMainComment[]) => {
+  const scores = comments.map(comment => comment.rate);
+  const scoresAverage = scores.reduce((acc, score) => acc + score, 0) / scores.length;
+
+  return Math.round(scoresAverage);
+};
+
+export {
+  fixNumbers,
+  recursivePath,
+  toPersianDate,
+  calculateTotalCart,
+  calcFoodDiscount,
+  imageValidate,
+  calulatedScore,
+};

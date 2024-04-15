@@ -2,9 +2,7 @@
 
 import LoginModal from "@/components/modules/Modal/LoginModal";
 import { useDecrementFood, useGetCart, useIncrementFood } from "@/hooks/useCart";
-import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { HiMinus, HiOutlineShoppingBag, HiPlus } from "react-icons/hi2";
 

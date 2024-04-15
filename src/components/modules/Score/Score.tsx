@@ -1,7 +1,7 @@
 import { HiStar } from "react-icons/hi2";
 
 export interface IScore {
-  score: string;
+  score: number;
 }
 
 const Score: React.FC<IScore> = ({ score }) => {
