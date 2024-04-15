@@ -2,6 +2,7 @@
 
 import { IComment } from "@/common/interface/comment";
 import { IUser } from "@/common/interface/user";
+import ModalLayout from "@/components/modules/Modal/ModalLayout";
 import CommentAction from "@/components/modules/Table/Comment/CommentAction";
 import CommentBody from "@/components/modules/Table/Comment/CommentBody";
 import CommentRate from "@/components/modules/Table/Comment/CommentRate";
@@ -10,7 +11,9 @@ import TableStatus from "@/components/modules/Table/TableStatus";
 import UserInfo from "@/components/modules/Table/UserInfo";
 import { useGetUser } from "@/hooks/useAuth";
 import { useBanOrUnbanComment, useGetCommentList } from "@/hooks/useRestaurant";
+import { getCommentById } from "@/services/restaurantService";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const columnHelper = createColumnHelper();
@@ -18,13 +21,16 @@ const columnHelper = createColumnHelper();
 const CommentTable = () => {
   const { data: user } = useGetUser();
   const restaurant: string | undefined = user?.restaurants.at(0);
-  const { isLoading, data, refetch } = useGetCommentList(restaurant || "");
+  const { isLoading, data, refetch } = useGetCommentList(restaurant ?? "");
   const { mutateAsync } = useBanOrUnbanComment();
 
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("body", {
       header: () => <span>متن نظر</span>,
-      cell: info => <CommentBody body={info.getValue()} />,
+      cell: info => {
+        const { _id: commentId } = info.row.original as IComment;
+        return <CommentBody body={info.getValue()} commentId={commentId} />;
+      },
     }),
     columnHelper.accessor("authorId", {
       header: () => <span>کاربر</span>,
@@ -55,6 +61,10 @@ const CommentTable = () => {
       },
     }),
   ];
+
+  useEffect(() => {
+    refetch();
+  }, [isLoading]);
 
   const changeCommentStatus = async (commentId: string) => {
     try {

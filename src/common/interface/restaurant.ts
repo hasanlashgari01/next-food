@@ -1,5 +1,4 @@
 import { IFood } from "./food";
-import { IUser } from "./user";
 
 interface IRestaurantData {
   name: string;

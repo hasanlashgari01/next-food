@@ -42,7 +42,10 @@ const CommentTable: React.FC<ITableProps> = ({
   const columns: ColumnDef<unknown, never>[] = [
     columnHelper.accessor("body", {
       header: () => <span>متن نظر</span>,
-      cell: info => <CommentBody body={info.getValue()} />,
+      cell: info => {
+        const { _id: commentId } = info.row.original as IComment;
+        return <CommentBody body={info.getValue()} commentId={commentId} />;
+      },
     }),
     columnHelper.accessor("authorId", {
       header: () => <span>کاربر</span>,

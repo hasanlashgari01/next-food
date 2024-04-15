@@ -40,9 +40,9 @@ const getOrderById = (id: string, orderId: string): Promise<IOrder> =>
   api(`${orders}restaurant/${id}/order/${orderId}`).then(({ data }) => data);
 
 const getComments = (id: string): Promise<{ count: number; comments: IComment[] }> =>
-  api(`${restaurantRoute}${id}/comment`).then(({ data }) => data);
+  api(`${restaurantRoute}${id}/comment/admin`).then(({ data }) => data);
 
-const banOrUnbanComment = (id: string) => api.patch(`${restaurantRoute}comment${id}/status`).then(({ data }) => data);
+const banOrUnbanComment = (id: string) => api.patch(`${restaurantRoute}comment/${id}/status`).then(({ data }) => data);
 
 const getOffs = (id: string): Promise<{ count: number; foods: IFood[] }> =>
   api(`${restaurantRoute}${id}/food/discount`).then(({ data }) => data);
@@ -77,6 +77,9 @@ const toggleBookmarkFood = (id: string) => api.patch(`${foodRoute}${id}/bookmark
 
 const toggleLikeComment = (id: string) => api.patch(`${restaurantRoute}${id}/comment`).then(({ data }) => data);
 
+const getCommentById = (id: string): Promise<IComment> =>
+  api(`${restaurantRoute}comment/${id}`).then(({ data }) => data);
+
 export {
   addOffSelectedFood,
   banOrUnbanComment,
@@ -85,6 +88,7 @@ export {
   createMenu,
   deleteFood,
   deleteMenu,
+  getCommentById,
   getComments,
   getFoods,
   getMenus,
