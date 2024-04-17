@@ -8,6 +8,14 @@ interface IProps {
 
 export const dynamic = "force-dynamic";
 
+export async function generateMetadata({ params: { id } }: IProps) {
+  const food: IFood = await getFoodById({ id });
+
+  return {
+    title: food?.title,
+  };
+}
+
 const page: React.FC<IProps> = async ({ params: { id } }) => {
   const food: IFood = await getFoodById({ id });
   const { _id, title, description, image, price, isLiked, isBookmarked, rate, menuId, category, discount } = food;
