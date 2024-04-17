@@ -25,3 +25,13 @@ export const getComment = async ({ id }: { id: string }) => {
   if (!res.ok) throw new Error("Failed to fetch data");
   return res.json();
 };
+
+export const getPopularFoodById = async ({ id }: { id: string }) => {
+  const res = await fetch(`${API}${foodRoute}${id}/popular`);
+  return res.json();
+};
+
+export const getSimilarFoodById = async ({ id }: { id: string }) => {
+  const res = await fetch(`${API}${foodRoute}${id}/similar`);
+  return res.json();
+};
