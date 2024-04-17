@@ -2,18 +2,17 @@ import { IMainComment, IMenu, IRestaurant } from "@/common/interface/restaurant"
 import Bookmark from "@/components/modules/Action/Bookmark";
 import Like from "@/components/modules/Action/Like";
 import CommentList from "@/components/modules/Comment/CommentList";
+import CommentListHead from "@/components/modules/Comment/CommentListHead";
 import Empty from "@/components/modules/Error/Empty";
 import { getComment, getRestaurant } from "@/server-actions/restaurantAction";
+import { calulatedScore } from "@/utils/func";
 import { redirect } from "next/navigation";
 import { Toaster } from "react-hot-toast";
+import { twMerge } from "tailwind-merge";
 import AsideTop from "../_components/AsideTop";
 import FoodList from "../_components/FoodList";
 import Info from "../_components/Info";
 import MenuItem from "../_components/MenuItem";
-import ModalMoreInfo from "../_components/ModalMoreInfo";
-import CommentListHead from "@/components/modules/Comment/CommentListHead";
-import { calulatedScore } from "@/utils/func";
-import { twMerge } from "tailwind-merge";
 
 interface IData {
   menus: IMenu[];

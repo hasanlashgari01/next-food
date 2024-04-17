@@ -26,7 +26,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ id, title }) => {
   };
 
   return (
-    <li className="min-w-[75px] cursor-pointer text-center dark:text-white" id={id} onClick={centerElem}>
+    <li className="relative min-w-32 cursor-pointer text-center dark:text-white" id={id} onClick={centerElem}>
       <span className="whitespace-nowrap max-md:text-sm">{title}</span>
     </li>
   );
