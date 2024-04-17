@@ -7,6 +7,7 @@ import {
   deleteFood,
   deleteMenu,
   getComments,
+  getCommentsByAdmin,
   getFoods,
   getMenus,
   getOffs,
@@ -24,7 +25,7 @@ import {
   uploadCover,
   uploadLogo,
 } from "@/services/restaurantService";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetMenuList = (id: string) => useQuery({ queryKey: ["p-restaurant-menus", id], queryFn: () => getMenus(id) });
 
@@ -49,7 +50,7 @@ const useGetOrderById = (id: string, orderId: string) =>
   useQuery({ queryKey: ["p-restaurant-order", id, "order", orderId], queryFn: () => getOrderById(id, orderId) });
 
 const useGetCommentList = (id: string) =>
-  useQuery({ queryKey: ["p-restaurant-comments"], queryFn: () => getComments(id) });
+  useQuery({ queryKey: ["p-restaurant-comments"], queryFn: () => getCommentsByAdmin(id) });
 
 const useBanOrUnbanComment = () => useMutation({ mutationFn: banOrUnbanComment });
 

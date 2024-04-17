@@ -1,7 +1,6 @@
-import { IComment } from "@/common/interface/comment";
 import { IDiscount, IFood, IFoodData } from "@/common/interface/food";
 import { IOrder } from "@/common/interface/order";
-import { ICommentData, IMenu, IMenuData } from "@/common/interface/restaurant";
+import { IComment, ICommentData, IMainComment, IMenu, IMenuData } from "@/common/interface/restaurant";
 import { api, apiUpload } from "@/config/axiosConfig";
 import { foodRoute, menuRoute, orders, restaurantRoute } from "./routeService";
 
@@ -12,6 +11,11 @@ export interface IUpdate<T> {
 
 export interface IOffData {
   foodsId: string[];
+}
+
+interface ICommentWithCount {
+  count: number;
+  comments: IMainComment[];
 }
 
 const getMenus = (id: string): Promise<{ count: number; menus: IMenu[] }> =>
@@ -39,7 +43,7 @@ const getOrders = (id: string): Promise<{ count: number; orders: IOrder[] }> =>
 const getOrderById = (id: string, orderId: string): Promise<IOrder> =>
   api(`${orders}restaurant/${id}/order/${orderId}`).then(({ data }) => data);
 
-const getComments = (id: string): Promise<{ count: number; comments: IComment[] }> =>
+const getCommentsByAdmin = (id: string): Promise<ICommentWithCount> =>
   api(`${restaurantRoute}${id}/comment/admin`).then(({ data }) => data);
 
 const banOrUnbanComment = (id: string) => api.patch(`${restaurantRoute}comment/${id}/status`).then(({ data }) => data);
@@ -80,6 +84,9 @@ const toggleLikeComment = (id: string) => api.patch(`${restaurantRoute}${id}/com
 const getCommentById = (id: string): Promise<IComment> =>
   api(`${restaurantRoute}comment/${id}`).then(({ data }) => data);
 
+const getComments = (id: string, page: number, limit: number): Promise<ICommentWithCount> =>
+  api(`${restaurantRoute}${id}/comment?page=${page}&limit=${limit}`).then(({ data }) => data);
+
 export {
   addOffSelectedFood,
   banOrUnbanComment,
@@ -90,6 +97,7 @@ export {
   deleteMenu,
   getCommentById,
   getComments,
+  getCommentsByAdmin,
   getFoods,
   getMenus,
   getOffs,

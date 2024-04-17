@@ -99,9 +99,7 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
               <FoodList menus={menus} />
               <div className="space-y-6">
                 <CommentListHead restaurantId={restaurant._id} count={count} />
-                <div className="space-y-4">
-                  <CommentList count={count} comments={comments} emptyText="نظری برای رستوران ثبت نشده" />
-                </div>
+                <CommentList restaurantId={restaurant._id} emptyText="نظری برای رستوران ثبت نشده" />
               </div>
             </main>
           </section>
