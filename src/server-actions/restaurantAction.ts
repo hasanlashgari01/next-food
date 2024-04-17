@@ -30,3 +30,13 @@ export const getComment = async ({ id }: { id: string }) => {
   if (!res.ok) throw new Error("Failed to fetch data");
   return res.json();
 };
+
+export const getPopularRestaurantById = async ({ id, province }: { id: string; province: string }) => {
+  const res = await fetch(`${API}${restaurantRoute}${id}/popular?province=${province}`);
+  return res.json();
+};
+
+export const getSimilarRestaurantById = async ({ id }: { id: string }) => {
+  const res = await fetch(`${API}${restaurantRoute}${id}/similar`);
+  return res.json();
+};

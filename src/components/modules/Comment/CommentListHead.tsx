@@ -42,6 +42,21 @@ const CommentListHead: React.FC<ICommentListHeadProps> = ({ restaurantId, foodId
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (data.body === "") {
+      toast.error("متن نمی تواند خالی باشد");
+      return false;
+    }
+
+    if (data.body.length < 10) {
+      toast.error("متن باید بیشتر از 10 کاراکتر باشد");
+      return false;
+    }
+
+    if (data.body.length > 1000) {
+      toast.error("متن باید بیشتر از 1000 کاراکتر باشد");
+      return false;
+    }
+
     try {
       let msg = "";
       if (restaurantId) {
@@ -100,9 +115,9 @@ const CommentListHead: React.FC<ICommentListHeadProps> = ({ restaurantId, foodId
             className="flex h-10 w-28 cursor-pointer select-none items-center justify-between rounded-full bg-teal-600 px-3.5 text-sm transition-colors duration-300 hover:bg-teal-700 md:w-32"
             onClick={openCommentBox}
           >
-            <span className="shrink-0 text-sm md:text-base">ثبت نظر</span>
+            <span className="shrink-0 text-sm text-white md:text-base">ثبت نظر</span>
             <span>
-              <HiOutlineChatBubbleBottomCenterText className="size-5 md:size-6" />
+              <HiOutlineChatBubbleBottomCenterText className="size-5 text-white md:size-6" />
             </span>
           </span>
         </div>
@@ -154,7 +169,7 @@ const CommentListHead: React.FC<ICommentListHeadProps> = ({ restaurantId, foodId
           </button>
           <button
             type="submit"
-            className="rounded-full border border-teal-600 bg-teal-600 px-10 py-1.5 leading-7 transition-colors duration-200 hover:border-teal-700 hover:bg-teal-700 md:px-14 md:py-2"
+            className="rounded-full border border-teal-600 bg-teal-600 px-10 py-1.5 leading-7 text-white transition-colors duration-200 hover:border-teal-700 hover:bg-teal-700 md:px-14 md:py-2"
           >
             ارسال
           </button>

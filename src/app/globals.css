@@ -334,3 +334,7 @@
     @apply size-10 md:size-12;
   }
 }
+
+.swiper-wrapper {
+  margin-block: 0.5rem !important;
+}

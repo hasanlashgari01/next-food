@@ -4,7 +4,12 @@ import Like from "@/components/modules/Action/Like";
 import CommentList from "@/components/modules/Comment/CommentList";
 import CommentListHead from "@/components/modules/Comment/CommentListHead";
 import Empty from "@/components/modules/Error/Empty";
-import { getComment, getRestaurant } from "@/server-actions/restaurantAction";
+import {
+  getComment,
+  getPopularRestaurantById,
+  getRestaurant,
+  getSimilarRestaurantById,
+} from "@/server-actions/restaurantAction";
 import { calulatedScore } from "@/utils/func";
 import { redirect } from "next/navigation";
 import { Toaster } from "react-hot-toast";
@@ -13,6 +18,7 @@ import AsideTop from "../_components/AsideTop";
 import FoodList from "../_components/FoodList";
 import Info from "../_components/Info";
 import MenuItem from "../_components/MenuItem";
+import Slider from "@/components/modules/Slider/Slider";
 
 interface IData {
   menus: IMenu[];
@@ -42,8 +48,11 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
   const { restaurant, menus }: IData = await getRestaurant({ slug });
   if (!restaurant) redirect("/not-found");
   const { count, comments }: ICommentData = await getComment({ id: restaurant._id });
-
-  const score = calulatedScore(comments);
+  const popularRestaurant = await getPopularRestaurantById({
+    id: restaurant._id,
+    province: restaurant.province.englishTitle,
+  });
+  const similarRestaurants = await getSimilarRestaurantById({ id: restaurant._id });
 
   return (
     <>
@@ -70,8 +79,8 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                     logo={restaurant?.logo}
                     cover={restaurant?.cover}
                     name={restaurant?.name}
-                    score={isNaN(score) ? 0 : Number(score)}
-                    count={comments.length}
+                    score={Number(restaurant.score)}
+                    count={count}
                   />
                 </div>
               </div>
@@ -100,6 +109,8 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                 <CommentListHead restaurantId={restaurant._id} count={count} />
                 <CommentList restaurantId={restaurant._id} emptyText="نظری برای رستوران ثبت نشده" />
               </div>
+              {popularRestaurant.length > 0 && <Slider title="رستوران های محبوب" data={popularRestaurant} />}
+              {similarRestaurants.length > 0 && <Slider title="رستوران های مشابه" data={similarRestaurants} />}
             </main>
           </section>
         </div>
