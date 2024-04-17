@@ -40,3 +40,8 @@ export const getSimilarRestaurantById = async ({ id }: { id: string }) => {
   const res = await fetch(`${API}${restaurantRoute}${id}/similar`);
   return res.json();
 };
+
+export const getNewRestaurantById = async ({ id, province }: { id: string; province: string }) => {
+  const res = await fetch(`${API}${restaurantRoute}${id}/news?province=${province}`);
+  return res.json();
+};

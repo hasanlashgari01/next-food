@@ -35,3 +35,8 @@ export const getSimilarFoodById = async ({ id }: { id: string }) => {
   const res = await fetch(`${API}${foodRoute}${id}/similar`);
   return res.json();
 };
+
+export const getNewFoodById = async ({ id }: { id: string }) => {
+  const res = await fetch(`${API}${foodRoute}${id}/news`);
+  return res.json();
+};

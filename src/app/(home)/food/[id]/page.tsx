@@ -2,7 +2,13 @@ import { IFood } from "@/common/interface/food";
 import { IMainComment } from "@/common/interface/restaurant";
 import CommentListHead from "@/components/modules/Comment/CommentListHead";
 import FoodSlider from "@/components/modules/Slider/FoodSlider";
-import { getComment, getFoodById, getPopularFoodById, getSimilarFoodById } from "@/server-actions/foodAction";
+import {
+  getComment,
+  getFoodById,
+  getNewFoodById,
+  getPopularFoodById,
+  getSimilarFoodById,
+} from "@/server-actions/foodAction";
 import CommentList from "../_components/CommentList";
 import Head from "../_components/Head";
 
@@ -28,8 +34,9 @@ export async function generateMetadata({ params: { id } }: IProps) {
 const page: React.FC<IProps> = async ({ params: { id } }) => {
   const food: IFood = await getFoodById({ id });
   const { count }: ICommentData = await getComment({ id: food._id });
-  const popularRestaurant = await getPopularFoodById({ id });
-  const similarRestaurants = await getSimilarFoodById({ id });
+  const popularFoods = await getPopularFoodById({ id });
+  const similarFoods = await getSimilarFoodById({ id });
+  const newsFoods = await getNewFoodById({ id });
 
   return (
     <div>
@@ -42,8 +49,9 @@ const page: React.FC<IProps> = async ({ params: { id } }) => {
                 <CommentListHead foodId={food._id} count={count} />
                 <CommentList foodId={food._id} emptyText="نظری برای غذا ثبت نشده" />
               </div>
-              {popularRestaurant.length > 0 && <FoodSlider title="غذا های محبوب" data={popularRestaurant} />}
-              {similarRestaurants.length > 0 && <FoodSlider title="غذا های مشابه" data={similarRestaurants} />}
+              {popularFoods.length > 0 && <FoodSlider title="غذا های محبوب" data={popularFoods} />}
+              {similarFoods.length > 0 && <FoodSlider title="غذا های مشابه" data={similarFoods} />}
+              {newsFoods.length > 0 && <FoodSlider title="جدیدترین ها" data={newsFoods} />}
             </main>
           </section>
         </div>

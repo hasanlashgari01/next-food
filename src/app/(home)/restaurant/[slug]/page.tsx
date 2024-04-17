@@ -6,6 +6,7 @@ import CommentListHead from "@/components/modules/Comment/CommentListHead";
 import Empty from "@/components/modules/Error/Empty";
 import {
   getComment,
+  getNewRestaurantById,
   getPopularRestaurantById,
   getRestaurant,
   getSimilarRestaurantById,
@@ -48,11 +49,15 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
   const { restaurant, menus }: IData = await getRestaurant({ slug });
   if (!restaurant) redirect("/not-found");
   const { count, comments }: ICommentData = await getComment({ id: restaurant._id });
-  const popularRestaurant = await getPopularRestaurantById({
+  const popularRestaurants = await getPopularRestaurantById({
     id: restaurant._id,
     province: restaurant.province.englishTitle,
   });
   const similarRestaurants = await getSimilarRestaurantById({ id: restaurant._id });
+  const newsRestaurants = await getNewRestaurantById({
+    id: restaurant._id,
+    province: restaurant.province.englishTitle,
+  });
 
   return (
     <>
@@ -109,8 +114,9 @@ const page: React.FC<IProps> = async ({ params: { slug } }) => {
                 <CommentListHead restaurantId={restaurant._id} count={count} />
                 <CommentList restaurantId={restaurant._id} emptyText="نظری برای رستوران ثبت نشده" />
               </div>
-              {popularRestaurant.length > 0 && <Slider title="رستوران های محبوب" data={popularRestaurant} />}
+              {popularRestaurants.length > 0 && <Slider title="رستوران های محبوب" data={popularRestaurants} />}
               {similarRestaurants.length > 0 && <Slider title="رستوران های مشابه" data={similarRestaurants} />}
+              {newsRestaurants.length > 0 && <Slider title="رستوران های جدید" data={newsRestaurants} />}
             </main>
           </section>
         </div>
