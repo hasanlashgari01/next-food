@@ -11,6 +11,7 @@ interface IUseLoadMore {
   prevPageHandler: () => void;
   nextPageHandler: () => void;
   showMoreHandler: () => void;
+  refetch: () => void;
 }
 
 const useLoadMore = ({
@@ -45,14 +46,16 @@ const useLoadMore = ({
 
   const fetchData = async () => {
     setIsFetching(true);
-    const res = await getData(restaurantId ?? foodId, page, limit);
+    const res = await getData(restaurantId || foodId, page, limit);
     setData(res);
     setIsLoading(false);
     setIsFetching(false);
-    if (res.count > 0 && limit >= res.count) {
+    if (res.count >= 0 && limit >= res.count) {
       setHideButtonMore(true);
     }
   };
+
+  const refetch = () => fetchData();
 
   const prevPageHandler = () => setPage(prev => prev - 1);
   const nextPageHandler = () => setPage(prev => prev + 1);
@@ -68,6 +71,7 @@ const useLoadMore = ({
     prevPageHandler,
     nextPageHandler,
     showMoreHandler,
+    refetch,
   };
 };
 

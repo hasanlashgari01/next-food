@@ -22,7 +22,7 @@ const CartItem: React.FC<Props> = ({ food, refetch }) => {
         className="h-20 w-20 shrink-0 rounded-lg sm:h-28 sm:w-28"
       />
       <div className="flex flex-1 flex-col justify-between">
-        <CartItemDetail title={food?.food?.title as string} total={total} />
+        <CartItemDetail title={food?.food?.title as string} price={food.food?.price} discount={food.food?.discount} />
         <CartItemAction foodId={food._id} quantity={food.quantity} refetch={refetch} />
       </div>
     </li>

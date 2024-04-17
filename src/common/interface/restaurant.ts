@@ -61,11 +61,16 @@ export interface IKindFood {
 export interface ICommentData {
   body: string;
   rate: number;
-  authorId: IUser;
-  restaurantId: string;
+  restaurantId?: string;
+  foodId?: string;
+}
+
+export interface INewComment extends ICommentData {
+  authorId: string;
 }
 
 export interface IComment extends ICommentData {
+  authorId: { fullName: string; avatar: string };
   _id: string;
   isAccepted: boolean;
   isAnswer: boolean;

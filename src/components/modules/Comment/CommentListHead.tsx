@@ -1,30 +1,39 @@
 "use client";
 
+import { ICommentData, INewComment } from "@/common/interface/restaurant";
+import { useCreateFoodComment } from "@/hooks/useFood";
+import { useCreateComment } from "@/hooks/useRestaurant";
 import { getUser } from "@/services/authService";
 import { fileRoute } from "@/services/routeService";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { HiOutlineChatBubbleBottomCenterText } from "react-icons/hi2";
 import { twMerge } from "tailwind-merge";
 import LoginModal from "../Modal/LoginModal";
-import { ICommentData } from "@/common/interface/restaurant";
-import { useCreateComment } from "@/hooks/useRestaurant";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import Star from "./Star";
 
-const CommentListHead: React.FC<{ restaurantId: string; count: number }> = ({ restaurantId, count }) => {
+interface ICommentListHeadProps {
+  restaurantId?: string;
+  foodId?: string;
+  count: number;
+}
+
+const CommentListHead: React.FC<ICommentListHeadProps> = ({ restaurantId, foodId, count }) => {
   const router = useRouter();
   const { mutateAsync } = useCreateComment();
+  const { mutateAsync: createFoodComment } = useCreateFoodComment();
   const [user, setUser] = useState<{ avatarUrl: string; fullName: string }>({
     avatarUrl: "",
     fullName: "",
   });
-  const [data, setData] = useState<ICommentData>({
+  const [data, setData] = useState<INewComment>({
     body: "",
     rate: 5,
     authorId: "",
     restaurantId: "",
+    foodId: "",
   });
   const [rate, setRate] = useState(5);
   const [isOpen, setIsOpen] = useState(false);
@@ -34,8 +43,17 @@ const CommentListHead: React.FC<{ restaurantId: string; count: number }> = ({ re
     e.preventDefault();
 
     try {
-      const { message } = await mutateAsync({ ...data, rate });
-      toast.success(message);
+      let msg = "";
+      if (restaurantId) {
+        delete data.foodId;
+        const { message } = await mutateAsync({ ...data, rate });
+        msg = message;
+      } else {
+        delete data.restaurantId;
+        const { message } = await createFoodComment({ ...data, rate });
+        msg = message;
+      }
+      toast.success(msg);
       router.refresh();
       setIsOpen(false);
       setData({ ...data, body: "", rate: 5 });
@@ -49,12 +67,15 @@ const CommentListHead: React.FC<{ restaurantId: string; count: number }> = ({ re
       if (isOpen) return;
       if (user) {
         const res = await getUser();
-        console.log("🚀 ~ openCommentBox ~ res:", res);
         setUser({
           avatarUrl: res.avatarUrl,
           fullName: res.fullName as string,
         });
-        setData({ ...data, authorId: res._id, restaurantId });
+        if (restaurantId) {
+          setData({ ...data, authorId: res._id, restaurantId });
+        } else {
+          setData({ ...data, authorId: res._id, foodId });
+        }
       }
       setIsOpen(true);
     } catch (error: any) {

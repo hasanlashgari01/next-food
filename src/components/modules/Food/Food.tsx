@@ -26,7 +26,7 @@ const Food: React.FC<IFood> = ({ _id, image, title, price, discount, description
             <Link href={`/food/${_id}`} className="max-w-56">
               {title}
             </Link>
-            <p className="mt-2 line-clamp-3 max-w-56 text-xs/5 font-normal text-slate-400 dark:text-slate-400">
+            <p className="mt-2 line-clamp-2 h-10 max-w-56 text-xs/5 font-normal text-slate-400 dark:text-slate-400">
               {description}
             </p>
           </div>

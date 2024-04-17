@@ -1,6 +1,7 @@
 "use client";
 
 import LoginModal from "@/components/modules/Modal/LoginModal";
+import { useToggleLikeFoodComment } from "@/hooks/useFood";
 import { useToggleLikeComment } from "@/hooks/useRestaurant";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -12,18 +13,28 @@ interface ILikeProps {
   isLiked: boolean;
   likeCount: number;
   commentId: string;
+  isRestaurant?: boolean;
+  refetch: () => void;
 }
 
-const Like: React.FC<ILikeProps> = ({ isLiked = false, likeCount = 0, commentId }) => {
+const Like: React.FC<ILikeProps> = ({ isLiked = false, likeCount = 0, commentId, isRestaurant = true, refetch }) => {
   const router = useRouter();
   const { mutateAsync } = useToggleLikeComment();
+  const { mutateAsync: toggleLikeFoodComment } = useToggleLikeFoodComment();
   const [isShow, setIsShow] = useState(false);
 
   const toggleLike = async () => {
     try {
-      const { message } = await mutateAsync(commentId);
-      toast.success(message);
-      router.refresh();
+      let msg = "";
+      if (isRestaurant) {
+        const { message } = await mutateAsync(commentId);
+        msg = message;
+      } else {
+        const { message } = await toggleLikeFoodComment(commentId);
+        msg = message;
+      }
+      toast.success(msg);
+      refetch ? refetch() : router.refresh();
     } catch (error: any) {
       const res = error?.response;
       res?.status == 401 ? setIsShow(true) : toast.error(res?.data?.message);

@@ -21,7 +21,7 @@ const Head: React.FC<IFood> = async ({ _id, title, description, image, price, di
   const score = calulatedScore(comments);
 
   return (
-    <div className="flex flex-col-reverse lg:h-[75dvh] lg:flex-row lg:justify-between">
+    <div className="flex flex-col-reverse lg:h-[95dvh] lg:flex-row lg:justify-between">
       <div className="my-20 px-2.5 xs:px-20 lg:w-[512px] lg:px-0">
         <h1 className="text-4xl">{title}</h1>
         <p className="mt-5 line-clamp-4 h-28 w-full leading-7 dark:text-neutral-400">{description}</p>
@@ -39,7 +39,7 @@ const Head: React.FC<IFood> = async ({ _id, title, description, image, price, di
           </div>
         </div>
       </div>
-      <div className="flex items-center max-lg:mx-auto">
+      <div className="flex pt-16 max-lg:mx-auto">
         <div className="h-[450px] max-w-md justify-self-center overflow-hidden rounded-md lg:rounded-xl">
           <Image
             src={image ? `${fileRoute}food/${image}` : "/Auth.png"}

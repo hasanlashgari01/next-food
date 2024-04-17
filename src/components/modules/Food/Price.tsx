@@ -9,15 +9,17 @@ interface IProps {
 }
 
 const Price: React.FC<IProps> = ({ price, discount, className }) => {
+  const calculatePriceDiscount = price && price - (price * Number(discount?.percent)) / 100;
+
   return (
     <div>
       {price && discount && discount?.percent != (0 && undefined && null) && (
         <span className="discount">
-          <span className="amount">{price - (price * Number(discount?.percent)) / 100}</span>
+          <span className="amount">{price.toLocaleString()}</span>
           <span className="percent">%{discount?.percent}</span>
         </span>
       )}
-      <h3 className={twMerge("text-sm", className)}>{price?.toLocaleString()} تومان</h3>
+      <h3 className={twMerge("text-sm", className)}>{calculatePriceDiscount?.toLocaleString()} تومان</h3>
     </div>
   );
 };
