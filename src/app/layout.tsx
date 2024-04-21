@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={twMerge(iranYekan.className, "dark:bg-slate-900 dark:text-white")}>{children}</body>
+      <body className={twMerge(iranYekan.className, "bg-slate-100 dark:bg-slate-900 dark:text-white")}>{children}</body>
     </html>
   );
 }
