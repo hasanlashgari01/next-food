@@ -1,15 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineArrowLeftOnRectangle } from "react-icons/hi2";
-import Search from "./Search";
 
 const Navbar = () => {
   return (
-    <div className="py-3 font-Dana">
+    <div className="py-6 font-Dana">
       <div className="container">
         <div className="flex h-10 items-center justify-between child:h-full md:h-12">
           <Link href="/" className="aspect-square h-full overflow-hidden rounded-full">
-            <Image src="/Auth.png" width={1000} height={1000} alt="logo" className="size-full" />
+            <Image src="/Auth.png" width={1000} height={1000} alt="logo" className="size-full object-cover" />
           </Link>
 
           <div className="flex items-center gap-4 md:gap-8">

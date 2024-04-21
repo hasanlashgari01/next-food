@@ -3,7 +3,7 @@ const adminRestaurant = "/admin/restaurant/";
 const adminFood = "/admin/food/";
 const adminSearch = "/search/";
 const adminCoupon = "/api/coupon/";
-const adminProvince = "/api/province/";
+const provinceRoute = "/api/province/";
 
 const restaurantRoute = "/api/restaurant/";
 const menuRoute = "/api/menu/";
@@ -22,7 +22,7 @@ export {
   adminSearch,
   category,
   adminCoupon,
-  adminProvince,
+  provinceRoute,
   userRoute,
   fileRoute,
   orders,

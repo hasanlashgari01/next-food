@@ -1,7 +1,7 @@
 import { IDiscount } from "@/common/interface/discount";
 import { IProvince } from "@/common/interface/province";
 import { api } from "@/config/axiosConfig";
-import { adminCoupon, adminFood, adminProvince, adminRestaurant, adminUser, category, orders } from "./routeService";
+import { adminCoupon, adminFood, provinceRoute, adminRestaurant, adminUser, category, orders } from "./routeService";
 import { IOrder } from "@/common/interface/order";
 import { IComment, ICommentsData } from "@/common/interface/comment";
 
@@ -80,19 +80,19 @@ const removeSelectedDiscount = (couponsId: TDeleteMany) =>
 
 // * Province
 
-const getProvinces = () => api(`${adminProvince}`).then(({ data }) => data);
+const getProvinces = () => api(`${provinceRoute}`).then(({ data }) => data);
 
-const getProvince = (id: string) => api(`${adminProvince}${id}`).then(({ data }) => data);
+const getProvince = (id: string) => api(`${provinceRoute}${id}`).then(({ data }) => data);
 
-const addProvince = (data: IProvince) => api.post(`${adminProvince}`, data).then(({ data }) => data);
+const addProvince = (data: IProvince) => api.post(`${provinceRoute}`, data).then(({ data }) => data);
 
 const updateProvince = ({ id, data }: Update<IProvince>) =>
-  api.put(`${adminProvince}${id}`, data).then(({ data }) => data);
+  api.put(`${provinceRoute}${id}`, data).then(({ data }) => data);
 
-const removeProvince = (id: string) => api.delete(`${adminProvince}${id}`).then(({ data }) => data);
+const removeProvince = (id: string) => api.delete(`${provinceRoute}${id}`).then(({ data }) => data);
 
 const removeSelectedProvince = (provinceIds: TDeleteMany) =>
-  api.delete(`${adminProvince}many`, { data: { provinceIds } }).then(({ data }) => data);
+  api.delete(`${provinceRoute}many`, { data: { provinceIds } }).then(({ data }) => data);
 
 // * Province
 
