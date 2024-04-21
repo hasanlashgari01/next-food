@@ -333,6 +333,10 @@
   .comment__profile {
     @apply size-10 md:size-12;
   }
+
+  .auth__btn {
+    @apply shrink-0 text-sm/8 transition-colors delay-100 duration-300 ease-in md:pt-0.5 md:text-base/[2.75rem];
+  }
 }
 
 .swiper-wrapper {

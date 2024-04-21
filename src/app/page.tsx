@@ -1,7 +1,12 @@
+import Navbar from "@/components/templates/Navbar/Navbar";
+
 export default function Home() {
   return (
-    <div className="container">
-      <h1 className="text-5xl text-primary-300">صفحه اصلی</h1>
-    </div>
+    <>
+      <Navbar />
+      <div className="container">
+        <h1 className="text-5xl text-primary-300"></h1>
+      </div>
+    </>
   );
 }
