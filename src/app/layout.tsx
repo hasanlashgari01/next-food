@@ -6,6 +6,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "صفحه اصلی | فروشگاه",
   description: "صفحه اصلی فروشگاه",
+  icons: {
+    icon: "/Auth.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

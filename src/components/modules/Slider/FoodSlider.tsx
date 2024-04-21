@@ -32,8 +32,14 @@ const FoodSlider: React.FC<ISlider> = ({ title, data }) => {
           navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={swiper => console.log(swiper)}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+            },
+            820: {
+              slidesPerView: 3,
+            },
+          }}
           className="pb-20"
         >
           {data.map(item => (

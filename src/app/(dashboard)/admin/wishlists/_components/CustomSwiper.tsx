@@ -78,7 +78,7 @@ const CustomSwiper: React.FC<CustomSwiperProps> = ({ data, title, status, notFou
                 {item.title ? (
                   <FoodWishlist status={status} image={item?.image} title={item?.title} />
                 ) : (
-                  <RestaurantWishlist status={status} image={item.logo} name={item.name} />
+                  <RestaurantWishlist status={status} image={item.logo} name={item.name} slug={item.slug} />
                 )}
               </SwiperSlide>
             ))}

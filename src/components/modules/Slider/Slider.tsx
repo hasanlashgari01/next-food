@@ -34,12 +34,18 @@ const Slider: React.FC<ISlider> = ({ title, data }) => {
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={50}
-          slidesPerView={3}
+          slidesPerView={1}
           navigation
           pagination={{ clickable: true }}
           scrollbar={{ draggable: true }}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={swiper => console.log(swiper)}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+            },
+            820: {
+              slidesPerView: 3,
+            },
+          }}
           className="pb-20"
         >
           {data.map(item => (
