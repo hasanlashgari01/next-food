@@ -15,7 +15,7 @@ const Restaurant = () => {
   }, [localStorage.getItem("province")]);
 
   return (
-    <div className="child:bg-slate-100 dark:child:bg-slate-900">
+    <div className="child:rounded-xl child:bg-slate-100 child:p-3 child:lg:p-6 dark:child:bg-slate-950">
       <Slider title="محبوب ترین رستوران ها" data={popularRestaurants || []} />
       <Slider title="جدیدترین رستوران ها" data={newRestaurants || []} />
     </div>
