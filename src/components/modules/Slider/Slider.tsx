@@ -1,15 +1,15 @@
 "use client";
 
 import { fileRoute } from "@/services/routeService";
-import { Navigation, Pagination } from "swiper/modules";
 import Image from "next/image";
 import Link from "next/link";
+import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Score from "../Score/Score";
 
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
-import Score from "../Score/Score";
+import "swiper/css/pagination";
 
 interface ISliderProps {
   _id: string;
@@ -50,7 +50,7 @@ const Slider: React.FC<ISlider> = ({ title, data }) => {
         >
           {data.map(item => (
             <SwiperSlide key={item._id}>
-              <div className="w-full select-none">
+              <div className="max-w-40 select-none max-md:mx-auto md:w-full">
                 <div className="mx-auto h-40 w-40 overflow-hidden rounded-xl">
                   <Image
                     src={item.logo ? `${fileRoute}restaurant/${item.logo}` : "/Auth.png"}

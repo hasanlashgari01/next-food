@@ -1,8 +1,10 @@
 "use client";
 
 import { ChangeEvent, useEffect, useState } from "react";
-import ModalLayout from "../modules/Modal/ModalLayout";
+import ModalLayout from "../../modules/Modal/ModalLayout";
 import { getProviceList } from "@/services/publicService";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { useRouter } from "next/navigation";
 
 interface IProvince {
   _id?: string;
@@ -11,12 +13,23 @@ interface IProvince {
 }
 
 const SelectProvinceModal = () => {
+  const router = useRouter();
   const [data, setData] = useState<IProvince[]>([]);
   const [provinces, setProvinces] = useState<IProvince[]>([]);
   const [isShow, setIsShow] = useState(false);
   const [search, setSearch] = useState("");
+  const [province, setProvince] = useState<string>("");
 
   const isSearch = search.length >= 1;
+
+  localStorage.getItem("province") && router.replace(`/service`);
+
+  useEffect(() => {
+    const province = localStorage.getItem("province");
+    if (province) {
+      setProvince(JSON.parse(province).name);
+    }
+  }, [localStorage.getItem("province")]);
 
   useEffect(() => {
     isShow ? fetchData() : setSearch("");
@@ -48,10 +61,25 @@ const SelectProvinceModal = () => {
 
   return (
     <>
-      <input onClick={() => setIsShow(true)} />
+      <div className="max-w-96 cursor-pointer" onClick={() => setIsShow(true)}>
+        <div className="form__input flex gap-4 pr-4">
+          <HiOutlineLocationMarker className="shrink-0 text-2xl" />
+          <input
+            readOnly
+            placeholder="ابتدا استان یا شهر را انتخاب کنید"
+            value={province}
+            className="w-full cursor-pointer bg-transparent"
+          />
+        </div>
+      </div>
       <ModalLayout isShow={isShow} setIsShow={setIsShow} className="h-[75dvh]">
         <div className="h-full">
-          <input className="form__input pr-5" placeholder="جستجو" value={search} onChange={e => searchHandler(e)} />
+          <input
+            className="form__input pr-5"
+            placeholder="جستجو استان (فارسی یا انگلیسی)"
+            value={search}
+            onChange={e => searchHandler(e)}
+          />
           <div className="mt-5 grid h-fit max-h-[90%] grid-cols-3 gap-4 overflow-y-auto pl-5">
             {data &&
               (isSearch ? provinces : data).map(province => (

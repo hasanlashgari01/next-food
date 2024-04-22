@@ -1,13 +1,13 @@
-import Navbar from "@/components/templates/Navbar/Navbar";
-import SelectProvinceModal from "@/components/templates/SelectProvinceModal";
+import Hero from "@/components/templates/Header/Hero";
+import Navbar from "@/components/templates/Header/Navbar/Navbar";
 
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <div className="container">
-        <SelectProvinceModal />
-      </div>
-    </>
+    <div>
+      <header>
+        <Navbar />
+        <Hero />
+      </header>
+    </div>
   );
 }
