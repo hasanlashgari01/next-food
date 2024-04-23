@@ -1,3 +1,4 @@
+import { IRestaurant } from "@/common/interface/restaurant";
 import { menuRoute, restaurantRoute } from "@/services/routeService";
 import { cookieToString } from "@/utils/cookieToString";
 import { cookies } from "next/headers";
@@ -44,4 +45,17 @@ export const getSimilarRestaurantById = async ({ id }: { id: string }) => {
 export const getNewRestaurantById = async ({ id, province }: { id: string; province: string }) => {
   const res = await fetch(`${API}${restaurantRoute}${id}/news?province=${province}`);
   return res.json();
+};
+
+export const restaurantData = async (
+  qs: string,
+  limit: number,
+): Promise<{ count: number; restaurants: IRestaurant[] }> => {
+  const res = await fetch(`${API}${restaurantRoute}?limit=${limit}&${qs}`);
+  const { count, restaurants } = await res.json();
+
+  return {
+    count,
+    restaurants,
+  };
 };

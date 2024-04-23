@@ -4,7 +4,9 @@ import { IUser } from "./common/interface/user";
 const middlewareAuth = async (req: NextRequest): Promise<IUser | null> => {
   let strCookie = "";
   req.cookies.getAll().forEach(item => {
-    strCookie += `${item?.name}=${item?.value}; `;
+    if (item.name == "refreshToken" || item.name == "accessToken") {
+      strCookie += `${item?.name}=${item?.value}; `;
+    }
   });
 
   const user = await fetch(`${process.env.NEXT_PUBLIC_API}/api/user/whoami`, {

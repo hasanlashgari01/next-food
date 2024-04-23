@@ -6,7 +6,6 @@ import {
   createMenu,
   deleteFood,
   deleteMenu,
-  getComments,
   getCommentsByAdmin,
   getFoods,
   getMenus,
@@ -25,7 +24,7 @@ import {
   uploadCover,
   uploadLogo,
 } from "@/services/restaurantService";
-import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useGetMenuList = (id: string) => useQuery({ queryKey: ["p-restaurant-menus", id], queryFn: () => getMenus(id) });
 

@@ -1,10 +1,11 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
-import ModalLayout from "../../modules/Modal/ModalLayout";
 import { getProviceList } from "@/services/publicService";
-import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useRouter } from "next/navigation";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import ModalLayout from "../../modules/Modal/ModalLayout";
 
 interface IProvince {
   _id?: string;
@@ -14,6 +15,7 @@ interface IProvince {
 
 const SelectProvinceModal = () => {
   const router = useRouter();
+  const [cookies, setCookie, removeCookie] = useCookies(["province"]);
   const [data, setData] = useState<IProvince[]>([]);
   const [provinces, setProvinces] = useState<IProvince[]>([]);
   const [isShow, setIsShow] = useState(false);
@@ -22,14 +24,9 @@ const SelectProvinceModal = () => {
 
   const isSearch = search.length >= 1;
 
-  localStorage.getItem("province") && router.replace(`/service`);
-
   useEffect(() => {
-    const province = localStorage.getItem("province");
-    if (province) {
-      setProvince(JSON.parse(province).name);
-    }
-  }, [localStorage.getItem("province")]);
+    cookies.province && setProvince(cookies.province.name);
+  }, []);
 
   useEffect(() => {
     isShow ? fetchData() : setSearch("");
@@ -44,7 +41,7 @@ const SelectProvinceModal = () => {
     } else {
       setProvinces(data);
     }
-  }, [search]);
+  }, [cookies.province]);
 
   const fetchData = async () => {
     const res = await getProviceList();
@@ -54,9 +51,9 @@ const SelectProvinceModal = () => {
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => setSearch(e.target.value);
 
   const provinceHandler = (province: IProvince) => {
-    delete province._id;
-    localStorage.setItem("province", JSON.stringify({ ...province }));
+    setCookie("province", province.englishTitle);
     setIsShow(false);
+    router.push("/service");
   };
 
   return (

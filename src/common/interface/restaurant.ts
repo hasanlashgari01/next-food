@@ -1,11 +1,19 @@
 import { IFood } from "./food";
-import { IUser } from "./user";
+
+interface ICategory {
+  _id: string;
+  title: string;
+  slug: string;
+  parent: string;
+  parents: string[];
+  children: ICategory[] | [];
+}
 
 interface IRestaurantData {
   name: string;
   logo: string;
   cover: string;
-  categories: string[];
+  categories: ICategory[];
 }
 
 export interface IRestaurant extends IRestaurantData {
